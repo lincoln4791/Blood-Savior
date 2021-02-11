@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LoginActivity"
+    android:background="@color/red">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_TitleLoginActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="50dp"
+                android:textColor="@color/white"
+                android:text="@string/bloodBank"
+                android:textAlignment="center"
+                android:textSize="36sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/iv_appLogo_RegisterActivity"
+                android:layout_marginTop="50dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/blood_drop_white"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_AppTitle_RegistrationActivity">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_margin="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_loginActivity_EmailField"
+                        style="@style/styleRegistrationInputField"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:background="@color/white"
+                        android:hint="@string/enter_your_email" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_margin="4dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_loginActivity_passwordField"
+                        style="@style/styleRegistrationInputField"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_margin="4dp"
+                        android:background="@color/white"
+                        android:hint="@string/enter_your_password"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogin_LoginActivity"
+                android:backgroundTint="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:layout_marginTop="8dp"
+                android:padding="10dp"
+                android:text="@string/login"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/tv_noAccountSignUp_LoginActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/no_account_sign_up"
+                android:textSize="24sp" />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>

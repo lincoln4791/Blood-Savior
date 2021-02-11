@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "383585071108",
+    "project_id": "blood-bank-bangladesh-6a590",
+    "storage_bucket": "blood-bank-bangladesh-6a590.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383585071108:android:70e72dbd587946c2198551",
+        "android_client_info": {
+          "package_name": "com.bloodFinder.mybloodbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383585071108-5ib0475tpvug2m48d06vsi7qnh3sd6vd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bloodFinder.mybloodbank",
+            "certificate_hash": "adfb0d3d59ac3a5b135c11084784c6c28b07db4a"
+          }
+        },
+        {
+          "client_id": "383585071108-vk4gpfgltvd7mrji22r9e2qea3kp3bos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_zBnWfWAyt3I8tY4VLeb5p6_TYnll1kM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383585071108-vk4gpfgltvd7mrji22r9e2qea3kp3bos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

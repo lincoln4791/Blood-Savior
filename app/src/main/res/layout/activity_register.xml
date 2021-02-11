@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red"
+    tools:context=".userRegistration.Register">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            layout="@layout/sample_custom_progressbar_full"
+            android:id="@+id/customProgressBarFull_RegisterActivity"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_AppTitle_RegistrationActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/bloodBank"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/iv_appLogo_RegisterActivity"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/blood_drop_white"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_AppTitle_RegistrationActivity"
+            app:layout_constraintStart_toEndOf="@+id/tv_AppTitle_RegistrationActivity"
+            app:layout_constraintTop_toTopOf="@+id/tv_AppTitle_RegistrationActivity" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/btnRegister_RegistrationActivity"
+            app:layout_constraintTop_toBottomOf="@id/tv_AppTitle_RegistrationActivity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/btnRegister_RegistrationActivity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_AppTitle_RegistrationActivity">
+
+                <TextView
+                    android:id="@+id/tv_chooseBloodGroup_RegistrationActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp"
+                    android:text="@string/chooseBloodGroup"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_bloodGroups_makeNewRequestActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_chooseBloodGroup_makeNewRequestsActivity">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup_bloodGroups_RegisterActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toEndOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                        app:layout_constraintStart_toStartOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                        app:layout_constraintTop_toTopOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_APositive_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/aPositive"
+                            android:paddingLeft="1dp"
+                            android:paddingRight="1dp"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_ANegative_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/aNegative"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipEndPadding="8dp"
+                            app:chipStartPadding="8dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_BPositive_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:text="@string/BPositive"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            android:textSize="50sp"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_BNegative_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/BNegative"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            android:textSize="50sp"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipEndPadding="8dp"
+                            app:chipStartPadding="8dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_OPositive_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/O_positive"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            android:textSize="50sp"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipEndPadding="7dp"
+                            app:chipStartPadding="6dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_ONegative_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/ONegative"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            android:textSize="50sp"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipEndPadding="7dp"
+                            app:chipStartPadding="7dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_ABPositive_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/ABPositive"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            android:textSize="50sp"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipEndPadding="1dp"
+                            app:chipStartPadding="1dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_ABNegative_bloodGroup_RegisterActivity"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="55dp"
+                            android:layout_height="65dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/ABNegative"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/text_color_chip"
+                            android:textSize="50sp"
+                            app:chipBackgroundColor="@drawable/background_chip_red"
+                            app:chipCornerRadius="100dp"
+                            app:chipEndPadding="5dp"
+                            app:chipStartPadding="5dp"
+                            app:chipStrokeColor="@color/black"
+                            app:chipStrokeWidth="1dp" />
+
+
+                    </com.google.android.material.chip.ChipGroup>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_gender_RegistrationActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/genderr"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup_gender_RegistrationActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollIndicators="right"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_gender_male_RegistrationActivity"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_gender_female_RegistrationActivity"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_name_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_name_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_name"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_district_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_district_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_district"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_area_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_area_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_area"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_age_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_age_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:maxLength="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_age"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_phoneNumber_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_phoneNumber_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:maxLength="11"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_phoneNumber"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_email_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_email_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_email"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_password_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:passwordToggleEnabled="true">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_password_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:layout_width="match_parent"
+                            android:inputType="textPassword"
+                            android:layout_height="match_parent"
+                            android:hint="@string/enter_your_password"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_confirmPassword_registrationActivity"
+                    style="@style/styleRegistrationActivity_cardViewOfEditTexts"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_confirmPassword_registrationActivity"
+                            style="@style/styleRegistrationActivity_EditTexts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/confirmPassword"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegister_RegistrationActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:layout_marginBottom="4dp"
+            android:padding="10dp"
+            android:backgroundTint="@color/white"
+            android:text="@string/register"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/already_have_account_Sign_in_RegisterActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/already_have_account_Sign_in_RegisterActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/alreadyHaveAccount"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</ScrollView>

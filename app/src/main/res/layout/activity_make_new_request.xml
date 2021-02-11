@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainActivity.requests.makeNewRequest.MakeNewRequest">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/customProgressBarFull_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            layout="@layout/sample_custom_progressbar_full"
+            android:visibility="gone"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_chooseBloodGroup_makeNewRequestsActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:text="@string/chooseBloodGroup"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bloodGroups_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_chooseBloodGroup_makeNewRequestsActivity">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_bloodGroups_makeNewRequest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                app:layout_constraintStart_toStartOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                app:layout_constraintTop_toTopOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_APositive_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/aPositive"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ANegative_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/aNegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="8dp"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_BPositive_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/BPositive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_BNegative_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/BNegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="8dp"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_OPositive_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/O_positive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="7dp"
+                    app:chipStartPadding="6dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ONegative_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ONegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="7dp"
+                    app:chipStartPadding="7dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ABPositive_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ABPositive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="1dp"
+                    app:chipStartPadding="1dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ABNegative_bloodGroup_makeNewRequest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ABNegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="5dp"
+                    app:chipStartPadding="5dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_district_makeNewRequestActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/district"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_bloodGroups_makeNewRequestActivity" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_enterDistrict_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_district_makeNewRequestActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_district_makeNewDistrictActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enterYourDistrictHere"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_area_makeNewRequestActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/area"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_enterDistrict_makeNewRequestActivity" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_enterArea_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="16dp"
+            android:shadowRadius="5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_area_makeNewRequestActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_area_makeNewDistrictActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:hint="@string/enterYourAreaHere"
+                    android:singleLine="true"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_postDescription_makeNewRequestActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/postDescription"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_enterArea_makeNewRequestActivity" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_postDescription_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="16dp"
+            android:shadowRadius="5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_postDescription_makeNewRequestActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_postDescription_makeNewDistrictActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:hint="@string/postDescriptionHint"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_uploadImage_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="16dp"
+            android:shadowRadius="5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_postDescription_makeNewRequestActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/appBackground">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/upload_an_image"
+                    android:textAlignment="gravity"
+                    android:textSize="15sp"
+                    app:drawableLeftCompat="@drawable/ic_camera" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_cause_makeNewRequestActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/cause"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_uploadImage_makeNewRequestActivity" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollVIew_cause_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cause_makeNewRequestActivity"
+            app:layout_constraintBottom_toTopOf="@id/cl_advancedSearch_makeNewRequestActivity">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_cause_makeNewRequestActivity"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scrollIndicators="right"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cause_cancer_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancer" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cause_dengue_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dengue" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cause_caesar_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caesar" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cause_thalassemia_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thalassemia" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cause_delevery_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thalassemia" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cause_other_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/other" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_advancedSearch_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/cv_btnMakeRequest_makeNewRequestActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollVIew_cause_makeNewRequestActivity"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_gender_makeNewRequestActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/genderr"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_chooseGender_MakeRequestActivity"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_gender_makeNewRequestActivity">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup_gender_makeNewRequestActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scrollIndicators="right"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_gender_male_makeNewRequestActivity"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_gender_female_makeNewRequestActivity"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_datePicker_makeNewRequestActivity"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:elevation="16dp"
+                android:padding="10dp"
+                android:shadowRadius="5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_chooseGender_MakeRequestActivity">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/appBackground"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_datePicker_makeNewDistrictActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/dateAndTime"
+                        android:textAlignment="gravity"
+                        android:textSize="15sp"
+                        app:drawableStartCompat="@drawable/ic_calendar" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_unitBagsRequired_makeNewRequestActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/unitBags"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_datePicker_makeNewRequestActivity" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_unitBagsRequiredSpinner_makeNewRequestActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@id/tv_unitBagsRequired_makeNewRequestActivity"
+                app:layout_constraintTop_toTopOf="@id/tv_unitBagsRequired_makeNewRequestActivity">
+
+                <Spinner
+                    android:id="@+id/spinner_unitBagsRequired_makeNewRequestActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_btnMakeRequest_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="16dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_advancedSearch_makeNewRequestActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_progressbar_makeNewFriendActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+                    <ProgressBar
+                        android:id="@+id/pb_makeNEwRequestButton_makeNewRequestActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_makeRequest_makeNewRequestActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red"
+                    android:text="@string/makenewrequest"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_btnAdvancedSearch_makeNewRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:elevation="16dp"
+            app:cardCornerRadius="10dp"
+            android:backgroundTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_btnMakeRequest_makeNewRequestActivity"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ToggleButton
+                    android:id="@+id/toggolBtn_advancedSearch_makeNewRequestActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:textOff="@string/openAdvancedSearch"
+                    android:textOn="@string/closeAdvancedSearch"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</ScrollView>

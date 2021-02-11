@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePicture_sampleFeedFragment"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_profile_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_userName_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text= "@string/userName"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/profilePicture_sampleFeedFragment"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_lookingForText_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_height="23dp"
+            android:text="@string/isLookingFor"
+            app:layout_constraintStart_toEndOf="@+id/tv_userName_sampleFeedFragment"
+            app:layout_constraintTop_toTopOf="@id/tv_userName_sampleFeedFragment" />
+
+        <TextView
+            android:id="@+id/tv_bloodGroup_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:text="@string/bloodGroup"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_lookingForText_sampleFeedFragment"
+            app:layout_constraintTop_toTopOf="@id/tv_userName_sampleFeedFragment" />
+
+        <TextView
+            android:id="@+id/tv_timeAgo_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:text="@string/timeAgo"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_userName_sampleFeedFragment"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userName_sampleFeedFragment" />
+
+        <TextView
+            android:id="@+id/tv_address_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/demoArea"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_timeAgo_sampleFeedFragment"
+            app:layout_constraintStart_toEndOf="@+id/tv_timeAgo_sampleFeedFragment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_description_sampleFeedFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_margin="5dp"
+        android:text="@string/IamthedemoDescriotion"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    <ImageView
+        android:id="@+id/iv_postImage_SampleFeedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/featuredd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description_sampleFeedFragment" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_sampleFeedFragment_"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:elevation="26dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_postImage_SampleFeedFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/appBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_love_SampleFeedFragment"
+                    android:layout_width="25dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_heart" />
+
+                <TextView
+                    android:id="@+id/tv_loveValue_SampleFeedFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="11sp"
+                    android:text="@string/_10_love" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_view_SampleFeedFragment"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="30dp"
+                    android:src="@drawable/ic_view" />
+
+                <TextView
+                    android:id="@+id/tv_viewValue_SampleFeedFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="11sp"
+                    android:text="@string/_100_views" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_share_SampleFeedFragment"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="30dp"
+                    android:src="@drawable/ic_share" />
+
+                <TextView
+                    android:id="@+id/tv_shareValue_SampleFeedFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="11sp"
+                    android:text="@string/share" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_postImage_SampleFeedFragment"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/bloodGroup2_sampleFeedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textSize="11dp"
+                android:text="@string/O_positive"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="5dp"
+        android:textAlignment="center"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_postImage_SampleFeedFragment"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_district_sampleFeedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textSize="11dp"
+                android:text="@string/district"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
