@@ -1,7 +1,12 @@
 package com.bloodFinder.mybloodbank.mainActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -9,19 +14,24 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.aboutUs.AboutUs;
 import com.bloodFinder.mybloodbank.login.LoginActivity;
-import com.bloodFinder.mybloodbank.mainActivity.chats.ChatList.ChatList;
 import com.bloodFinder.mybloodbank.mainActivity.chats.ChatsFragment;
 import com.bloodFinder.mybloodbank.mainActivity.feed.FeedFragment;
 import com.bloodFinder.mybloodbank.mainActivity.history.HistoryFragment;
+import com.bloodFinder.mybloodbank.privacyPolicy.PrivacyPolicy;
 import com.bloodFinder.mybloodbank.userProfile.ProfileFragment;
 import com.bloodFinder.mybloodbank.mainActivity.requests.RequestsFragment;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +39,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private ImageView iv_notification;
+
 
     private FirebaseAuth mAuth;
 
@@ -36,13 +51,66 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+        Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
+        actionBar.setCustomView(toolbar);
+
         mAuth = FirebaseAuth.getInstance();
-
-        getSupportActionBar().setTitle(R.string.home);
-
 
         tabLayout = findViewById(R.id.tl_MainActivity);
         viewPager = findViewById(R.id.vp_MAinActivity);
+        iv_notification = findViewById(R.id.iv_notification_MainActivity);
+
+        drawerLayout = findViewById(R.id.drawer_layout_MainActivity);
+        navigationView = findViewById(R.id.nav_view_MainActivity);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemID = item.getItemId();
+                switch (itemID){
+                    case R.id.menu_aboutUs_actionbar_home:
+                        startActivity(new Intent(MainActivity.this, AboutUs.class));
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case R.id.menu_rewardCard_actionbar_home:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Toast.makeText(MainActivity.this, "Reward Card Clicked", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.menu_rateUs_actionbar_home:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Toast.makeText(MainActivity.this, "Rate Us Clicked", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.menu_privacyPolicy_actionbar_home:
+                        startActivity(new Intent(MainActivity.this, PrivacyPolicy.class));
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case R.id.menu_logOut_actionbar_home:
+                        logOut();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                }
+                return true;
+            }
+        });
+
+        iv_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "notification Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
 
         setViewPager();
 
@@ -137,30 +205,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.actionbar_home,menu);
-        return super.onCreateOptionsMenu(menu);
+
+
+
+
+
+    public void logOut(){
+        mAuth.signOut();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menu_aboutUs_actionbar_home){
-            Toast.makeText(this, getString(R.string.about_us), Toast.LENGTH_SHORT).show();
-        }
-        if(item.getItemId() == R.id.menu_rateUs_actionbar_home){
-            Toast.makeText(this, getString(R.string.rate_us), Toast.LENGTH_SHORT).show();
-        }
-        if(item.getItemId() == R.id.menu_rewardCard_actionbar_home){
-            Toast.makeText(this, getString(R.string.reward_card), Toast.LENGTH_SHORT).show();
-        }
-        if(item.getItemId() == R.id.menu_privacyPolicy_actionbar_home){
-            Toast.makeText(this, getString(R.string.privacy_policy), Toast.LENGTH_SHORT).show();
-        }
-        if(item.getItemId() == R.id.menu_logOut_actionbar_home){
-            Toast.makeText(this, getString(R.string.logout), Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

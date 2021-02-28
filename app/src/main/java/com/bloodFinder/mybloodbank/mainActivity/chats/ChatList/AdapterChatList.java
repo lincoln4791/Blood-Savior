@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
@@ -141,7 +142,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
 
 
 
-        holder.ll_userNameHolder.setOnClickListener(new View.OnClickListener() {
+        holder.cv_usernameHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ChattingActivity.class);
@@ -182,6 +183,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
         private TextView lastMessage;
         private TextView lastMessageTime;
         private LinearLayout ll_imageHolder,ll_userNameHolder;
+        private CardView cv_usernameHolder;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.tv_userName_chatListSampleLayout_ID);
@@ -192,6 +194,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
             lastMessageTime = itemView.findViewById(R.id.tv_lastMessageTIming_chatListSampleLayout_ID);
             ll_imageHolder = itemView.findViewById(R.id.ll_imageHolder_chatListSampleLayout_ID);
             ll_userNameHolder = itemView.findViewById(R.id.ll_userNameHolder_chatListSampleLayout_ID);
+            cv_usernameHolder = itemView.findViewById(R.id.cv_userNameHolder_chatListSampleLayout_ID);
         }
     }
 }

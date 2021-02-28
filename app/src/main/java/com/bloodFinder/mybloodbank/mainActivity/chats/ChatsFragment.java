@@ -1,5 +1,6 @@
 package com.bloodFinder.mybloodbank.mainActivity.chats;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.login.LoginActivity;
 import com.bloodFinder.mybloodbank.mainActivity.chats.ChatList.ChatList;
 import com.bloodFinder.mybloodbank.mainActivity.chats.invite.InviteFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ChatsFragment extends Fragment {
   private TabLayout tabLayout;
@@ -103,6 +107,12 @@ public class ChatsFragment extends Fragment {
     }
 
 
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser==null){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        }
+    }
 }

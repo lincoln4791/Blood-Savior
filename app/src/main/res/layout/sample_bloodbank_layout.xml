@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="25dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_bloodBankName_sampleBloodBank"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_blood_bank"
+            android:drawablePadding="10dp"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/bloodBank"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_map_sampleBloodBank"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_map_sampleBloodBank"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:padding="2dp"
+            app:srcCompat="@drawable/ic_google_maps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_bloodBankName_sampleBloodBank"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bloodBankName_sampleBloodBank"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bloodBankAddress_sampleBloodBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:textColor="@color/textColor"
+            android:text="@string/address"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bloodBankName_sampleBloodBank" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_bloodBankPhoneNumber_sampleBloodBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="40dp"
+            android:elevation="25dp"
+            app:cardCornerRadius="50dp"
+            android:backgroundTint="@color/red"
+            app:layout_constraintStart_toStartOf="@id/tv_bloodBankName_sampleBloodBank"
+            app:layout_constraintTop_toBottomOf="@id/tv_bloodBankAddress_sampleBloodBank">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_bloodBankPhoneNumber_sampleBloodBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/demoPhoneNumber"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <View
+            android:id="@+id/view_sampleBloodBank"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/textColor"
+            app:layout_constraintStart_toStartOf="@id/tv_bloodBankName_sampleBloodBank"
+            app:layout_constraintEnd_toEndOf="@id/tv_bloodBankName_sampleBloodBank"
+            app:layout_constraintTop_toBottomOf="@id/cv_bloodBankPhoneNumber_sampleBloodBank"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

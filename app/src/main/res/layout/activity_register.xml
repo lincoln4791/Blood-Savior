@@ -379,6 +379,7 @@
                             android:id="@+id/et_phoneNumber_registrationActivity"
                             style="@style/styleRegistrationActivity_EditTexts"
                             android:maxLength="11"
+                            android:inputType="number"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="@string/enter_your_phoneNumber"/>
@@ -403,6 +404,7 @@
                             style="@style/styleRegistrationActivity_EditTexts"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:inputType="textEmailAddress"
                             android:hint="@string/enter_your_email"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -446,6 +448,7 @@
                             style="@style/styleRegistrationActivity_EditTexts"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:inputType="textPassword"
                             android:hint="@string/confirmPassword"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -486,8 +489,4 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 </ScrollView>

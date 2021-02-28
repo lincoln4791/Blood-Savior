@@ -35,24 +35,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MakeNewRequest extends AppCompatActivity {
-    private ChipGroup cg_BloodSelection,cg_cause,cg_gender;
     private Chip chip_APositive,chip_ANegative,chip_BPositive,chip_BNegative,chip_OPositive,chip_ONegative,chip_ABPositive,chip_ABNegative;
-    private EditText et_district,et_area, et_postDescription;
+    private EditText et_district,et_area, et_postDescription,et_phone;
     private CardView cv_uploadImage,cv_datePicker;
     private Spinner spinner_unitBagsRequired;
     private ToggleButton btnAdvancedSearch;
     private ConstraintLayout cl_AdvancedSearch;
-    private String bloodGroup,cause,gender,district,area,postDescription,imageUri,requiredDate,requiredUnitBagsBlood;
+    private String bloodGroup,cause,gender,district,area,postDescription,imageUri,requiredDate,requiredUnitBagsBlood,phone;
     private ArrayAdapter<CharSequence> spinnerAdapter;
     private Button btnMakeRequest;
     private TextView tv_requiredDate;
     private View customProgressBar;
     private View llProgressBar;
     private MyLoadingProgress myLoadingProgress;
+    private ArrayList<String> bloodList,genderList,causeList;
 
     private DatabaseReference mRootRef;
     private String myUID= FirebaseAuth.getInstance().getUid();
@@ -64,13 +65,10 @@ public class MakeNewRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_new_request);
 
-
-        cg_BloodSelection = findViewById(R.id.chipGroup_bloodGroups_makeNewRequest);
-        cg_cause = findViewById(R.id.chipGroup_cause_makeNewRequestActivity);
-        cg_gender = findViewById(R.id.chipGroup_gender_makeNewRequestActivity);
         et_district = findViewById(R.id.et_district_makeNewDistrictActivity);
         et_area = findViewById(R.id.et_area_makeNewDistrictActivity);
         et_postDescription = findViewById(R.id.et_postDescription_makeNewDistrictActivity);
+        et_phone = findViewById(R.id.et_phone_makeNewDistrictActivity);
         cv_uploadImage = findViewById(R.id.cv_uploadImage_makeNewRequestActivity);
         cv_datePicker = findViewById(R.id.cv_datePicker_makeNewRequestActivity);
         spinner_unitBagsRequired = findViewById(R.id.spinner_unitBagsRequired_makeNewRequestActivity);
@@ -81,15 +79,18 @@ public class MakeNewRequest extends AppCompatActivity {
         customProgressBar = findViewById(R.id.customProgressBarFull_makeNewRequestActivity);
         llProgressBar = findViewById(R.id.ll_progressbar_makeNewFriendActivity);
         myLoadingProgress = new MyLoadingProgress(this);
+        bloodList = new ArrayList<>();
+        genderList = new ArrayList<>();
+        causeList = new ArrayList<>();
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        bloodGroup = getSelectedBloodGroup();
-        cause = getCause();
-        gender = getGender();
+        getSelectedBloodGroup();
+        getCause();
+        getGender();
 
-        //Spinner Initilization
+        //Spinner Initilization to get unit amount of blood
         initSpinner();
 
         cv_datePicker.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +144,7 @@ public class MakeNewRequest extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    requiredUnitBagsBlood = null;
+                    requiredUnitBagsBlood = "";
                     //Log.d("tag","Blood needed : 1");
                 }
 
@@ -182,84 +183,128 @@ public class MakeNewRequest extends AppCompatActivity {
 
     private void makeNewRequest() {
 
-        district = et_district.getText().toString();
-        area = et_area.getText().toString();
-        postDescription = et_postDescription.getText().toString();
-
-        if(district.equals("")){
-            et_district.setError(getString(R.string.enterDistrict));
+        if(bloodList.isEmpty()){
+            Toast.makeText(this, getString(R.string.chooseBloodGroup), Toast.LENGTH_SHORT).show();
         }
-
-        else if(area.equals("")){
-            et_area.setError(getString(R.string.enterArea));
-        }
-
-        else if(postDescription.equals("")){
-            et_postDescription.setError(getString(R.string.writeSomethingHere));
-        }
-
-
-        else if(bloodGroup == null){
-            Toast.makeText(this, getString(R.string.pleaseSelectBloodGroup), Toast.LENGTH_SHORT).show();
-        }
-
-        else if(cause == null){
-            Toast.makeText(this, getString(R.string.pleaseSelectCause), Toast.LENGTH_SHORT).show();
-        }
-
-        else if(requiredDate == null){
-            Toast.makeText(this, "Seletc Date", Toast.LENGTH_SHORT).show();
-        }
-
-        else if(gender == null){
-            Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
-        }
-
-        else if(requiredUnitBagsBlood == null){
-            Toast.makeText(this, getString(R.string.pleaseSelectAMountOfBlood), Toast.LENGTH_SHORT).show();
-        }
-
         else{
-            myLoadingProgress.startLoadingProgress();
-            String pushID = mRootRef.push().getKey();
-            String postID = pushID;
+            bloodGroup = bloodList.get(0);
 
-            Map postsMap = new HashMap();
-            postsMap.put(NodeNames.POST_ID,postID);
-            postsMap.put(NodeNames.TIMESTAMP, ServerValue.TIMESTAMP);
-            postsMap.put(NodeNames.POST_CREATOR_ID,myUID);
-            postsMap.put(NodeNames.POST_CREATOR_NAME,currentUser.getDisplayName());
-            postsMap.put(NodeNames.POST_CREATOR_PHOTO,currentUser.getPhotoUrl());
-            postsMap.put(NodeNames.GENDER,requiredUnitBagsBlood);
-            postsMap.put(NodeNames.BLOOD_GROUP,bloodGroup);
-            postsMap.put(NodeNames.DISTRICT,district);
-            postsMap.put(NodeNames.AREA,area);
-            postsMap.put(NodeNames.POST_DESCRIPTION,postDescription);
+            if(genderList.isEmpty()){
+                Toast.makeText(this, getString(R.string.enter_your_gender), Toast.LENGTH_SHORT).show();
+            }
+            else{
+                gender=genderList.get(0);
 
-            mRootRef.child(NodeNames.POSTS).child(pushID).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(MakeNewRequest.this, "Post Successfull", Toast.LENGTH_SHORT).show();
-                        myLoadingProgress.dismissAlertDialogue();
-                        startActivity(new Intent(MakeNewRequest.this,MainActivity.class));
-                    }
-                    else{
-                        myLoadingProgress.dismissAlertDialogue();
-                        Toast.makeText(MakeNewRequest.this, "post Failed", Toast.LENGTH_SHORT).show();
-                        llProgressBar.setVisibility(View.VISIBLE);
-                        btnMakeRequest.setVisibility(View.VISIBLE);
-                    }
+                if(causeList.isEmpty()){
+                    Toast.makeText(this, getString(R.string.pleaseSelectCause_Disease), Toast.LENGTH_SHORT).show();
                 }
-            });
+                else{
+
+                    cause=causeList.get(0);
+                    district = et_district.getText().toString();
+                    area = et_area.getText().toString();
+                    postDescription = et_postDescription.getText().toString();
+                    phone =et_phone.getText().toString();
+
+                    if(district.equals("")){
+                        et_district.setError(getString(R.string.enterDistrict));
+                    }
+
+                    else if(area.equals("")){
+                        et_area.setError(getString(R.string.enterArea));
+                    }
+
+                    else if(postDescription.equals("")){
+                        et_postDescription.setError(getString(R.string.writeSomethingHere));
+                    }
+
+
+                    else if(bloodGroup == null){
+                        Toast.makeText(this, getString(R.string.pleaseSelectBloodGroup), Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if(cause == null){
+                        Toast.makeText(this, getString(R.string.pleaseSelectCause), Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if(requiredDate == null){
+                        Toast.makeText(this, "Seletc Date", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if(gender == null){
+                        Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if(requiredUnitBagsBlood == null){
+                        Toast.makeText(this, getString(R.string.pleaseSelectAMountOfBlood), Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if(phone.equals("")){
+                        et_phone.setError(getString(R.string.phoneNumber));
+                    }
+
+                    else{
+                        myLoadingProgress.startLoadingProgress();
+                        String pushID = mRootRef.push().getKey();
+                        String postID = pushID;
+
+                        Map postsMap = new HashMap();
+                        postsMap.put(NodeNames.POST_ID,postID);
+                        postsMap.put(NodeNames.TIMESTAMP, ServerValue.TIMESTAMP);
+                        postsMap.put(NodeNames.POST_CREATOR_ID,myUID);
+                        postsMap.put(NodeNames.POST_CREATOR_NAME,currentUser.getDisplayName());
+                        postsMap.put(NodeNames.POST_CREATOR_PHOTO,currentUser.getPhotoUrl());
+                        postsMap.put(NodeNames.GENDER,gender);
+                        postsMap.put(NodeNames.CAUSE,cause);
+                        postsMap.put(NodeNames.PHONE_NUMBER,phone);
+                        postsMap.put(NodeNames.UNIT_BAGS,requiredUnitBagsBlood);
+                        postsMap.put(NodeNames.BLOOD_GROUP,bloodGroup);
+                        postsMap.put(NodeNames.DISTRICT,district);
+                        postsMap.put(NodeNames.AREA,area);
+                        postsMap.put(NodeNames.POST_DESCRIPTION,postDescription);
+
+
+                        mRootRef.child(NodeNames.POSTS).child(pushID).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
+                            @Override
+                            public void onComplete(@NonNull Task task) {
+                                if(task.isSuccessful()){
+
+                                    mRootRef.child(NodeNames.POSTS_ORDER_BY_USER).child(myUID).child(pushID).updateChildren(postsMap).addOnCompleteListener(new OnCompleteListener() {
+                                        @Override
+                                        public void onComplete(@NonNull Task task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(MakeNewRequest.this, "Post Successfull", Toast.LENGTH_SHORT).show();
+                                                myLoadingProgress.dismissAlertDialogue();
+                                                startActivity(new Intent(MakeNewRequest.this,MainActivity.class));
+                                            }
+                                            else{
+                                                myLoadingProgress.dismissAlertDialogue();
+                                                Toast.makeText(MakeNewRequest.this, "post Failed", Toast.LENGTH_SHORT).show();
+                                                llProgressBar.setVisibility(View.VISIBLE);
+                                                btnMakeRequest.setVisibility(View.VISIBLE);
+                                            }
+
+                                        }
+                                    });
+
+
+                                }
+                                else{
+                                    myLoadingProgress.dismissAlertDialogue();
+                                    Toast.makeText(MakeNewRequest.this, "post Failed", Toast.LENGTH_SHORT).show();
+                                    llProgressBar.setVisibility(View.VISIBLE);
+                                    btnMakeRequest.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+                    }
+
+
+
+                }
+
+            }
         }
-
-
-
-
-
-
-
 
     }
 
@@ -295,7 +340,7 @@ public class MakeNewRequest extends AppCompatActivity {
 
 
 
-    private String getGender() {
+    private void getGender() {
         Chip chip_male, chip_female;
         chip_female = findViewById(R.id.chip_gender_female_makeNewRequestActivity);
         chip_male = findViewById(R.id.chip_gender_male_makeNewRequestActivity);
@@ -304,19 +349,16 @@ public class MakeNewRequest extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    gender = buttonView.getText().toString();
-                    //Log.d("Tag", "Gender Is : " +gender);
+                    genderList.add(buttonView.getText().toString());
                 }
                 else{
-                    gender = null;
+                    genderList.remove(buttonView.getText().toString());
                 }
             }
         };
 
         chip_male.setOnCheckedChangeListener(checkedChangeListenerGender);
         chip_female.setOnCheckedChangeListener(checkedChangeListenerGender);
-
-        return gender;
     }
 
 
@@ -329,7 +371,7 @@ public class MakeNewRequest extends AppCompatActivity {
 
 
 
-    private String getCause() {
+    private void getCause() {
         Chip chip_cancer, chip_dengu, chip_ceasar,chip_thalasemia,chip_other,chip_delivery;
         chip_cancer = findViewById(R.id.chip_cause_cancer_makeNewRequestActivity);
         chip_dengu = findViewById(R.id.chip_cause_dengue_makeNewRequestActivity);
@@ -342,11 +384,11 @@ public class MakeNewRequest extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    cause = buttonView.getText().toString();
+                    causeList.add(buttonView.getText().toString());
                     //Log.d("Tag", "cause Is : " +cause);
                 }
                 else{
-                    cause = null;
+                    causeList.remove(buttonView.getText().toString());
                 }
             }
         };
@@ -357,7 +399,7 @@ public class MakeNewRequest extends AppCompatActivity {
         chip_thalasemia.setOnCheckedChangeListener(checkedChangeListenerCause);
         chip_other.setOnCheckedChangeListener(checkedChangeListenerCause);
         chip_delivery.setOnCheckedChangeListener(checkedChangeListenerCause);
-        return cause;
+        //return cause;
     }
 
 
@@ -371,7 +413,7 @@ public class MakeNewRequest extends AppCompatActivity {
 
 
 
-    private String getSelectedBloodGroup() {
+    private void getSelectedBloodGroup() {
         chip_APositive = findViewById(R.id.chip_APositive_bloodGroup_makeNewRequest);
         chip_ANegative = findViewById(R.id.chip_ANegative_bloodGroup_makeNewRequest);
         chip_BPositive = findViewById(R.id.chip_BPositive_bloodGroup_makeNewRequest);
@@ -385,11 +427,10 @@ public class MakeNewRequest extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    bloodGroup = buttonView.getText().toString();
-                    Log.d("Tag", "blood Group Is : " + getSelectedBloodGroup());
+                    bloodList.add(buttonView.getText().toString());
                 }
                 else{
-                    bloodGroup = null;
+                    bloodList.remove(buttonView.getText().toString());
                 }
             }
         };
@@ -402,6 +443,6 @@ public class MakeNewRequest extends AppCompatActivity {
         chip_ONegative.setOnCheckedChangeListener(checkedChangeListenerBloodGroup);
         chip_ABPositive.setOnCheckedChangeListener(checkedChangeListenerBloodGroup);
         chip_ABNegative.setOnCheckedChangeListener(checkedChangeListenerBloodGroup);
-        return bloodGroup;
+        //return bloodGroup;
     }
 }

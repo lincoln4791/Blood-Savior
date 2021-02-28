@@ -160,17 +160,25 @@ public class Util {
                 String unreadCount = snapshot.child(NodeNames.UNREAD_COUNT).getValue()!=null?
                         snapshot.child(NodeNames.UNREAD_COUNT).getValue().toString() :"0";
 
-                Map hashMap = new HashMap();
-                hashMap.put(NodeNames.TIME_STAMP, ServerValue.TIMESTAMP);
-                hashMap.put(NodeNames.UNREAD_COUNT, Integer.valueOf(unreadCount)+1);
-                hashMap.put(NodeNames.LAST_MESSAGE,notificationMessage);
-                hashMap.put(NodeNames.LAST_MESSAGE_TIME,ServerValue.TIMESTAMP);
-                hashMap.put(NodeNames.USER_ID,userID);
+                Map selfHashMap = new HashMap();
+                selfHashMap.put(NodeNames.TIMESTAMP, ServerValue.TIMESTAMP);
+                selfHashMap.put(NodeNames.UNREAD_COUNT, Integer.valueOf(unreadCount)+1);
+                selfHashMap.put(NodeNames.LAST_MESSAGE,notificationMessage);
+                selfHashMap.put(NodeNames.LAST_MESSAGE_TIME,ServerValue.TIMESTAMP);
+                selfHashMap.put(NodeNames.USER_ID,myUID);
+
+                Map userHashMap = new HashMap();
+                userHashMap.put(NodeNames.TIMESTAMP, ServerValue.TIMESTAMP);
+                userHashMap.put(NodeNames.UNREAD_COUNT, Integer.valueOf(unreadCount)+1);
+                userHashMap.put(NodeNames.LAST_MESSAGE,notificationMessage);
+                userHashMap.put(NodeNames.LAST_MESSAGE_TIME,ServerValue.TIMESTAMP);
+                userHashMap.put(NodeNames.USER_ID,userID);
 
                 Map chatUserMap = new HashMap();
                 Map myUserMap = new HashMap();
-                chatUserMap.put(NodeNames.CHAT_FOLDER+"/"+userID+"/"+myUID,hashMap);
-                myUserMap.put(NodeNames.CHAT_FOLDER+"/"+myUID+"/"+userID,hashMap);
+
+                chatUserMap.put(NodeNames.CHAT_FOLDER+"/"+userID+"/"+myUID,selfHashMap);
+                myUserMap.put(NodeNames.CHAT_FOLDER+"/"+myUID+"/"+userID,userHashMap);
 
                 mRootRef.updateChildren(chatUserMap).addOnCompleteListener(new OnCompleteListener() {
                     @Override

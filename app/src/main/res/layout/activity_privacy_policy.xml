@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".privacyPolicy.PrivacyPolicy">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:id="@+id/tv_privacyPolicy_PrivacyPolicyActivity"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:background="@color/red"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/redressed_regular"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/privacyPolicy"/>
+
+        <TextView
+            android:id="@+id/tv_description_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/descriptionPrivacyPolicy"
+            app:layout_constraintTop_toBottomOf="@id/tv_privacyPolicy_PrivacyPolicyActivity"/>
+
+        <TextView
+            android:id="@+id/tv_donorRegistration_privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/donorRegistration"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_description_PrivacyPolicy"
+            app:layout_constraintStart_toStartOf="@id/tv_description_PrivacyPolicy"
+            />
+
+        <TextView
+            android:id="@+id/tv_donorRegistrationValue_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_donorRegistration_privacyPolicy"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/descriptionDonorRegistrationValue"
+            app:layout_constraintTop_toBottomOf="@id/tv_donorRegistration_privacyPolicy"/>
+
+        <TextView
+            android:id="@+id/tv_informationCollection_privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/informationCollection"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_donorRegistrationValue_PrivacyPolicy"
+            app:layout_constraintStart_toStartOf="@id/tv_donorRegistration_privacyPolicy"
+            />
+
+        <TextView
+            android:id="@+id/tv_informationCollectionValue_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/descriptionInformationCollectionValue"
+            app:layout_constraintStart_toStartOf="@id/tv_description_PrivacyPolicy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_informationCollection_privacyPolicy"/>
+
+        <TextView
+            android:id="@+id/tv_infoUses_privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/informationUses"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_informationCollectionValue_PrivacyPolicy"
+            app:layout_constraintStart_toStartOf="@id/tv_description_PrivacyPolicy"
+            />
+
+        <TextView
+            android:id="@+id/tv_infoUsesValue_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_donorRegistration_privacyPolicy"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/descriptionInfoUsesValue"
+            app:layout_constraintTop_toBottomOf="@id/tv_infoUses_privacyPolicy"/>
+
+
+        <TextView
+            android:id="@+id/tv_infoProtection_privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/protectionOfPersonalInformation"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_infoUsesValue_PrivacyPolicy"
+            app:layout_constraintStart_toStartOf="@id/tv_description_PrivacyPolicy"
+            />
+
+        <TextView
+            android:id="@+id/tv_infoProtectionValue_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_donorRegistration_privacyPolicy"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/description_protectionOfPersonalInformationValue"
+            app:layout_constraintTop_toBottomOf="@id/tv_infoProtection_privacyPolicy"/>
+
+
+        <TextView
+            android:id="@+id/tv_contactUs_privacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contactUs"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_infoProtectionValue_PrivacyPolicy"
+            app:layout_constraintStart_toStartOf="@id/tv_description_PrivacyPolicy"
+            />
+
+        <TextView
+            android:id="@+id/tv_contactUsValue_PrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintStart_toStartOf="@id/tv_donorRegistration_privacyPolicy"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/emailAddressValue"
+            app:layout_constraintTop_toBottomOf="@id/tv_contactUs_privacyPolicy"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

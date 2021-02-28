@@ -8,21 +8,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Extras;
+import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bloodFinder.mybloodbank.common.Util;
 import com.bloodFinder.mybloodbank.mainActivity.MainActivity;
+import com.bloodFinder.mybloodbank.mainActivity.requests.SingleRequest.SingleRequest;
 import com.bloodFinder.mybloodbank.userProfile.UserProfile;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragment.MyViewHolder> {
     private Context context;
     private List<ModelClassFeedFragment> modelClassFeedFragmentList;
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    private String myUID = FirebaseAuth.getInstance().getUid();
+    private int loveCount,viewCount;
+    private Boolean loveCountFlag;
+
 
     public AdapterFeedFragment(Context context, List<ModelClassFeedFragment> modelClassFeedFragmentList) {
         this.context = context;
@@ -39,20 +58,26 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        loveCount = Integer.parseInt(modelClassFeedFragmentList.get(position).getPostLove());
+        loveCountFlag = modelClassFeedFragmentList.get(position).getLoveCheckerFlag();
+
         holder.userName.setText(modelClassFeedFragmentList.get(position).getPostCreatorName());
         holder.bloodGroup.setText(modelClassFeedFragmentList.get(position).getBloodGroup());
         holder.area.setText(modelClassFeedFragmentList.get(position).getArea());
         holder.description.setText(modelClassFeedFragmentList.get(position).getPostDescription());
         //holder.love.setText(modelClassFeedFragmentList.get(position).getLove());
         //holder.views.setText(modelClassFeedFragmentList.get(position).getViews());
-        holder.love.setText("10 Loves");
-        holder.views.setText("214 Views");
+        holder.love.setText(modelClassFeedFragmentList.get(position).getPostLove());
+        holder.views.setText(modelClassFeedFragmentList.get(position).getPostView());
         holder.bloodGroup2.setText(modelClassFeedFragmentList.get(position).getBloodGroup());
         holder.district.setText(modelClassFeedFragmentList.get(position).getDistrict());
         Log.d("tag","size: "+modelClassFeedFragmentList.size());
 
-        holder.timeAgo.setText("24 minutes ago");
+        holder.timeAgo.setText(Util.getTimeAgo(Long.parseLong(modelClassFeedFragmentList.get(position).getTimeStamp())));
 
+        if(loveCountFlag){
+            holder.iv_loveImage.setImageResource(R.drawable.ic_love_red);
+        }
 
         Glide.with(context).load(modelClassFeedFragmentList.get(position).getPostCreatorPhoto()).placeholder(R.drawable.ic_profile_picture)
                 .error(R.drawable.ic_profile_picture).into(holder.profilePicture);
@@ -72,10 +97,168 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
                 Intent intent = new Intent(context.getApplicationContext(),UserProfile.class);
                 intent.putExtra(Extras.USER_ID,modelClassFeedFragmentList.get(position).getPostCreatorID());
                 context.startActivity(intent);
-
             }
         });
 
+        holder.userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context.getApplicationContext(),UserProfile.class);
+                intent.putExtra(Extras.USER_ID,modelClassFeedFragmentList.get(position).getPostCreatorID());
+                context.startActivity(intent);
+            }
+        });
+
+
+        holder.postImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,SingleRequest.class);
+                intent.putExtra(Extras.POST_CREATOR_ID,modelClassFeedFragmentList.get(position).getPostCreatorID());
+                intent.putExtra(Extras.POST_CREATOR_PHOTO,modelClassFeedFragmentList.get(position).getPostCreatorPhoto());
+                intent.putExtra(Extras.POST_CREATOR_NAME,modelClassFeedFragmentList.get(position).getPostCreatorName());
+                intent.putExtra(Extras.POST_ID,modelClassFeedFragmentList.get(position).getPostID());
+                intent.putExtra(Extras.POST_DESCRIPTION,modelClassFeedFragmentList.get(position).getPostDescription());
+                intent.putExtra(Extras.POST_IMAGE,modelClassFeedFragmentList.get(position).getPostImage());
+                intent.putExtra(Extras.POST_LOVE,modelClassFeedFragmentList.get(position).getPostLove());
+                intent.putExtra(Extras.POST_VIEW,modelClassFeedFragmentList.get(position).getPostView());
+                intent.putExtra(Extras.BLOOD_GROUP,modelClassFeedFragmentList.get(position).getBloodGroup());
+                intent.putExtra(Extras.AREA,modelClassFeedFragmentList.get(position).getArea());
+                intent.putExtra(Extras.DISTRICT,modelClassFeedFragmentList.get(position).getDistrict());
+                intent.putExtra(Extras.ACCEPTED,modelClassFeedFragmentList.get(position).getAccepted());
+                intent.putExtra(Extras.DONATED,modelClassFeedFragmentList.get(position).getDonated());
+                intent.putExtra(Extras.TIMESTAMP,modelClassFeedFragmentList.get(position).getTimeStamp());
+                intent.putExtra(Extras.CAUSE,modelClassFeedFragmentList.get(position).getCause());
+                intent.putExtra(Extras.GENDER,modelClassFeedFragmentList.get(position).getGender());
+                intent.putExtra(Extras.PHONE_NUMBER,modelClassFeedFragmentList.get(position).getPhone());
+                intent.putExtra(Extras.UNIT_BAGS,modelClassFeedFragmentList.get(position).getUnitBag());
+                context.startActivity(intent);
+            }
+        });
+
+
+
+
+
+
+        holder.cv_love.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(loveCountFlag){
+                    holder.iv_loveImage.setImageResource(R.drawable.ic_love);
+                        loveCount = loveCount-1;
+                        holder.love.setText(String.valueOf(loveCount));
+                        loveCountFlag=false;
+                        mRootRef.child(NodeNames.POSTS).child(modelClassFeedFragmentList.get(position).getPostID())
+                                .child(NodeNames.LOVE_REACT_COUNT_FOLDER).child(myUID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if( task.isSuccessful()){
+                                    mRootRef.child(NodeNames.POSTS).child(modelClassFeedFragmentList.get(position).getPostID())
+                                            .child(NodeNames.POST_LOVE).setValue(String.valueOf(loveCount)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                mRootRef.child(NodeNames.POSTS_ORDER_BY_USER).child(modelClassFeedFragmentList.get(position).getPostCreatorID())
+                                                        .child(modelClassFeedFragmentList.get(position).getPostID())
+                                                        .child(NodeNames.LOVE_REACT_COUNT_FOLDER).child(myUID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if(task.isSuccessful()){
+                                                            mRootRef.child(NodeNames.POSTS_ORDER_BY_USER).child(modelClassFeedFragmentList.get(position).getPostCreatorID())
+                                                                    .child(modelClassFeedFragmentList.get(position).getPostID())
+                                                                    .child(NodeNames.POST_LOVE).setValue(String.valueOf(loveCount)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if(task.isSuccessful()){
+
+                                                                    }
+                                                                    else{
+                                                                        Toast.makeText(context, context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                        else{
+                                                            Toast.makeText(context, context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+
+                                            }
+                                            else{
+                                                Toast.makeText(context, context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                                }
+                                else{
+                                    Toast.makeText(context,context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
+                }
+
+                else{
+                    holder.iv_loveImage.setImageResource(R.drawable.ic_love_red);
+                    loveCount = loveCount+1;
+                    holder.love.setText(String.valueOf(loveCount));
+                    loveCountFlag=true;
+                    mRootRef.child(NodeNames.POSTS).child(modelClassFeedFragmentList.get(position).getPostID())
+                            .child(NodeNames.LOVE_REACT_COUNT_FOLDER).child(myUID).setValue(myUID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if( task.isSuccessful()){
+                                mRootRef.child(NodeNames.POSTS).child(modelClassFeedFragmentList.get(position).getPostID())
+                                        .child(NodeNames.POST_LOVE).setValue(String.valueOf(loveCount)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            mRootRef.child(NodeNames.POSTS_ORDER_BY_USER).child(modelClassFeedFragmentList.get(position).getPostCreatorID())
+                                                    .child(modelClassFeedFragmentList.get(position).getPostID())
+                                                    .child(NodeNames.LOVE_REACT_COUNT_FOLDER).child(myUID).setValue(myUID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        mRootRef.child(NodeNames.POSTS_ORDER_BY_USER).child(modelClassFeedFragmentList.get(position).getPostCreatorID())
+                                                                .child(modelClassFeedFragmentList.get(position).getPostID())
+                                                                .child(NodeNames.POST_LOVE).setValue(String.valueOf(loveCount)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if(task.isSuccessful()){
+
+                                                                }
+                                                                else{
+                                                                    Toast.makeText(context,context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                    else{
+                                                        Toast.makeText(context,context.getString(R.string.snapshotDoesnotExists), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                        else {
+                                            Toast.makeText(context,context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                            else{
+                                Toast.makeText(context,context.getString(R.string.failedToInteractWithPost), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+                }
+            }
+        });
 
 
 
@@ -89,7 +272,7 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView profilePicture;
-        private ImageView postImage;
+        private ImageView postImage,iv_loveImage;
         private TextView userName;
         private TextView bloodGroup;
         private TextView timeAgo;
@@ -99,10 +282,13 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
         private TextView description;
         private TextView love;
         private TextView views;
+        private CardView cv_love;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicture = itemView.findViewById(R.id.profilePicture_sampleFeedFragment);
             postImage = itemView.findViewById(R.id.iv_postImage_SampleFeedFragment);
+            iv_loveImage = itemView.findViewById(R.id.iv_love_SampleFeedFragment);
+            cv_love = itemView.findViewById(R.id.cv_love_SampleFeedFragment);
             userName = itemView.findViewById(R.id.tv_userName_sampleFeedFragment);
             bloodGroup = itemView.findViewById(R.id.tv_bloodGroup_sampleFeedFragment);
             timeAgo = itemView.findViewById(R.id.tv_timeAgo_sampleFeedFragment);

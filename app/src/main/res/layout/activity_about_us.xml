@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".aboutUs.AboutUs">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/red"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_bloodBank_AboutUs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/redressed_regular"
+                android:gravity="center"
+                android:text="@string/bloodBank"
+                android:textAlignment="gravity"
+                android:textColor="@color/white"
+                android:textSize="50sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_aboutUsText_aboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="@string/aboutUsText"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <TextView
+            android:id="@+id/tv_contact_aboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="@string/contact"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_aboutUsText_aboutUs" />
+
+        <TextView
+            android:id="@+id/tv_contactEmail_aboutUs"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="@string/email"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_contact_aboutUs" />
+
+        <TextView
+            android:id="@+id/tv_contactEmailValue_aboutUs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:text="@string/emailAddressValue"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/tv_contactEmail_aboutUs"
+            app:layout_constraintTop_toBottomOf="@+id/tv_contact_aboutUs" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

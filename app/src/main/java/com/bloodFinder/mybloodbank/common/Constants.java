@@ -22,6 +22,9 @@ public class Constants {
     public static final String NOTIFICATION_DESC = "chat_notification";
     public static final String USER_ONLINE = "online";
     public static final String USER_OFFLINE = "offline";
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
+
 
 
     public static final String TYPING_STOPPED = "0";

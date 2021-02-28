@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.bloodBank.BloodBank;
+import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.NodeNames;
 import com.bloodFinder.mybloodbank.login.LoginActivity;
+import com.bloodFinder.mybloodbank.userProfile.editProfileActivity.EditProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,8 +31,8 @@ public class ProfileFragment extends Fragment {
     private ImageView iv_profilePicture,iv_editProfile;
     private TextView tv_userName,tv_area,tv_district,tv_gender,tv_age,tv_phone,tv_bloodGroup,tv_donationStatus
             ,tv_lastDonation,tv_totalDonation;
-    private String userName,area,district,gender,age,phone,bloodGroup,donationStatus,lastDonation,totalDonation,userPhoto;
-    private TextView tv_logout;
+    private String userName,area,district,gender,age,phone,bloodGroup,donationStatus,lastDonation,totalDonation,userPhoto,email;
+    private TextView tv_logout,tv_bloodBank;
 
     private String myUID = FirebaseAuth.getInstance().getUid();
     private String userID;
@@ -61,6 +64,7 @@ public class ProfileFragment extends Fragment {
         tv_lastDonation = view.findViewById(R.id.tv_lastDonationDateValue_profileFragment);
         tv_totalDonation = view.findViewById(R.id.tv_totalDonationValue_profileFragment);
         tv_logout = view.findViewById(R.id.tv_logout_profileFragment);
+        tv_bloodBank = view.findViewById(R.id.tv_bloodBanks_profileFragment);
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -69,6 +73,32 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 logOut();
+            }
+        });
+
+        tv_bloodBank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), BloodBank.class));
+            }
+        });
+
+
+        iv_editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), EditProfileActivity.class);
+                intent.putExtra(Extras.USER_ID,myUID);
+                intent.putExtra(Extras.USER_NAME,userName);
+                intent.putExtra(Extras.BLOOD_GROUP,bloodGroup);
+                intent.putExtra(Extras.GENDER,gender);
+                intent.putExtra(Extras.PHONE_NUMBER,phone);
+                intent.putExtra(Extras.EMAIL,email);
+                intent.putExtra(Extras.DISTRICT,district);
+                intent.putExtra(Extras.AREA,area);
+                intent.putExtra(Extras.AGE,age);
+                intent.putExtra(Extras.PHONE_NUMBER,phone);
+                startActivity(intent);
             }
         });
 
@@ -89,6 +119,15 @@ public class ProfileFragment extends Fragment {
                     donationStatus=getString(R.string.i_want_to_donate);
                     lastDonation=getString(R.string.dateNotGiven);
                     totalDonation=getString(R.string.zero);
+
+
+                         if(snapshot.child(NodeNames.EMAIL).exists()){
+                             if(snapshot.child(NodeNames.EMAIL).getValue()!=null){
+                                 if(!snapshot.child(NodeNames.EMAIL).getValue().toString().equals("")){
+                                     email = snapshot.getValue().toString();
+                                 }
+                             }
+                         }
 
                           if(snapshot.child(NodeNames.USER_PHOTO).exists()){
                               if(snapshot.child(NodeNames.USER_PHOTO).getValue()!=null){
@@ -176,6 +215,7 @@ public class ProfileFragment extends Fragment {
                             }
                         }
                         tv_lastDonation.setText(lastDonation);
+                        iv_editProfile.setVisibility(View.VISIBLE);
 
 
                 }
@@ -196,6 +236,6 @@ public class ProfileFragment extends Fragment {
     public void logOut(){
         mAuth.signOut();
         startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().finish();
+        getActivity().finishAffinity();
     }
 }

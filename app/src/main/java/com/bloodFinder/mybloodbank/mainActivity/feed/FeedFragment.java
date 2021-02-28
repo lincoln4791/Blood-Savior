@@ -1,5 +1,6 @@
 package com.bloodFinder.mybloodbank.mainActivity.feed;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.MyLoadingProgress;
 import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bloodFinder.mybloodbank.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,13 +64,13 @@ public class FeedFragment extends Fragment {
         mRootRef = FirebaseDatabase.getInstance().getReference();
         dbrPosts = mRootRef.child(NodeNames.POSTS);
         dbrUsers = mRootRef.child(NodeNames.USERS);
+        myUID = FirebaseAuth.getInstance().getUid();
         arcLoader.start();
 
-        dbrPosts.addValueEventListener(new ValueEventListener() {
+        dbrPosts.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                        String postCreatorID = dataSnapshot.child(NodeNames.POST_CREATOR_ID).getValue().toString();
 
@@ -89,9 +93,16 @@ public class FeedFragment extends Fragment {
                                     String district = "";
                                     String postDescription = "";
                                     String address = "";
-                                    String love = "";
-                                    String views = "";
+                                    String love = "0";
+                                    String views = "0";
                                     String postID = "";
+                                    String cause = "";
+                                    String gender = "";
+                                    String accepted = "";
+                                    String donated = "";
+                                    String phone = "";
+                                    String unitBag = "";
+                                    Boolean loveCheckerFlag = false;
 
                                     if(dataSnapshot.child(NodeNames.POST_PHOTO).getValue() != null){
                                         if(!dataSnapshot.child(NodeNames.POST_PHOTO).getValue().equals("")){
@@ -129,11 +140,6 @@ public class FeedFragment extends Fragment {
                                         }
                                     }
 
-                                    if(dataSnapshot.child(NodeNames.POST_VIEWS).getValue() != null){
-                                        if(!dataSnapshot.child(NodeNames.POST_VIEWS).getValue().equals("")){
-                                            views = dataSnapshot.child(NodeNames.POST_VIEWS).getValue().toString();
-                                        }
-                                    }
 
                                     if(dataSnapshot.child(NodeNames.AREA).getValue() != null){
                                         if(!dataSnapshot.child(NodeNames.AREA).getValue().equals("")){
@@ -147,23 +153,86 @@ public class FeedFragment extends Fragment {
                                         }
                                     }
 
+                                    if(dataSnapshot.child(NodeNames.CAUSE).getValue() != null){
+                                        if(!dataSnapshot.child(NodeNames.CAUSE).getValue().equals("")){
+                                            cause = dataSnapshot.child(NodeNames.CAUSE).getValue().toString();
+                                        }
+                                    }
+
+                                    if(dataSnapshot.child(NodeNames.GENDER).getValue() != null){
+                                        if(!dataSnapshot.child(NodeNames.GENDER).getValue().equals("")){
+                                            gender = dataSnapshot.child(NodeNames.GENDER).getValue().toString();
+                                        }
+                                    }
+
+                                    if(dataSnapshot.child(NodeNames.ACCEPTED).getValue() != null){
+                                        if(!dataSnapshot.child(NodeNames.ACCEPTED).getValue().equals("")){
+                                            accepted = dataSnapshot.child(NodeNames.ACCEPTED).getValue().toString();
+                                        }
+                                    }
+
+                                    if(dataSnapshot.child(NodeNames.DONATED).getValue() != null){
+                                        if(!dataSnapshot.child(NodeNames.DONATED).getValue().equals("")){
+                                            donated = dataSnapshot.child(NodeNames.DONATED).getValue().toString();
+                                        }
+                                    }
+
+                                    if(dataSnapshot.child(NodeNames.PHONE_NUMBER).getValue() != null){
+                                        if(!dataSnapshot.child(NodeNames.PHONE_NUMBER).getValue().equals("")){
+                                            phone = dataSnapshot.child(NodeNames.PHONE_NUMBER).getValue().toString();
+                                        }
+                                    }
+
+                                    if(dataSnapshot.child(NodeNames.UNIT_BAGS).getValue() != null){
+                                        if(!dataSnapshot.child(NodeNames.UNIT_BAGS).getValue().equals("")){
+                                            unitBag = dataSnapshot.child(NodeNames.UNIT_BAGS).getValue().toString();
+                                        }
+                                    }
+
+                                    //View Counter
+                                    if(dataSnapshot.child(NodeNames.VIEW_COUNTER_FOLDER).exists()) {
+                                        int viewCounter = 0;
+                                        for (DataSnapshot viewSnapshot : dataSnapshot.child(NodeNames.VIEW_COUNTER_FOLDER).getChildren()) {
+                                            viewCounter++;
+                                        }
+                                    }
+
+                                        if(dataSnapshot.child(NodeNames.POST_VIEWS).getValue() != null){
+                                            if(!dataSnapshot.child(NodeNames.POST_VIEWS).getValue().equals("")){
+                                                views = dataSnapshot.child(NodeNames.POST_VIEWS).getValue().toString();
+                                            }
+                                        }
+
+
+
+                                    //Love Counter
+                                    if(dataSnapshot.child(NodeNames.LOVE_REACT_COUNT_FOLDER).exists()){
+                                        for(DataSnapshot loveReactSnapshot : dataSnapshot.child(NodeNames.LOVE_REACT_COUNT_FOLDER).getChildren()){
+                                            if(loveReactSnapshot.getValue().toString().equals(myUID)){
+                                                loveCheckerFlag = true;
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        //Toast.makeText(getContext(),getString(R.string.snapshotDoesnotExists), Toast.LENGTH_SHORT).show();
+                                    }
+
+
+
 
                                     ModelClassFeedFragment object = new ModelClassFeedFragment(userName,userPhoto,bloodGroup,timeAgo,district,
-                                            postDescription,postPhoto,address,love,views, ServerValue.TIMESTAMP.toString(),postCreatorID,postID);
+                                            postDescription,postPhoto,address,love,views, timeAgo,postCreatorID,postID,
+                                            cause,gender,accepted,donated,phone,unitBag,loveCheckerFlag);
 
                                     modelClassFeedFragmentList.add(object);
                                     adapterFeedFragment.notifyDataSetChanged();
                                     arcLoader.setVisibility(View.GONE);
                                     recyclerView.setVisibility(View.VISIBLE);
-
-
                                 }
                                 else{
-                                    Toast.makeText(getContext(), getString(R.string.snapshotDoesnotExists), Toast.LENGTH_SHORT).show();
+                                    //This line occuring a crush when i go inlandscape mood when feedfragment is loading
+                                    //Toast.makeText(getActivity(), getString(R.string.snapshotDoesnotExists), Toast.LENGTH_SHORT).show();
                                 }
-
-
-
 
                             }
 
@@ -172,9 +241,6 @@ public class FeedFragment extends Fragment {
                                 Toast.makeText(getContext(), getString(R.string.canceled), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
-
 
                     }
                 }
@@ -190,5 +256,15 @@ public class FeedFragment extends Fragment {
         });
 
 
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser==null){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        }
     }
 }

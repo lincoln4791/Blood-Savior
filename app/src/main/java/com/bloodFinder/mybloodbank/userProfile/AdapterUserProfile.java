@@ -1,6 +1,7 @@
 package com.bloodFinder.mybloodbank.userProfile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.common.Extras;
+import com.bloodFinder.mybloodbank.common.Util;
 import com.bloodFinder.mybloodbank.mainActivity.feed.AdapterFeedFragment;
 import com.bloodFinder.mybloodbank.mainActivity.feed.ModelClassFeedFragment;
+import com.bloodFinder.mybloodbank.mainActivity.requests.SingleRequest.SingleRequest;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -30,7 +36,7 @@ public class AdapterUserProfile extends RecyclerView.Adapter<AdapterUserProfile.
     @NonNull
     @Override
     public MyViewJHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.sample_feed_fragment,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.sample_myrequests_fragment,parent,false);
         return new MyViewJHolder(view);
 
     }
@@ -38,25 +44,40 @@ public class AdapterUserProfile extends RecyclerView.Adapter<AdapterUserProfile.
     @Override
     public void onBindViewHolder(@NonNull MyViewJHolder holder, int position) {
 
-        holder.userName.setText(modelClassUserProfileList.get(position).getPostCreatorName());
-        holder.bloodGroup.setText(modelClassUserProfileList.get(position).getBloodGroup());
-        holder.area.setText(modelClassUserProfileList.get(position).getArea());
-        holder.description.setText(modelClassUserProfileList.get(position).getPostDescription());
-        //holder.love.setText(modelClassFeedFragmentList.get(position).getLove());
-        //holder.views.setText(modelClassFeedFragmentList.get(position).getViews());
-        holder.love.setText("10 Loves");
-        holder.views.setText("214 Views");
-        holder.bloodGroup2.setText(modelClassUserProfileList.get(position).getBloodGroup());
-        holder.district.setText(modelClassUserProfileList.get(position).getDistrict());
+        holder.tv_bloodGroup.setText(modelClassUserProfileList.get(position).getBloodGroup());
+        holder.tv_area.setText(modelClassUserProfileList.get(position).getArea());
+        holder.tv_district.setText(modelClassUserProfileList.get(position).getDistrict());
+        holder.tv_accepted.setText(modelClassUserProfileList.get(position).getAccepted());
+        holder.tv_donated.setText(modelClassUserProfileList.get(position).getDonated());
 
-        holder.timeAgo.setText("24 minutes ago");
+        String timeAgo = Util.getTimeAgo(Long.parseLong(modelClassUserProfileList.get(position).getTimeStamp()));
+        holder.tv_timeAgo.setText(timeAgo);
 
-
-        Glide.with(context).load(modelClassUserProfileList.get(position).getPostCreatorPhoto()).placeholder(R.drawable.ic_profile_picture)
-                .error(R.drawable.ic_profile_picture).into(holder.profilePicture);
-
-        Glide.with(context).load(modelClassUserProfileList.get(position).getPostImage()).placeholder(R.drawable.featuredd)
-                .error(R.drawable.featuredd).into(holder.postImage);
+        holder.cv_holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SingleRequest.class);
+                intent.putExtra(Extras.POST_CREATOR_ID,modelClassUserProfileList.get(position).getPostCreatorID());
+                intent.putExtra(Extras.POST_CREATOR_PHOTO,modelClassUserProfileList.get(position).getPostCreatorPhoto());
+                intent.putExtra(Extras.POST_CREATOR_NAME,modelClassUserProfileList.get(position).getPostCreatorName());
+                intent.putExtra(Extras.POST_ID,modelClassUserProfileList.get(position).getPostID());
+                intent.putExtra(Extras.POST_DESCRIPTION,modelClassUserProfileList.get(position).getPostDescription());
+                intent.putExtra(Extras.POST_IMAGE,modelClassUserProfileList.get(position).getPostImage());
+                intent.putExtra(Extras.POST_LOVE,modelClassUserProfileList.get(position).getPostLove());
+                intent.putExtra(Extras.POST_VIEW,modelClassUserProfileList.get(position).getPostView());
+                intent.putExtra(Extras.BLOOD_GROUP,modelClassUserProfileList.get(position).getBloodGroup());
+                intent.putExtra(Extras.AREA,modelClassUserProfileList.get(position).getArea());
+                intent.putExtra(Extras.DISTRICT,modelClassUserProfileList.get(position).getDistrict());
+                intent.putExtra(Extras.ACCEPTED,modelClassUserProfileList.get(position).getAccepted());
+                intent.putExtra(Extras.DONATED,modelClassUserProfileList.get(position).getDonated());
+                intent.putExtra(Extras.TIMESTAMP,modelClassUserProfileList.get(position).getTimeStamp());
+                intent.putExtra(Extras.CAUSE,modelClassUserProfileList.get(position).getCause());
+                intent.putExtra(Extras.GENDER,modelClassUserProfileList.get(position).getGender());
+                intent.putExtra(Extras.PHONE_NUMBER,modelClassUserProfileList.get(position).getPhone());
+                intent.putExtra(Extras.UNIT_BAGS,modelClassUserProfileList.get(position).getUnitBag());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -66,30 +87,22 @@ public class AdapterUserProfile extends RecyclerView.Adapter<AdapterUserProfile.
     }
 
     public class MyViewJHolder extends RecyclerView.ViewHolder {
-        private ImageView profilePicture;
-        private ImageView postImage;
-        private TextView userName;
-        private TextView bloodGroup;
-        private TextView timeAgo;
-        private TextView district;
-        private TextView bloodGroup2;
-        private TextView area;
-        private TextView description;
-        private TextView love;
-        private TextView views;
+        private TextView tv_bloodGroup;
+        private TextView tv_area;
+        private TextView tv_district;
+        private TextView tv_timeAgo;
+        private TextView tv_accepted;
+        private TextView tv_donated;
+        private CardView cv_holder;
         public MyViewJHolder(@NonNull View itemView) {
             super(itemView);
-            profilePicture = itemView.findViewById(R.id.profilePicture_sampleFeedFragment);
-            postImage = itemView.findViewById(R.id.iv_postImage_SampleFeedFragment);
-            userName = itemView.findViewById(R.id.tv_userName_sampleFeedFragment);
-            bloodGroup = itemView.findViewById(R.id.tv_bloodGroup_sampleFeedFragment);
-            timeAgo = itemView.findViewById(R.id.tv_timeAgo_sampleFeedFragment);
-            district = itemView.findViewById(R.id.tv_district_sampleFeedFragment);
-            area = itemView.findViewById(R.id.tv_address_sampleFeedFragment);
-            bloodGroup2 = itemView.findViewById(R.id.bloodGroup2_sampleFeedFragment);
-            love = itemView.findViewById(R.id.tv_loveValue_SampleFeedFragment);
-            views = itemView.findViewById(R.id.tv_viewValue_SampleFeedFragment);
-            description = itemView.findViewById(R.id.tv_description_sampleFeedFragment);
+            tv_bloodGroup = itemView.findViewById(R.id.tv_bloodGroup_sampleMyRequestsFragment);
+            tv_area = itemView.findViewById(R.id.tv_area_sampleMyRequestsFragment);
+            tv_district = itemView.findViewById(R.id.tv_district_sampleMyRequestsFragment);
+            tv_timeAgo = itemView.findViewById(R.id.tv_timeAgo_sampleMyRequestsFragment);
+            tv_accepted = itemView.findViewById(R.id.tv_acceptedValue_sampleMyRequestFragment);
+            tv_donated = itemView.findViewById(R.id.tv_donatedValue_sampleMyRequestsFragment);
+            cv_holder = itemView.findViewById(R.id.cv_holder_sampleMyRequestsFragment);
         }
     }
 }

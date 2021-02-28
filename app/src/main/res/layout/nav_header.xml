@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/red"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/blood_drop_white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="45sp"
+        android:textColor="@color/white"
+        android:text="Blood Bank"
+        android:textStyle="bold"
+        android:fontFamily="@font/redressed_regular"/>
+
+</LinearLayout>

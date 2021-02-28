@@ -15,11 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.login.LoginActivity;
 import com.bloodFinder.mybloodbank.mainActivity.requests.AcceptedFragment.AcceptedFragment;
 import com.bloodFinder.mybloodbank.mainActivity.requests.MyRequests.MyRequestsFragment;
 import com.bloodFinder.mybloodbank.mainActivity.requests.makeNewRequest.MakeNewRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RequestsFragment extends Fragment {
     private FloatingActionButton btn_makeNewRequest;
@@ -108,4 +111,12 @@ public class RequestsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser==null){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        }
+    }
 }

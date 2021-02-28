@@ -134,7 +134,7 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
         et_writeMessage = findViewById(R.id.et_writeMessage_chattingActivity);
         sendAttachment = findViewById(R.id.iv_sendAttachment_chattingActivity);
         sendMessageBtn = findViewById(R.id.iv_sendMessage_chattingActivity);
-        //llProgress = findViewById(R.id.llProgress);
+        llProgress = findViewById(R.id.llProgress);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         dbrChat = databaseReference.child(NodeNames.CHAT_FOLDER);
         dbrUsers = databaseReference.child(NodeNames.USERS);

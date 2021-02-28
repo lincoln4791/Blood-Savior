@@ -73,7 +73,7 @@ public class ChatList extends Fragment {
         dbrUsers = databaseReference.child(NodeNames.USERS);
         dbrChats = databaseReference.child(NodeNames.CHAT_FOLDER);
         dbrFriendRequests = databaseReference.child(NodeNames.FRIEND_REQUEST_STATUS_FOLDER).child(currentUser.getUid());
-        query= dbrChats.child(myUID).orderByChild(NodeNames.TIME_STAMP);
+        query= dbrChats.child(myUID).orderByChild(NodeNames.TIMESTAMP);
 
         customProgressbar.setVisibility(View.VISIBLE);
 
@@ -81,12 +81,11 @@ public class ChatList extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    emptyChatListText.setVisibility(View.GONE);
                     loadProfiles(snapshot);
                 }
                 else{
                     customProgressbar.setVisibility(View.GONE);
-                    emptyChatListText.setText(R.string.noChatsInTheChatList);
+                    emptyChatListText.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -167,6 +166,7 @@ public class ChatList extends Fragment {
                 });
 
             }
+            customProgressbar.setVisibility(View.GONE);
 
         }
         else{

@@ -220,12 +220,98 @@
     <string name="sign_in">Sign in</string>
     <string name="loginSuccessful">Login Successful</string>
     <string name="noChatsInTheChatList">No chats in the chat list</string>
+    <string name="lincoln">Lincoln</string>
+    <string name="demoPhoneNumber">01670878110</string>
+    <string name="failedToUpdatePhoneNUmber">Failed To Update Phone Number</string>
+    <string name="invite">Invite</string>
+    <string name="open">Open</string>
+    <string name="one">1</string>
+    <string name="demoTime">12:14 PM</string>
+    <string name="aboutUsText">A blood bank is a place where blood is collected and stored before it is used for transfusions.
+        Blood banking takes place in the lab. This is to make sure that donated blood and blood products are safe before they are used.
+        Blood banking also determines the blood type. You can ask for any type of blood you need and also you can easily see who n]is needed
+        of blood in realtime</string>
+    <string name="descriptionPrivacyPolicy">BloodBank.Live respects the privacy of its users and has developed this Privacy Policy to demonstrate its commitment to protecting your privacy. These privacy policies (the "Privacy Policy") are intended to describe for you, as an individual who is a user of mobile app and services offered by BloodBank.Live, the information we collect, how that information may be used, with whom it may be shared, and your choices about such uses and disclosures.
 
+We encourage you to read this Privacy Policy carefully when using this app. By using this app, you are accepting the practices described in this Privacy Policy.
 
+If you have any questions about our privacy practices, please refer to the end of this Privacy Policy for information on How to Contact Us.</string>
+    <string name="contact">Contact</string>
+    <string name="emailAddressValue">dev.lincoln47@gmail.com</string>
+    <string name="privacy_and_policy">Privacy and Policy</string>
+    <string name="privacyPolicy">Privacy Policy</string>
+    <string name="donorRegistration">Doner Registration</string>
+    <string name="descriptionDonorRegistrationValue">By sign in through our app you will be registered as blood donor, however you will get blood request only if our search criteria matches your blood group, location and donation history.</string>
+    <string name="informationCollection">Information Collection</string>
+    <string name="descriptionInfoUsesValue">We may use information that we collect about you to
+                    deliver the information to show in the app,
+                    perform research and analysis about blood donors, requesters, blood donations etc,
+                    communicate with you by e-mail, mobile devices,
+                    to facilitate your contact details to blood requester for sending message or calling you directly,
+                    enforce our terms and conditions.</string>
+    <string name="descriptionInformationCollectionValue">We may collect personal information that can identify you,
+        such as your name, email address, contact details, location and other information also that does identify you but required
+        for the app like your blood group. When you provide personal information through our app,
+        the information may be sent to our servers.</string>
+    <string name="informationUses">Information Uses</string>
+    <string name="protectionOfPersonalInformation">Protection Of Personal Information</string>
+    <string name="description_protectionOfPersonalInformationValue">We take care of the personal information of user with the maximum security.
+                    We never use or share any kind of information in any other service or we never share this with other. The information isonly available
+                    to the users of this application.
+    </string>
+    <string name="contactUs">Contact Us</string>
+    <string name="donated">Donated</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="save">Save</string>
+    <string name="bloodGroupError">Blood Group Error</string>
+    <string name="genderError">Gender Error</string>
+    <string name="failedToInteractWithPost">Failed to interact with post</string>
     <string-array name="requiredAmountOfBlood">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
+    </string-array>
+
+    <string-array name="bloodBankName">
+        <item>ALIF BLOOD BANK and TRANSFUSION CENTER</item>
+        <item>BADHAN BLOOD BANK</item>
+        <item>BANGLADESH RED CRESCENT BLOOD BANK</item>
+        <item>ISLAMI BANK HOSPITAL BLOOD BANK</item>
+        <item>MALIHA BLOOD BANK</item>
+        <item>NEW BANGLADESH PATHOLOGY and BLOOD BANK</item>
+        <item>ORIENTAL BLOOD BANK</item>
+        <item>POLICE BLOOD BANK</item>
+        <item>QUANTUM BLOOD BANK</item>
+        <item>SHANDHANI, DHAKA DENTAL COLLEGE BRANCH</item>
+        <item>THALASSEMIA BLOOD BANK</item>
+    </string-array>
+
+    <string-array name="bloodBankAddress">
+        <item> 44/11, West Panthapath (2nd Floor), Opposite of Shamrita Hospital, Dhaka 1215</item>
+        <item> Central Office, T.S.C(Ground Floor), University of Dhaka, Dhaka-1000</item>
+        <item> 7/5, Aurongzeb Road, Mohammadpur, Dhaka.</item>
+        <item> 30, VIP Road, Kakrail Dhaka-1000</item>
+        <item> 2/13, Humayan Road, Mohammadpur, Dhaka</item>
+        <item>House-69,Road-9/A,Dhanmondi-R/A,Dhaka-1209.</item>
+        <item> Green Center, 2B/30, Green Road, Dhanmondi, Dhaka</item>
+        <item>Central Police Hospital, Rajarbag, Dhaka.</item>
+        <item>Shantinagar Dhaka</item>
+        <item> Dhaka Dental College Branch, Mirpur-14, Dhaka, Bangladesh</item>
+        <item>30 Chamelibag, 1st Lane, Dhaka 1217</item>
+    </string-array>
+
+    <string-array name="bloodBankPhoneNUmber">
+        <item> +8801712392923 </item>
+        <item> +8801534982674 </item>
+        <item> +88028121497 </item>
+        <item> +88028317090 </item>
+        <item> +8801736989326 </item>
+        <item> +8801715546807 </item>
+        <item> +8801812700053 </item>
+        <item> +88029362573 </item>
+        <item> +88029351969 </item>
+        <item> +88029011887 </item>
+        <item> +88028332481 </item>
     </string-array>
 </resources>

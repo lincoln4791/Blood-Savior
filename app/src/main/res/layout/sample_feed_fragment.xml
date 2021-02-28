@@ -118,77 +118,103 @@
             android:orientation="horizontal"
             android:weightSum="3">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_love_SampleFeedFragment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:background="@color/selectableBackground"
+                android:clickable="true"
+                android:focusable="true">
 
-                <ImageView
-                    android:id="@+id/iv_love_SampleFeedFragment"
-                    android:layout_width="25dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_heart" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_loveValue_SampleFeedFragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:textSize="11sp"
-                    android:text="@string/_10_love" />
+                    <ImageView
+                        android:id="@+id/iv_love_SampleFeedFragment"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_love" />
+
+                    <TextView
+                        android:id="@+id/tv_loveValue_SampleFeedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textSize="11sp"
+                        android:text="@string/_10_love" />
 
 
-            </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_view_SampleFeedFragment"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/selectableBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/iv_view_SampleFeedFragment"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_view" />
+
+                    <TextView
+                        android:id="@+id/tv_viewValue_SampleFeedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/_100_views"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_share_SampleFeedFragment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:background="@color/selectableBackground"
+                android:clickable="true"
+                android:focusable="true">
 
-                <ImageView
-                    android:id="@+id/iv_view_SampleFeedFragment"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="30dp"
-                    android:src="@drawable/ic_view" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_viewValue_SampleFeedFragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="11sp"
-                    android:text="@string/_100_views" />
+                    <ImageView
+                        android:id="@+id/iv_share_SampleFeedFragment"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_share" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/iv_share_SampleFeedFragment"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="30dp"
-                    android:src="@drawable/ic_share" />
-
-                <TextView
-                    android:id="@+id/tv_shareValue_SampleFeedFragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="11sp"
-                    android:text="@string/share" />
+                    <TextView
+                        android:id="@+id/tv_shareValue_SampleFeedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/share"
+                        android:textSize="11sp" />
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
 

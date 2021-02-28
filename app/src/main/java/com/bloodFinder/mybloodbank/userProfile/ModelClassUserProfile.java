@@ -2,42 +2,48 @@ package com.bloodFinder.mybloodbank.userProfile;
 
 public class ModelClassUserProfile {
 
-    private String postCreatorName;
-    private String postCreatorPhoto;
     private String bloodGroup;
-    private String district;
-    private String postDescription;
-    private String postImage;
     private String area;
-    private String love;
-    private String views;
-    private String timeStamp;
+    private String district;
+    private String accepted;
+    private String donated;
     private String postCreatorID;
+    private String postCreatorName;
     private String postID;
+    private String postImage;
+    private String timeStamp;
+    private String cause;
+    private String gender;
+    private String postCreatorPhoto;
+    private String postDescription;
+    private String postLove;
+    private String postView;
+    private String phone;
+    private String unitBag;
 
 
-    public ModelClassUserProfile(String postCreatorName, String postCreatorPhoto, String bloodGroupLookingFor, String timeAgo, String district, String postDescription
-            , String postImage, String area, String love, String views, String timeStamp, String postCreatorID, String postID) {
-        this.postCreatorName = postCreatorName;
-        this.bloodGroup = bloodGroupLookingFor;
-        this.timeStamp = timeAgo;
-        this.district = district;
-        this.postDescription = postDescription;
-        this.postImage = postImage;
+    public ModelClassUserProfile(String bloodGroup, String area, String district, String accepted, String donated,
+                                String postCreatorID, String postCreatorName, String postID, String postImage, String timeStamp, String cause,
+                                String gender, String postCreatorPhoto, String postDescription, String postLove, String postView,
+                                String unitBag, String phone) {
+        this.bloodGroup = bloodGroup;
         this.area = area;
-        this.love = love;
-        this.views = views;
-        this.timeStamp = timeStamp;
+        this.district = district;
+        this.accepted = accepted;
+        this.donated = donated;
         this.postCreatorID = postCreatorID;
-        this.postID = postID;
-    }
-
-    public String getPostCreatorName() {
-        return postCreatorName;
-    }
-
-    public void setPostCreatorName(String postCreatorName) {
         this.postCreatorName = postCreatorName;
+        this.postID = postID;
+        this.postImage = postImage;
+        this.timeStamp = timeStamp;
+        this.cause = cause;
+        this.gender = gender;
+        this.postCreatorPhoto = postCreatorPhoto;
+        this.postDescription = postDescription;
+        this.postLove = postLove;
+        this.postView = postView;
+        this.phone = phone;
+        this.unitBag = unitBag;
     }
 
     public String getBloodGroup() {
@@ -48,12 +54,12 @@ public class ModelClassUserProfile {
         this.bloodGroup = bloodGroup;
     }
 
-    public String getTimeAgo() {
-        return timeStamp;
+    public String getArea() {
+        return area;
     }
 
-    public void setTimeAgo(String timeAgo) {
-        this.timeStamp = timeAgo;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getDistrict() {
@@ -64,12 +70,44 @@ public class ModelClassUserProfile {
         this.district = district;
     }
 
-    public String getPostDescription() {
-        return postDescription;
+    public String getAccepted() {
+        return accepted;
     }
 
-    public void setPostDescription(String postDescription) {
-        this.postDescription = postDescription;
+    public void setAccepted(String accepted) {
+        this.accepted = accepted;
+    }
+
+    public String getDonated() {
+        return donated;
+    }
+
+    public void setDonated(String donated) {
+        this.donated = donated;
+    }
+
+    public String getPostCreatorID() {
+        return postCreatorID;
+    }
+
+    public void setPostCreatorID(String postCreatorID) {
+        this.postCreatorID = postCreatorID;
+    }
+
+    public String getPostCreatorName() {
+        return postCreatorName;
+    }
+
+    public void setPostCreatorName(String postCreatorName) {
+        this.postCreatorName = postCreatorName;
+    }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
     }
 
     public String getPostImage() {
@@ -80,30 +118,6 @@ public class ModelClassUserProfile {
         this.postImage = postImage;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getLove() {
-        return love;
-    }
-
-    public void setLove(String love) {
-        this.love = love;
-    }
-
-    public String getViews() {
-        return views;
-    }
-
-    public void setViews(String views) {
-        this.views = views;
-    }
-
     public String getTimeStamp() {
         return timeStamp;
     }
@@ -112,26 +126,68 @@ public class ModelClassUserProfile {
         this.timeStamp = timeStamp;
     }
 
-    public String getPostCreatorID() {
-        return postCreatorID;
+    public String getCause() {
+        return cause;
     }
 
-    public void setPostCreatorID(String postCreatorID) {
-        this.postCreatorID = postCreatorID;
+    public void setCause(String cause) {
+        this.cause = cause;
     }
-    public void setPostCreatorPhoto(String postCreatorPhoto) {
-        this.postCreatorPhoto = postCreatorPhoto;
+
+    public String getGender() {
+        return gender;
     }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getPostCreatorPhoto() {
         return postCreatorPhoto;
     }
 
-    public String getPostID() {
-        return postID;
+    public void setPostCreatorPhoto(String postCreatorPhoto) {
+        this.postCreatorPhoto = postCreatorPhoto;
     }
 
-    public void setPostID(String postID) {
-        this.postID = postID;
+    public String getPostDescription() {
+        return postDescription;
+    }
+
+    public void setPostDescription(String postDescription) {
+        this.postDescription = postDescription;
+    }
+
+    public String getPostLove() {
+        return postLove;
+    }
+
+    public void setPostLove(String postLove) {
+        this.postLove = postLove;
+    }
+
+    public String getPostView() {
+        return postView;
+    }
+
+    public void setPostView(String postView) {
+        this.postView = postView;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUnitBag() {
+        return unitBag;
+    }
+
+    public void setUnitBag(String unitBag) {
+        this.unitBag = unitBag;
     }
 
 }

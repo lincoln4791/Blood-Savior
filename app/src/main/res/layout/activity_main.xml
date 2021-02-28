@@ -1,29 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/drawer_layout_MainActivity"
     tools:context=".mainActivity.MainActivity">
 
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_MainActivity"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_MAinActivity"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_mainActivity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/iv_notification_MainActivity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Blood Bank"
+            app:titleTextColor="@color/red" />
+
+        <ImageView
+            android:id="@+id/iv_notification_MainActivity"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_notification"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_mainActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_mainActivity" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_MainActivity"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:tabIconTint="@color/red"
+            app:tabIndicatorColor="@color/green"
+            app:tabIndicator="@color/yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_MAinActivity"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/tl_MainActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_mainActivity" />
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view_MainActivity"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/tl_MainActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

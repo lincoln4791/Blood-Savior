@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+        <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_aboutUs_actionbar_home"
+                    android:title="@string/about_us"
+                    android:icon="@drawable/ic_about_us"
+                    />
+                <item
+                    android:id="@+id/menu_rateUs_actionbar_home"
+                    android:title="@string/rate_us"
+                    android:icon="@drawable/ic_rate_us"/>
+
+
+                <item
+                    android:id="@+id/menu_privacyPolicy_actionbar_home"
+                    android:title="@string/privacy_policy"
+                    android:icon="@drawable/ic_privacy_policy"/>
+
+                <item
+                    android:id="@+id/menu_rewardCard_actionbar_home"
+                    android:title="@string/reward_card"
+                    android:icon="@drawable/ic_reward"/>
+
+                <item
+                    android:id="@+id/menu_logOut_actionbar_home"
+                    android:title="@string/logout"
+                    android:icon="@drawable/ic_logout"/>
+        </group>
+
+</menu>
