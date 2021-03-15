@@ -7,15 +7,25 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/bloodbank_app_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBloodBank">
-        <activity android:name=".donarsGroup.DonarsGroup"></activity>
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".covid19Report.countryWiseReport.CountryWiseReport" />
+        <activity android:name=".covid19Report.affectedCountries.AffectedCountries" />
+        <activity android:name=".covid19Report.Covid19Report" />
+        <activity android:name=".donarsGroup.DonorsGroup" />
         <activity android:name=".mainActivity.requests.editRequestPost.EditRequest" />
         <activity android:name=".userProfile.editProfileActivity.EditProfileActivity" />
         <activity android:name=".privacyPolicy.PrivacyPolicy" />
@@ -25,15 +35,19 @@
         <activity android:name=".mainActivity.chats.ChattingActivity.ChattingActivity" />
         <activity android:name=".mainActivity.requests.makeNewRequest.MakeNewRequest" />
         <activity android:name=".userProfile.UserProfile" />
-        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".login.LoginActivity"/>
         <activity android:name=".userRegistration.Register" />
-        <activity android:name=".mainActivity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".mainActivity.MainActivity" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <service
+            android:name=".notification.ChatMessagingService"
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
-        </activity>
+        </service>
     </application>
 
 </manifest>

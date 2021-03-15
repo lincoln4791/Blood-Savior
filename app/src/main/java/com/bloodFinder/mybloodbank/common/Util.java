@@ -72,9 +72,9 @@ public class Util {
 
 
     public static void sendNotification(Context context, String notificationTitle, String notificationMessage, String userID) {
-        //Log.d("tag","Title : "+notificationTitle);
-        //Log.d("tag","Message : "+notificationMessage);
-        //Log.d("tag","UserID : "+userID);
+        Log.d("tag","Title : "+notificationTitle);
+        Log.d("tag","Message : "+notificationMessage);
+        Log.d("tag","UserID : "+userID);
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference dbrTokens = mRootRef.child(NodeNames.TOKENS_FOLDER).child(userID);
         dbrTokens.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -18,11 +18,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Constants;
+import com.bloodFinder.mybloodbank.common.Extras;
+import com.bloodFinder.mybloodbank.userProfile.UserProfile;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -33,7 +36,7 @@ import java.util.List;
 public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyChatsHolder> {
 
     private Context context;
-    private List<ModelClassChatting> modelClassChatting;
+    private List<ModelClassChatting> modelClassChattingList;
     private FirebaseAuth firebaseAuth;
     private ConstraintLayout selectedLayout;
 
@@ -42,7 +45,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyChat
 
     public ChattingAdapter(Context context, List<ModelClassChatting> ModelClassChattingList) {
         this.context = context;
-        this.modelClassChatting = ModelClassChattingList;
+        this.modelClassChattingList = ModelClassChattingList;
     }
 
     @NonNull
@@ -57,58 +60,58 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyChat
     public void onBindViewHolder(@NonNull MyChatsHolder holder, int position) {
 
         firebaseAuth = FirebaseAuth.getInstance();
-        String fromUserID = modelClassChatting.get(position).getMessage_from();
+        String fromUserID = modelClassChattingList.get(position).getMessage_from();
         String currentUserID = firebaseAuth.getCurrentUser().getUid();
 
         SimpleDateFormat dsf = new SimpleDateFormat("dd-MM-yy HH-mm");
-        String dateTime = dsf.format(new Date(modelClassChatting.get(position).getMessage_time()));
+        String dateTime = dsf.format(new Date(modelClassChattingList.get(position).getMessage_time()));
         String [] splitString = dateTime.split(" ");
         String messageTime = splitString[1].replace("-",":");
 
 
 //Implementation of Chat Conversation View
         if (fromUserID.equals(currentUserID)){
-            if(modelClassChatting.get(position).getMessage_type().equals(Constants.MESSAGE_TYPE_TEXT)){
+            if(modelClassChattingList.get(position).getMessage_type().equals(Constants.MESSAGE_TYPE_TEXT)){
                 holder.ll_sentMessage.setVisibility(View.VISIBLE);
-                holder.ll_sentImageMessage.setVisibility(View.GONE);
+                holder.cv_sentImageMessage.setVisibility(View.GONE);
             }
             else{
                 holder.ll_sentMessage.setVisibility(View.GONE);
-                holder.ll_sentImageMessage.setVisibility(View.VISIBLE);
+                holder.cv_sentImageMessage.setVisibility(View.VISIBLE);
             }
 
             holder.ll_receivedMessage.setVisibility(View.GONE);
-            holder.ll_receivedImageMessage.setVisibility(View.GONE);
-            holder.tv_sentMessageText.setText(modelClassChatting.get(position).getMessage());
+            holder.cv_receivedImageMessage.setVisibility(View.GONE);
+            holder.tv_sentMessageText.setText(modelClassChattingList.get(position).getMessage());
             holder.tv_sentMessageTime.setText(messageTime);
             holder.tv_sentImageMessageTime.setText(messageTime);
-            Glide.with(context).load(modelClassChatting.get(position).getMessage()).placeholder(R.drawable.ic_profile_picture)
+            Glide.with(context).load(modelClassChattingList.get(position).getMessage()).placeholder(R.drawable.ic_profile_picture)
                     .error(R.drawable.ic_profile_picture).into(holder.iv_sentImageMessage);
         }
 
         else {
 
-            if(modelClassChatting.get(position).getMessage_type().equals(Constants.MESSAGE_TYPE_TEXT)){
+            if(modelClassChattingList.get(position).getMessage_type().equals(Constants.MESSAGE_TYPE_TEXT)){
                 holder.ll_receivedMessage.setVisibility(View.VISIBLE);
-                holder.ll_receivedImageMessage.setVisibility(View.GONE);
+                holder.cv_receivedImageMessage.setVisibility(View.GONE);
             }
             else{
                 holder.ll_receivedMessage.setVisibility(View.GONE);
-                holder.ll_receivedImageMessage.setVisibility(View.VISIBLE);
+                holder.cv_receivedImageMessage.setVisibility(View.VISIBLE);
             }
             holder.ll_sentMessage.setVisibility(View.GONE);
-            holder.ll_sentImageMessage.setVisibility(View.GONE);
-            holder.tv_receivedMessageText.setText(modelClassChatting.get(position).getMessage());
+            holder.cv_sentImageMessage.setVisibility(View.GONE);
+            holder.tv_receivedMessageText.setText(modelClassChattingList.get(position).getMessage());
             holder.tv_receivedMessageTime.setText(messageTime);
             holder.tv_receivedImageMessageTime.setText(messageTime);
-            Glide.with(context).load(modelClassChatting.get(position).getMessage()).placeholder(R.drawable.ic_profile_picture)
+            Glide.with(context).load(modelClassChattingList.get(position).getMessage()).placeholder(R.drawable.ic_profile_picture)
                     .error(R.drawable.ic_profile_picture).into(holder.iv_receivedImageMessage);
         }
 
 
-        holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE, modelClassChatting.get(position).getMessage());
-        holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_TYPE, modelClassChatting.get(position).getMessage_type());
-        holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_ID, modelClassChatting.get(position).getMessage_id());
+        holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE, modelClassChattingList.get(position).getMessage());
+        holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_TYPE, modelClassChattingList.get(position).getMessage_type());
+        holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_ID, modelClassChattingList.get(position).getMessage_id());
         //selectedLayout = holder.cl_messageSampleLayout;
 
 
@@ -146,9 +149,9 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyChat
                     return false;
                 }
                 else{
-                    holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE, modelClassChatting.get(position).getMessage());
-                    holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_TYPE, modelClassChatting.get(position).getMessage_type());
-                    holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_ID, modelClassChatting.get(position).getMessage_id());
+                    holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE, modelClassChattingList.get(position).getMessage());
+                    holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_TYPE, modelClassChattingList.get(position).getMessage_type());
+                    holder.cl_messageSampleLayout.setTag(R.id.TAG_MESSAGE_ID, modelClassChattingList.get(position).getMessage_id());
 
                     //Log.d("tag","TagMessage ID : "+holder.cl_messageSampleLayout.getTag(R.id.TAG_MESSAGE_ID).toString());
                     //Log.d("tag","TagMessage TYPE : "+holder.cl_messageSampleLayout.getTag(R.id.TAG_MESSAGE_TYPE).toString());
@@ -171,11 +174,12 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyChat
 
     @Override
     public int getItemCount() {
-        return modelClassChatting.size();
+        return modelClassChattingList.size();
     }
 
     public class MyChatsHolder extends RecyclerView.ViewHolder {
-        private LinearLayout ll_sentMessage,ll_receivedMessage,ll_sentImageMessage,ll_receivedImageMessage;
+        private LinearLayout ll_sentMessage,ll_receivedMessage;
+        private CardView cv_sentImageMessage, cv_receivedImageMessage;
         private TextView tv_sentMessageText,tv_sentMessageTime,tv_receivedMessageText, tv_receivedMessageTime,
                 tv_sentImageMessageTime,tv_receivedImageMessageTime;
         private ImageView iv_sentImageMessage,iv_receivedImageMessage;
@@ -187,8 +191,8 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.MyChat
             super(itemView);
             ll_sentMessage = itemView.findViewById(R.id.ll_SentMessagec_sampleMessagesListLayout);
             ll_receivedMessage = itemView.findViewById(R.id.ll_receivedMessage_sampleMessagesListLayout);
-            ll_sentImageMessage = itemView.findViewById(R.id.ll_SentImageMessage_sampleMessagesListLayout);
-            ll_receivedImageMessage = itemView.findViewById(R.id.ll_receivedImageMessage_sampleMessagesListLayout);
+            cv_sentImageMessage = itemView.findViewById(R.id.cv_SentImageMessage_sampleMessagesListLayout);
+            cv_receivedImageMessage = itemView.findViewById(R.id.cv_receivedImageMessage_sampleMessagesListLayout);
             tv_sentMessageText = itemView.findViewById(R.id.tv_sentMessage_sampleMessagesListLayout);
             iv_sentImageMessage = itemView.findViewById(R.id.iv_SentImageMessage_sampleMessagesListLayout);
             tv_sentMessageTime= itemView.findViewById(R.id.tv_sentMessageTime_sentMessage_sampleMessagesListLayout);

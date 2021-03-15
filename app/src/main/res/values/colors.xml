@@ -24,11 +24,20 @@
     <color name="chatBackground">#ededed</color>
     <color name="appBackground">#F8F6F6</color>
     <color name="transparent">#00000000</color>
-    <color name="sentMessageBackground">#0000F8</color>
+    <color name="sentMessageBackground">#6969F6</color>
     <color name="receivedMessageBackground">#E3E0E0</color>
     <color name="textColor">#393535</color>
     <color name="testred">#ff0000</color>
     <color name="selectableBackground">#C3BEBE</color>
     <color name="grayBackground">#706E6E</color>
     <color name="LightGray">#ACA3A3</color>
+    <color name="caseDeath">#ba160c</color>
+    <color name="caseTotal">#FFE600</color>
+    <color name="caseRecovered">#177e0f</color>
+    <color name="caseActive">#0009ff</color>
+    <color name="orangeDeep">#F33709 </color>
+    <color name="orange">#F39309 </color>
+    <color name="color1">#3ea3e3</color>
+    <color name="color2">#53902c</color>
+    <color name="color3">#e19270</color>
 </resources>

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <View
+        android:id="@+id/viewTop_sampleAcceptedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/red"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_holder_sampleAcceptedFragment"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_holder_sampleAcceptedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTop_sampleAcceptedFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_profilePictureHolder_sampleAcceptedFragment"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="100dp"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profilePicture_sampleAcceptedFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_profile_picture" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_postHolder_sampleAcceptedFragment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_profilePictureHolder_sampleAcceptedFragment"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_userName_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/userName"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_area_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/area"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_userName_sampleAcceptedFragment"
+                        app:layout_constraintTop_toBottomOf="@id/tv_userName_sampleAcceptedFragment" />
+
+                    <TextView
+                        android:id="@+id/tv_comma_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/comma"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tv_area_sampleAcceptedFragment"
+                        app:layout_constraintTop_toTopOf="@id/tv_area_sampleAcceptedFragment" />
+
+                    <TextView
+                        android:id="@+id/tv_district_sampleAcceptedFragment"
+                        android:layout_width="32dp"
+                        android:layout_height="12dp"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/district"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/tv_comma_sampleAcceptedFragment"
+                        app:layout_constraintTop_toTopOf="@id/tv_area_sampleAcceptedFragment" />
+
+
+                    <TextView
+                        android:id="@+id/tv_timeAgo_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timeAgo"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_area_sampleAcceptedFragment"
+                        app:layout_constraintTop_toBottomOf="@id/tv_area_sampleAcceptedFragment" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_completed_sampleMyAcceptedFragment"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="55dp"
+                        android:src="@drawable/ic_completed"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!--<androidx.cardview.widget.CardView
+                android:id="@+id/cv_accepted_sampleAcceptedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textAlignment="center"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="@id/tv_area_sampleAcceptedFragment"
+                app:layout_constraintTop_toBottomOf="@id/tv_timeAgo_sampleAcceptedFragment">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_acceptedValue_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="6dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/zero"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_accepted_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/accepted"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_donated_sampleAcceptedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
+                android:textAlignment="center"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintStart_toEndOf="@id/cv_accepted_sampleAcceptedFragment"
+                app:layout_constraintTop_toBottomOf="@id/tv_timeAgo_sampleAcceptedFragment">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grayBackground"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_donatedValue_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="6dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/zero"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_donated_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/donated"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_bloodGroup_sampleAcceptedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="25dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_bloodGroup_sampleAcceptedFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red">
+
+                    <TextView
+                        android:id="@+id/tv_bloodGroup_sampleAcceptedFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/ABPositive"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/ll_acceptRejectRequestHolder_sampleAcceptedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_holder_sampleAcceptedFragment">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_call_sampleAcceptedFragment"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:elevation="25dp"
+            android:clickable="true"
+            app:strokeWidth=".5dp"
+            app:strokeColor="@color/green"
+            android:backgroundTint="@color/appBackground"
+            app:cardCornerRadius="4dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_call_sampleAcceptedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_call_green"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:text="@string/call"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_chat_sampleAcceptedFragment"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:elevation="25dp"
+            app:strokeWidth=".5dp"
+            app:strokeColor="@color/red"
+            android:backgroundTint="@color/appBackground"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="@id/cv_map_sampleAcceptedFragment"
+            app:layout_constraintEnd_toStartOf="@+id/cv_map_sampleAcceptedFragment"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cv_call_sampleAcceptedFragment"
+            app:layout_constraintTop_toTopOf="@id/cv_call_sampleAcceptedFragment">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_chat_sampleAcceptedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:drawableStart="@drawable/ic_send_message"
+                android:text="@string/chat"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_map_sampleAcceptedFragment"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:elevation="25dp"
+            app:cardCornerRadius="4dp"
+            app:strokeWidth=".5dp"
+            app:strokeColor="@color/black"
+            android:backgroundTint="@color/appBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cv_chat_sampleAcceptedFragment"
+            app:layout_constraintTop_toTopOf="@id/cv_call_sampleAcceptedFragment">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_map_sampleAcceptedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_google_maps"
+                android:textAlignment="center"
+                android:text="@string/map"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_sampleAcceptedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/red"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_acceptRejectRequestHolder_sampleAcceptedFragment"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

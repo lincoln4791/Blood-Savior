@@ -1,30 +1,35 @@
 package com.bloodFinder.mybloodbank.mainActivity.requests.MyRequests;
 
 public class ModelClassMyRequests {
-
-    private String bloodGroup;
-    private String area;
-    private String district;
-    private String accepted;
-    private String donated;
-    private String postCreatorID;
     private String postCreatorName;
-    private String postID;
-    private String postImage;
-    private String timeStamp;
-    private String cause;
-    private String gender;
     private String postCreatorPhoto;
+    private String bloodGroup;
+    private String district;
     private String postDescription;
+    private String postImage;
+    private String area;
     private String postLove;
     private String postView;
+    private String timeStamp;
+    private String postCreatorID;
+    private String postID;
+    private String cause;
+    private String gender;
+    private String accepted;
+    private String donated;
     private String phone;
     private String unitBag;
+    private String requiredDate;
+    private String loveCheckerFlag;
+    private String acceptedFlag;
+    private String completedFlag;
+    private String post_order;
 
     public ModelClassMyRequests(String bloodGroup, String area, String district, String accepted, String donated,
                                 String postCreatorID, String postCreatorName, String postID, String postImage, String timeStamp, String cause,
                                 String gender, String postCreatorPhoto, String postDescription, String postLove, String postView,
-                                String unitBag, String phone) {
+                                String unitBag, String phone,String acceptedFlag, String  loveCheckerFlag, String requiredDate,
+                                String completedFlag, String post_order) {
         this.bloodGroup = bloodGroup;
         this.area = area;
         this.district = district;
@@ -43,6 +48,11 @@ public class ModelClassMyRequests {
         this.postView = postView;
         this.phone = phone;
         this.unitBag = unitBag;
+        this.requiredDate = requiredDate;
+        this.acceptedFlag = acceptedFlag;
+        this.loveCheckerFlag = loveCheckerFlag;
+        this.completedFlag = completedFlag;
+        this.post_order = post_order;
     }
 
     public String getBloodGroup() {
@@ -187,5 +197,45 @@ public class ModelClassMyRequests {
 
     public void setUnitBag(String unitBag) {
         this.unitBag = unitBag;
+    }
+
+    public String getLoveCheckerFlag() {
+        return loveCheckerFlag;
+    }
+
+    public void setLoveCheckerFlag(String loveCheckerFlag) {
+        this.loveCheckerFlag = loveCheckerFlag;
+    }
+
+    public String getAcceptedFlag() {
+        return acceptedFlag;
+    }
+
+    public void setAcceptedFlag(String acceptedFlag) {
+        this.acceptedFlag = acceptedFlag;
+    }
+
+    public String getRequiredDate() {
+        return requiredDate;
+    }
+
+    public void setRequiredDate(String requiredDate) {
+        this.requiredDate = requiredDate;
+    }
+
+    public String getCompletedFlag() {
+        return completedFlag;
+    }
+
+    public void setCompletedFlag(String completedFlag) {
+        this.completedFlag = completedFlag;
+    }
+
+    public String getPost_order() {
+        return post_order;
+    }
+
+    public void setPost_order(String post_order) {
+        this.post_order = post_order;
     }
 }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.bloodFinder.mybloodbank.R;
 
-public class MyLoadingProgress {
+public final class MyLoadingProgress {
     Activity activity;
     AlertDialog alertDialog;
     public MyLoadingProgress(Activity activity){
@@ -18,7 +18,9 @@ public class MyLoadingProgress {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(LayoutInflater.from(activity).inflate(R.layout.sample_custom_progressbar_full,null));
         alertDialog = builder.create();
-        builder.show();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+        //builder.show();
     }
 
     public void dismissAlertDialogue(){

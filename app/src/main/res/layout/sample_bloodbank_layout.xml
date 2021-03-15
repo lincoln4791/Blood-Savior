@@ -34,7 +34,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_map_sampleBloodBank"
             android:layout_width="50dp"
-            android:layout_height="0dp"
+            android:layout_height="50dp"
             android:padding="2dp"
             app:srcCompat="@drawable/ic_google_maps"
             app:layout_constraintEnd_toEndOf="parent"

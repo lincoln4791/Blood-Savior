@@ -19,14 +19,50 @@ public class ModelClassFeedFragment {
     private String donated;
     private String phone;
     private String unitBag;
-    private Boolean loveCheckerFlag;
+    private String requiredDate;
+    private String loveCheckerFlag;
+    private String acceptedFlag;
+    private String completedFlag;
+    private String post_order;
 
 
+    public ModelClassFeedFragment(String postCreatorName, String postCreatorPhoto) {
+        this.postCreatorName = postCreatorName;
+        this.postCreatorPhoto = postCreatorPhoto;
+    }
 
+    public ModelClassFeedFragment(String bloodGroup, String district, String postDescription, String postImage, String area,
+                                  String postLove, String postView, String timeStamp, String postCreatorID, String postID,
+                                  String cause, String gender, String accepted, String donated, String phone, String unitBag,
+                                  String requiredDate, String loveCheckerFlag, String acceptedFlag, String completedFlag,
+                                  String post_order) {
+        this.bloodGroup = bloodGroup;
+        this.district = district;
+        this.postDescription = postDescription;
+        this.postImage = postImage;
+        this.area = area;
+        this.postLove = postLove;
+        this.postView = postView;
+        this.timeStamp = timeStamp;
+        this.postCreatorID = postCreatorID;
+        this.postID = postID;
+        this.cause = cause;
+        this.gender = gender;
+        this.accepted = accepted;
+        this.donated = donated;
+        this.phone = phone;
+        this.unitBag = unitBag;
+        this.requiredDate = requiredDate;
+        this.loveCheckerFlag = loveCheckerFlag;
+        this.acceptedFlag = acceptedFlag;
+        this.completedFlag = completedFlag;
+        this.post_order = post_order;
+    }
 
     public ModelClassFeedFragment(String postCreatorName, String postCreatorPhoto, String bloodGroupLookingFor, String timeAgo, String district, String postDescription
-            , String postImage, String area, String postLove, String postView, String timeStamp, String postCreatorID, String postID, String cause,
-                                  String gender, String accepted, String donated, String phone, String unitBag, Boolean loveCheckerFlag) {
+            , String postImage, String area, String postLove, String postView, String timeStamp, String postCreatorID, String postID
+            , String cause, String gender, String accepted, String donated, String phone, String unitBag, String requiredDate
+            , String  loveCheckerFlag, String acceptedFlag, String completedFlag, String post_order) {
         this.postCreatorName = postCreatorName;
         this.postCreatorPhoto = postCreatorPhoto;
         this.bloodGroup = bloodGroupLookingFor;
@@ -46,7 +82,11 @@ public class ModelClassFeedFragment {
         this.donated = donated;
         this.phone = phone;
         this.unitBag = unitBag;
+        this.requiredDate = requiredDate;
         this.loveCheckerFlag=loveCheckerFlag;
+        this.acceptedFlag=acceptedFlag;
+        this.completedFlag=completedFlag;
+        this.post_order=post_order;
     }
 
     public String getPostCreatorName() {
@@ -199,11 +239,43 @@ public class ModelClassFeedFragment {
         this.unitBag = unitBag;
     }
 
-    public Boolean getLoveCheckerFlag() {
+    public String  getLoveCheckerFlag() {
         return loveCheckerFlag;
     }
 
-    public void setLoveCheckerFlag(Boolean loveCheckerFlag) {
+    public void setLoveCheckerFlag(String  loveCheckerFlag) {
         this.loveCheckerFlag = loveCheckerFlag;
+    }
+
+    public String getAcceptedFlag() {
+        return acceptedFlag;
+    }
+
+    public void setAcceptedFlag(String acceptedFlag) {
+        this.acceptedFlag = acceptedFlag;
+    }
+
+    public String getRequiredDate() {
+        return requiredDate;
+    }
+
+    public void setRequiredDate(String requiredDate) {
+        this.requiredDate = requiredDate;
+    }
+
+    public String getCompletedFlag() {
+        return completedFlag;
+    }
+
+    public void setCompletedFlag(String completedFlag) {
+        this.completedFlag = completedFlag;
+    }
+
+    public String getPost_order() {
+        return post_order;
+    }
+
+    public void setPost_order(String post_order) {
+        this.post_order = post_order;
     }
 }

@@ -9,7 +9,7 @@ public class Extras {
     public  static final String PHONE_NUMBER= "phoneNumber";
     public  static final String PASSWORD= "password";
     public  static final String USER_ID= "userID";
-    public static final String USER_PHOTO_NAME = "user_photo_name";
+    public static final String USER_PHOTO = "user_photo";
     public static final String USER_NAME = "user_name";
     public static final String POST_ID = "postID";
 
@@ -36,4 +36,12 @@ public class Extras {
     public static final String POST_LOVE = "post_love";
     public static final String POST_VIEW = "post_view";
     public static final String UNIT_BAGS = "unit_bags";
+    public static final String ACCEPTED_FLAG = "accepted_flag";
+    public static final String LOVE_FLAG = "love_flag";
+    public static final String REQUIRED_DATE = "required_date";
+
+    public static  final String COUNTRY_NAME = "country_name";
+    public static final String FLAG = "flag";
+    public static final String COMPLETED_FLAG = "completed_flag";
+    public static final String POST_ORDER = "post_order";
 }

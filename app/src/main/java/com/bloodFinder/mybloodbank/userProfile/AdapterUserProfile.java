@@ -75,6 +75,9 @@ public class AdapterUserProfile extends RecyclerView.Adapter<AdapterUserProfile.
                 intent.putExtra(Extras.GENDER,modelClassUserProfileList.get(position).getGender());
                 intent.putExtra(Extras.PHONE_NUMBER,modelClassUserProfileList.get(position).getPhone());
                 intent.putExtra(Extras.UNIT_BAGS,modelClassUserProfileList.get(position).getUnitBag());
+                intent.putExtra(Extras.REQUIRED_DATE,modelClassUserProfileList.get(position).getRequiredDate());
+                intent.putExtra(Extras.ACCEPTED_FLAG,modelClassUserProfileList.get(position).getAcceptedFlag());
+                intent.putExtra(Extras.LOVE_FLAG,modelClassUserProfileList.get(position).getLoveCheckerFlag());
                 context.startActivity(intent);
             }
         });

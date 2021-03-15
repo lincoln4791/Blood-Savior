@@ -34,6 +34,7 @@ import com.bloodFinder.mybloodbank.common.Constants;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.NodeNames;
 import com.bloodFinder.mybloodbank.common.Util;
+import com.bloodFinder.mybloodbank.userProfile.UserProfile;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -105,6 +106,7 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
     //ActionBar
     private ImageView actionBarProfilePicture, actionBarOnlineStatusImage;
     private TextView actionBarUserName, actionBarOnlineStatus;
+    private LinearLayout ll_holder_ActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +125,10 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
             actionBar.setDisplayOptions(actionBar.getDisplayOptions() | ActionBar.DISPLAY_SHOW_CUSTOM);
 
             actionBarUserName = actionBarViewGroup.findViewById(R.id.tv_userName_samoleLayoutActionBar);
-            actionBarProfilePicture = actionBarViewGroup.findViewById(R.id.displayProfilePicture_sampleLayoutActionBar_ID);
+            actionBarProfilePicture = actionBarViewGroup.findViewById(R.id.displayProfilePicture_sampleLayoutActionBar);
             actionBarOnlineStatus = actionBarViewGroup.findViewById(R.id.tvOnLineStatus_sampleLayoutActionBar);
             actionBarOnlineStatusImage = actionBarViewGroup.findViewById(R.id.ivOnlineStatus_sampleLayoutActionBar);
+            ll_holder_ActionBar = actionBarViewGroup.findViewById(R.id.ll_holder_actionbar_sampleLayoutActionBar);
         }
 
         recyclerView = findViewById(R.id.rv_chattingActivity);
@@ -145,24 +148,27 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
         llSendChatLayout = findViewById(R.id.ll_sendChat_chattingActivity);
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
-        if (getIntent().hasExtra(Extras.USER_ID)) {
             userID = getIntent().getStringExtra(Extras.USER_ID);
-        }
-        if (getIntent().hasExtra(Extras.USER_PHOTO_NAME)) {
             userName = getIntent().getStringExtra(Extras.USER_NAME);
-        }
-        if (getIntent().hasExtra(Extras.USER_NAME)) {
-            userPhotoName = getIntent().getStringExtra(Extras.USER_PHOTO_NAME);
-        }
+            actionBarUserName.setText(userName);
+            userPhotoName = "";
 
+            if(getIntent().getStringExtra(Extras.USER_PHOTO) != null){
+                if(!getIntent().getStringExtra(Extras.USER_PHOTO).equals("")){
+                    userPhotoName = getIntent().getStringExtra(Extras.USER_PHOTO);
+                }
+            }
+
+            Glide.with(ChattingActivity.this).load(userPhotoName).placeholder(R.drawable.ic_profile_picture)
+                    .error(R.drawable.ic_profile_picture).into(actionBarProfilePicture);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         chatsModelList = new ArrayList<>();
         chattingAdapter = new ChattingAdapter(this, chatsModelList);
 
 
-        //Custom ActionBar
-        databaseReference.child(NodeNames.USERS).child(userID).child(NodeNames.PROFILE_PICTURES).child(NodeNames.PHOTO)
+/*        //Custom ActionBar
+        databaseReference.child(NodeNames.USERS).child(userID).child(NodeNames.USER_PHOTO)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -183,9 +189,16 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });
+                });*/
 
-        actionBarUserName.setText(userName);
+        ll_holder_ActionBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChattingActivity.this, UserProfile.class);
+                intent.putExtra(Extras.USER_ID,userID);
+                startActivity(intent);
+            }
+        });
 
 
         //Loading message
@@ -491,7 +504,7 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
 
                 intent.putExtra(Extras.USER_NAME, data.getStringExtra(Extras.USER_NAME));
                 intent.putExtra(Extras.USER_ID, data.getStringExtra(Extras.USER_ID));
-                intent.putExtra(Extras.USER_PHOTO_NAME, data.getStringExtra(Extras.USER_PHOTO_NAME));
+                intent.putExtra(Extras.USER_PHOTO, data.getStringExtra(Extras.USER_PHOTO));
 
                 startActivity(intent);
                 finish();

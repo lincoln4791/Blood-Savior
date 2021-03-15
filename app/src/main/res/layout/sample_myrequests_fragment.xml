@@ -208,6 +208,18 @@
 
             </androidx.cardview.widget.CardView>
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_completed_sampleMyRequestsFragment"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_completed"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -29,11 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:paddingLeft="1dp"
-            android:paddingRight="1dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            android:background="@color/red"
+            android:textColor="@color/white"
             android:text="@string/chooseBloodGroup"
-            android:background="@color/LightGray"
-            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -208,9 +211,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            android:background="@color/red"
+            android:textColor="@color/white"
             android:text="@string/district"
-            android:background="@color/LightGray"
-            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_bloodGroups_editRequestActivity" />
@@ -222,6 +230,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
+            app:cardElevation="16dp"
             android:background="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_district_editRequestActivity">
@@ -252,9 +261,14 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            android:background="@color/red"
+            android:textColor="@color/white"
             android:text="@string/area"
-            android:background="@color/LightGray"
-            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_enterDistrict_editRequestActivity" />
@@ -266,7 +280,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:elevation="16dp"
+            app:cardElevation="16dp"
             android:shadowRadius="5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_area_editRequestActivity">
@@ -297,9 +311,14 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/LightGray"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            android:background="@color/red"
+            android:textColor="@color/white"
             android:text="@string/postDescription"
-            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_enterArea_editRequestActivity" />
@@ -343,6 +362,7 @@
             android:layout_marginEnd="10dp"
             android:elevation="16dp"
             android:shadowRadius="5"
+            app:layout_constraintBottom_toTopOf="@+id/iv_postImagePreview_editRequestActivity"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_postDescription_editRequestActivity">
 
@@ -365,6 +385,32 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+
+        <ImageView
+            android:id="@+id/iv_postImagePreview_editRequestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/tv_cause_editRequestActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_uploadImage_editRequestActivity" />
+
+        <ImageView
+            android:id="@+id/iv_cancelImagePreview_editRequestActivity"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_wrong_red"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="@id/iv_postImagePreview_editRequestActivity"
+            app:layout_constraintEnd_toEndOf="@id/iv_postImagePreview_editRequestActivity"/>
+
         <TextView
             android:id="@+id/tv_cause_editRequestActivity"
             android:layout_width="wrap_content"
@@ -372,12 +418,17 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/LightGray"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            android:background="@color/red"
+            android:textColor="@color/white"
             android:text="@string/cause"
-            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_uploadImage_editRequestActivity" />
+            app:layout_constraintTop_toBottomOf="@id/iv_postImagePreview_editRequestActivity" />
 
         <HorizontalScrollView
             android:id="@+id/scrollVIew_cause_editRequestActivity"
@@ -432,7 +483,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/thalassemia" />
+                    android:text="@string/delivery" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_cause_other_editRequestActivity"
@@ -464,8 +515,13 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="18dp"
                 android:text="@string/genderr"
-                android:background="@color/LightGray"
-                android:textColor="@color/black"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textStyle="bold"
+                android:background="@color/red"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -508,19 +564,24 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_datePicker_editRequestActivity"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:elevation="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                app:cardElevation="16dp"
                 android:padding="10dp"
                 android:shadowRadius="5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_chooseGender_editRequestActivity">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:background="@color/appBackground"
                     android:gravity="center_vertical">
 
@@ -530,9 +591,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:drawablePadding="10dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:background="@color/LightGray"
                         android:text="@string/dateAndTime"
                         android:textAlignment="gravity"
                         android:textSize="15sp"
@@ -547,18 +609,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="18dp"
-                android:background="@color/LightGray"
                 android:text="@string/unitBags"
-                android:textColor="@color/black"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textStyle="bold"
+                android:background="@color/red"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_datePicker_editRequestActivity" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_unitBagsRequiredSpinner_editRequestActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:backgroundTint="@color/appBackground"
                 app:layout_constraintStart_toEndOf="@id/tv_unitBagsRequired_editRequestActivity"
                 app:layout_constraintTop_toTopOf="@id/tv_unitBagsRequired_editRequestActivity">
 
@@ -567,7 +635,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <TextView
@@ -576,8 +644,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/phone"
-                android:background="@color/LightGray"
-                android:textColor="@color/black"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textStyle="bold"
+                android:background="@color/red"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_unitBagsRequiredSpinner_editRequestActivity" />
@@ -586,10 +659,13 @@
                 android:id="@+id/cv_phone_editRequestActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardElevation="16dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_phone_editRequestActivity">
 
@@ -641,13 +717,15 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_saveRequest_editRequestActivity"
+                    android:id="@+id/btn_updateRequest_editRequestActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@color/red"
-                    android:text="@string/save"
+                    android:text="@string/update"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:clickable="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -686,6 +764,7 @@
                     android:textColor="@color/black"
                     android:textOff="@string/openAdvancedSearch"
                     android:textOn="@string/closeAdvancedSearch"
+                    android:clickable="true"
                     android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -35,13 +35,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_profilePicture_ProfileFragment" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_editProfile_profileFragment"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_edit"
-            android:background="@color/selectableBackground"
+            android:background="@drawable/selectable_background"
             android:visibility="gone"
             tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/cv_bloodGroup_profileFragment"
@@ -76,14 +76,31 @@
             app:layout_constraintStart_toEndOf="@id/tv_comma_ProfileFragment"
             app:layout_constraintTop_toTopOf="@id/tv_comma_ProfileFragment" />
 
-
-        <TextView
-            android:id="@+id/tv_phone_ProfileFragment"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_phone_ProfileFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone"
+            android:clickable="true"
+            app:cardCornerRadius="50dp"
+            android:backgroundTint="@color/LightGray"
             app:layout_constraintStart_toStartOf="@id/tv_userName_ProfileFragment"
-            app:layout_constraintTop_toBottomOf="@id/tv_area_ProfileFragment" />
+            app:layout_constraintTop_toBottomOf="@id/tv_area_ProfileFragment">
+
+            <TextView
+                android:id="@+id/tv_phone_ProfileFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:textSize="11sp"
+                android:paddingBottom="4dp"
+                android:text="@string/phone"
+                app:layout_constraintStart_toStartOf="@id/tv_userName_ProfileFragment"
+                app:layout_constraintTop_toBottomOf="@id/tv_area_ProfileFragment" />
+
+        </com.google.android.material.card.MaterialCardView>
+
 
 
         <androidx.cardview.widget.CardView
@@ -108,10 +125,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:gravity="center"
-                    android:paddingStart="4dp"
-                    android:paddingTop="3dp"
-                    android:paddingEnd="4dp"
-                    android:paddingBottom="6dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
                     android:text="@string/gender"
                     android:textAlignment="gravity"
                     android:textColor="@color/white"
@@ -142,10 +159,13 @@
 
                 <TextView
                     android:id="@+id/tv_bloodGroup_profileFragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="4dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
                     android:text="@string/ABPositive"
                     android:textAlignment="gravity"
                     android:textColor="@color/white"
@@ -181,7 +201,10 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="11sp"
-                    android:padding="4dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
                     android:text="@string/age"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -195,7 +218,7 @@
             android:background="@color/red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_phone_ProfileFragment" />
+            app:layout_constraintTop_toBottomOf="@id/cv_phone_ProfileFragment" />
 
         <LinearLayout
             android:id="@+id/ll_donationStatusHolder_profileFragment"
@@ -392,7 +415,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_iWantToDonate_profileFragment" />
 
         <TextView
-            android:id="@+id/tv_donarsGroup_profileFragment"
+            android:id="@+id/tv_donorsGroup_profileFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -422,7 +445,7 @@
             android:background="@drawable/selectable_background"
             app:drawableStartCompat="@drawable/ic_blood_bank"
             app:layout_constraintStart_toStartOf="@id/tv_nearbyDonars_profileFragment"
-            app:layout_constraintTop_toBottomOf="@id/tv_donarsGroup_profileFragment" />
+            app:layout_constraintTop_toBottomOf="@id/tv_donorsGroup_profileFragment" />
 
         <TextView
             android:id="@+id/tv_logout_profileFragment"

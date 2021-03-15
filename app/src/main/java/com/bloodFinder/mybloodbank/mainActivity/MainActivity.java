@@ -12,9 +12,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +27,8 @@ import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.aboutUs.AboutUs;
+import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bloodFinder.mybloodbank.common.UtilDB;
 import com.bloodFinder.mybloodbank.login.LoginActivity;
 import com.bloodFinder.mybloodbank.mainActivity.chats.ChatsFragment;
 import com.bloodFinder.mybloodbank.mainActivity.feed.FeedFragment;
@@ -31,10 +36,17 @@ import com.bloodFinder.mybloodbank.mainActivity.history.HistoryFragment;
 import com.bloodFinder.mybloodbank.privacyPolicy.PrivacyPolicy;
 import com.bloodFinder.mybloodbank.userProfile.ProfileFragment;
 import com.bloodFinder.mybloodbank.mainActivity.requests.RequestsFragment;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -43,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ImageView iv_notification;
+    private Boolean doubleBackPress = false;
+    private FeedFragment feedFragment ;
+    private RequestsFragment requestsFragment;
+    private ChatsFragment chatsFragment;
+    private HistoryFragment historyFragment;
+    private ProfileFragment profileFragment;
+    private int postIndexCounter;
+    private int lastIndex;
+    private int lastNode;
 
 
     private FirebaseAuth mAuth;
@@ -62,7 +83,14 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tl_MainActivity);
         viewPager = findViewById(R.id.vp_MAinActivity);
         iv_notification = findViewById(R.id.iv_notification_MainActivity);
+        feedFragment = new FeedFragment();
+        requestsFragment = new RequestsFragment();
+        chatsFragment = new ChatsFragment();
+        historyFragment = new HistoryFragment();
+        profileFragment = new ProfileFragment();
 
+
+        viewPager.setOffscreenPageLimit(0);
         drawerLayout = findViewById(R.id.drawer_layout_MainActivity);
         navigationView = findViewById(R.id.nav_view_MainActivity);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
@@ -94,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.menu_logOut_actionbar_home:
-                        logOut();
+                        confirmLogout();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                 }
@@ -130,23 +158,23 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (position){
                     case 0:
-                        FeedFragment feedFragment = new FeedFragment();
+
+                        TabLayout.Tab tab = tabLayout.getTabAt(0);
+                        tab.setIcon(R.drawable.ic_app_logo);
                         return  feedFragment;
 
                     case 1:
-                        RequestsFragment requestsFragment = new RequestsFragment();
+
                         return requestsFragment;
 
                     case 2:
-                        ChatsFragment chatsFragment = new ChatsFragment();
+
                         return chatsFragment;
 
                     case 3:
-                        HistoryFragment historyFragment = new HistoryFragment();
                         return historyFragment;
 
                     case 4:
-                        ProfileFragment profileFragment = new ProfileFragment();
                         return profileFragment;
                 }
                 return null;
@@ -197,12 +225,107 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if(currentUser == null){
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
+       loadProfile();
+    }
+
+
+    private void loadProfile() {
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        String myUID = FirebaseAuth.getInstance().getUid();
+        mRootRef.child(NodeNames.USERS).child(myUID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+
+                    if(snapshot.child(NodeNames.USER_PHOTO).exists()){
+                        if(!snapshot.child(NodeNames.USER_PHOTO).getValue().toString().equals("")){
+                            UtilDB.USER_PHOTO = snapshot.child(NodeNames.USER_PHOTO).getValue().toString();
+                        }
+                    }
+
+
+                    if(snapshot.child(NodeNames.USER_NAME).getValue()!=null){
+                        if(!snapshot.child(NodeNames.USER_NAME).getValue().toString().equals("")){
+                            UtilDB.USER_NAME = snapshot.child(NodeNames.USER_NAME).getValue().toString();
+                        }
+                    }
+
+
+                    if(snapshot.child(NodeNames.AREA).getValue()!=null){
+                        if(!snapshot.child(NodeNames.AREA).getValue().toString().equals("")){
+                            UtilDB.AREA = snapshot.child((NodeNames.AREA)).getValue().toString();
+                        }
+                    }
+
+
+                    if(snapshot.child(NodeNames.DISTRICT).getValue()!=null){
+                        if(!snapshot.child(NodeNames.DISTRICT).getValue().toString().equals("")){
+                            UtilDB.DISTRICT = snapshot.child(NodeNames.DISTRICT).getValue().toString();
+                        }
+                    }
+
+                    if(snapshot.child(NodeNames.GENDER).getValue()!=null){
+                        if(!snapshot.child(NodeNames.GENDER).getValue().toString().equals("")){
+                            UtilDB.GENDER = snapshot.child(NodeNames.GENDER).getValue().toString();
+                        }
+                    }
+
+
+                    if(snapshot.child(NodeNames.AGE).getValue()!=null){
+                        if(!snapshot.child(NodeNames.AGE).getValue().toString().equals("")){
+                            UtilDB.AGE = snapshot.child(NodeNames.AGE).getValue().toString();
+                        }
+                    }
+
+
+                    if(snapshot.child(NodeNames.PHONE_NUMBER).getValue()!=null){
+                        if(!snapshot.child(NodeNames.PHONE_NUMBER).getValue().toString().equals("")){
+                            UtilDB.PHONE_NUMBER = snapshot.child(NodeNames.PHONE_NUMBER).getValue().toString();
+                        }
+                    }
+
+
+                    if(snapshot.child(NodeNames.BLOOD_GROUP).getValue()!=null){
+                        if(!snapshot.child(NodeNames.BLOOD_GROUP).getValue().toString().equals("")){
+                            UtilDB.BLOOD_GROUP = snapshot.child(NodeNames.BLOOD_GROUP).getValue().toString();
+                        }
+                    }
+
+                    if(snapshot.child(NodeNames.DONATION_STATUS).getValue()!=null){
+                        if(!snapshot.child(NodeNames.DONATION_STATUS).getValue().toString().equals("")){
+                            UtilDB.DONATION_STATUS = snapshot.child(NodeNames.DONATION_STATUS).getValue().toString();
+                        }
+                    }
+
+                    if(snapshot.child(NodeNames.TOTAL_DONATION).getValue()!=null){
+                        if(!snapshot.child(NodeNames.TOTAL_DONATION).getValue().toString().equals("")){
+                            UtilDB.TOTAL_DONATION = snapshot.child(NodeNames.TOTAL_DONATION).getValue().toString();
+                        }
+                    }
+
+
+
+                    if(snapshot.child(NodeNames.LAST_DONATION).getValue()!=null){
+                        if(!snapshot.child(NodeNames.LAST_DONATION).getValue().toString().equals("")){
+                            UtilDB.LAST_DONATION = snapshot.child(NodeNames.LAST_DONATION).getValue().toString();
+                        }
+                    }
+
+
+
+
+
+                }
+                else{
+                    //Toast.makeText(getContext(), "snapNotExists", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //Toast.makeText(getContext(), "snapShotCanceled", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -212,8 +335,58 @@ public class MainActivity extends AppCompatActivity {
 
     public void logOut(){
         mAuth.signOut();
+        finishAffinity();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        finish();
+
     }
 
+
+
+    private void confirmLogout() {
+        Dialog dialog = new Dialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_logout,null);
+        dialog.setContentView(view);
+        dialog.setCancelable(true);
+        dialog.show();
+        view.findViewById(R.id.btn_yes_alertImage_dialog_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
+            }
+        });
+
+        view.findViewById(R.id.btn_no_alertImage_dialog_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(tabLayout.getSelectedTabPosition()>0){
+            tabLayout.selectTab(tabLayout.getTabAt(0));
+        }
+
+        else{
+            if(!doubleBackPress){
+                doubleBackPress = true;
+                Toast.makeText(this, getString(R.string.pressBAckButtonAgainToCloseTheApplication), Toast.LENGTH_SHORT).show();
+                Handler handler =  new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackPress =false;
+                    }
+                },1500);
+            }
+
+            else{
+                finishAffinity();
+            }
+        }
+    }
 }

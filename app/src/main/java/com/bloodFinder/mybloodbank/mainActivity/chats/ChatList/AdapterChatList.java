@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
@@ -86,8 +87,8 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
 
 
 
-        databaseReference.child(NodeNames.USERS).child(chatListModelClassList.get(position).getUserID()).child(NodeNames.PROFILE_PICTURES)
-                .child(NodeNames.PHOTO).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(NodeNames.USERS).child(chatListModelClassList.get(position).getUserID())
+                .child(NodeNames.USER_PHOTO).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
@@ -111,24 +112,8 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
             }
         });
 
-        StorageReference storageReferenceProfilePicture = FirebaseStorage.getInstance().getReference().child(NodeNames.IMAGES_FOLDER).child(chatListModelClassList.get(position).getUserID()+".jpg");
-        storageReferenceProfilePicture.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()){
-                    storageReferenceProfilePicture.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Glide.with(context).load(uri).placeholder(R.drawable.ic_profile_picture).error(R.drawable.ic_profile_picture).into(holder.profilePicture);
-
-                        }
-                    });
-                }
-                else{
-                    //Toast.makeText(context, "Failed to load Image"+task.getException(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        Glide.with(context).load(chatListModelClassList.get(position).getPhotoName()).placeholder(R.drawable.ic_profile_picture)
+                .error(R.drawable.ic_profile_picture).into(holder.profilePicture);
 
 
         //Unread message count
@@ -148,7 +133,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
                 Intent intent = new Intent(context, ChattingActivity.class);
                 intent.putExtra(Extras.USER_ID,chatListModelClassList.get(position).getUserID());
                 intent.putExtra(Extras.USER_NAME,chatListModelClassList.get(position).getUserName());
-                intent.putExtra(Extras.USER_PHOTO_NAME,chatListModelClassList.get(position).getPhotoName());
+                intent.putExtra(Extras.USER_PHOTO,chatListModelClassList.get(position).getPhotoName());
                 context.startActivity(intent);
             }
         });
@@ -157,7 +142,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
 
 
 
-        holder.ll_imageHolder.setOnClickListener(new View.OnClickListener() {
+        holder.cv_imageHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent profileIntent = new Intent(context, UserProfile.class);
@@ -182,7 +167,8 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
         private TextView unreadMessageCount;
         private TextView lastMessage;
         private TextView lastMessageTime;
-        private LinearLayout ll_imageHolder,ll_userNameHolder;
+        private LinearLayout ll_userNameHolder;
+        private CardView cv_imageHolder;
         private CardView cv_usernameHolder;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -192,7 +178,7 @@ public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyView
             unreadMessageCount = itemView.findViewById(R.id.tv_unreadMessageCounter_chatListSampleLayout_ID);
             lastMessage = itemView.findViewById(R.id.tv_lastMessage_chatListSampleLayout_ID);
             lastMessageTime = itemView.findViewById(R.id.tv_lastMessageTIming_chatListSampleLayout_ID);
-            ll_imageHolder = itemView.findViewById(R.id.ll_imageHolder_chatListSampleLayout_ID);
+            cv_imageHolder = itemView.findViewById(R.id.cv_imageHolder_chatListSampleLayout_ID);
             ll_userNameHolder = itemView.findViewById(R.id.ll_userNameHolder_chatListSampleLayout_ID);
             cv_usernameHolder = itemView.findViewById(R.id.cv_userNameHolder_chatListSampleLayout_ID);
         }

@@ -15,22 +15,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.common.Constants;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.NodeNames;
 import com.bloodFinder.mybloodbank.common.Util;
-import com.bloodFinder.mybloodbank.mainActivity.MainActivity;
 import com.bloodFinder.mybloodbank.mainActivity.requests.SingleRequest.SingleRequest;
 import com.bloodFinder.mybloodbank.userProfile.UserProfile;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private String myUID = FirebaseAuth.getInstance().getUid();
     private int loveCount,viewCount;
-    private Boolean loveCountFlag;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
 
     public AdapterFeedFragment(Context context, List<ModelClassFeedFragment> modelClassFeedFragmentList) {
@@ -57,10 +55,6 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        loveCount = Integer.parseInt(modelClassFeedFragmentList.get(position).getPostLove());
-        loveCountFlag = modelClassFeedFragmentList.get(position).getLoveCheckerFlag();
-
         holder.userName.setText(modelClassFeedFragmentList.get(position).getPostCreatorName());
         holder.bloodGroup.setText(modelClassFeedFragmentList.get(position).getBloodGroup());
         holder.area.setText(modelClassFeedFragmentList.get(position).getArea());
@@ -71,16 +65,18 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
         holder.views.setText(modelClassFeedFragmentList.get(position).getPostView());
         holder.bloodGroup2.setText(modelClassFeedFragmentList.get(position).getBloodGroup());
         holder.district.setText(modelClassFeedFragmentList.get(position).getDistrict());
-        Log.d("tag","size: "+modelClassFeedFragmentList.size());
+        holder.postOrder.setText(modelClassFeedFragmentList.get(position).getPost_order());
 
         holder.timeAgo.setText(Util.getTimeAgo(Long.parseLong(modelClassFeedFragmentList.get(position).getTimeStamp())));
 
-        if(loveCountFlag){
+        if(modelClassFeedFragmentList.get(position).getLoveCheckerFlag().equals(Constants.TRUE)){
             holder.iv_loveImage.setImageResource(R.drawable.ic_love_red);
         }
 
-        Glide.with(context).load(modelClassFeedFragmentList.get(position).getPostCreatorPhoto()).placeholder(R.drawable.ic_profile_picture)
-                .error(R.drawable.ic_profile_picture).into(holder.profilePicture);
+        Glide.with(context).load(modelClassFeedFragmentList.get(position).getPostCreatorPhoto())
+                .placeholder(R.drawable.ic_profile_picture).error(R.drawable.ic_profile_picture).into(holder.iv_profilePicture);
+
+
 
         Glide.with(context).load(modelClassFeedFragmentList.get(position).getPostImage()).placeholder(R.drawable.featuredd)
                 .error(R.drawable.featuredd).into(holder.postImage);
@@ -88,10 +84,8 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
 
 
 
-
-
         //CLick Methods
-        holder.profilePicture.setOnClickListener(new View.OnClickListener() {
+        holder.iv_profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context.getApplicationContext(),UserProfile.class);
@@ -132,6 +126,11 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
                 intent.putExtra(Extras.GENDER,modelClassFeedFragmentList.get(position).getGender());
                 intent.putExtra(Extras.PHONE_NUMBER,modelClassFeedFragmentList.get(position).getPhone());
                 intent.putExtra(Extras.UNIT_BAGS,modelClassFeedFragmentList.get(position).getUnitBag());
+                intent.putExtra(Extras.REQUIRED_DATE,modelClassFeedFragmentList.get(position).getRequiredDate());
+                intent.putExtra(Extras.ACCEPTED_FLAG,modelClassFeedFragmentList.get(position).getAcceptedFlag());
+                intent.putExtra(Extras.LOVE_FLAG,modelClassFeedFragmentList.get(position).getLoveCheckerFlag());
+                intent.putExtra(Extras.COMPLETED_FLAG,modelClassFeedFragmentList.get(position).getCompletedFlag());
+                intent.putExtra(Extras.POST_ORDER,modelClassFeedFragmentList.get(position).getPost_order());
                 context.startActivity(intent);
             }
         });
@@ -144,11 +143,13 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
         holder.cv_love.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(loveCountFlag){
+                if(modelClassFeedFragmentList.get(position).getLoveCheckerFlag().equals(Constants.TRUE)){
+                    loveCount = Integer.parseInt(modelClassFeedFragmentList.get(position).getPostLove());
+                    loveCount = loveCount-1;
+                    modelClassFeedFragmentList.get(position).setPostLove(String.valueOf(loveCount));
+                    modelClassFeedFragmentList.get(position).setLoveCheckerFlag(Constants.FALSE);
                     holder.iv_loveImage.setImageResource(R.drawable.ic_love);
-                        loveCount = loveCount-1;
                         holder.love.setText(String.valueOf(loveCount));
-                        loveCountFlag=false;
                         mRootRef.child(NodeNames.POSTS).child(modelClassFeedFragmentList.get(position).getPostID())
                                 .child(NodeNames.LOVE_REACT_COUNT_FOLDER).child(myUID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -203,10 +204,12 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
                 }
 
                 else{
-                    holder.iv_loveImage.setImageResource(R.drawable.ic_love_red);
+                    loveCount = Integer.parseInt(modelClassFeedFragmentList.get(position).getPostLove());
                     loveCount = loveCount+1;
+                    modelClassFeedFragmentList.get(position).setPostLove(String.valueOf(loveCount));
+                    modelClassFeedFragmentList.get(position).setLoveCheckerFlag(Constants.TRUE);
+                    holder.iv_loveImage.setImageResource(R.drawable.ic_love_red);
                     holder.love.setText(String.valueOf(loveCount));
-                    loveCountFlag=true;
                     mRootRef.child(NodeNames.POSTS).child(modelClassFeedFragmentList.get(position).getPostID())
                             .child(NodeNames.LOVE_REACT_COUNT_FOLDER).child(myUID).setValue(myUID).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -271,7 +274,7 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private ImageView profilePicture;
+        private ImageView iv_profilePicture;
         private ImageView postImage,iv_loveImage;
         private TextView userName;
         private TextView bloodGroup;
@@ -282,10 +285,11 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
         private TextView description;
         private TextView love;
         private TextView views;
+        private TextView postOrder;
         private CardView cv_love;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            profilePicture = itemView.findViewById(R.id.profilePicture_sampleFeedFragment);
+            iv_profilePicture = itemView.findViewById(R.id.profilePicture_sampleFeedFragment);
             postImage = itemView.findViewById(R.id.iv_postImage_SampleFeedFragment);
             iv_loveImage = itemView.findViewById(R.id.iv_love_SampleFeedFragment);
             cv_love = itemView.findViewById(R.id.cv_love_SampleFeedFragment);
@@ -294,10 +298,11 @@ public class AdapterFeedFragment extends RecyclerView.Adapter<AdapterFeedFragmen
             timeAgo = itemView.findViewById(R.id.tv_timeAgo_sampleFeedFragment);
             district = itemView.findViewById(R.id.tv_district_sampleFeedFragment);
             area = itemView.findViewById(R.id.tv_address_sampleFeedFragment);
-            bloodGroup2 = itemView.findViewById(R.id.bloodGroup2_sampleFeedFragment);
+            bloodGroup2 = itemView.findViewById(R.id.tv_bloodGroup2_sampleFeedFragment);
             love = itemView.findViewById(R.id.tv_loveValue_SampleFeedFragment);
             views = itemView.findViewById(R.id.tv_viewValue_SampleFeedFragment);
             description = itemView.findViewById(R.id.tv_description_sampleFeedFragment);
+            postOrder = itemView.findViewById(R.id.tv_postOrder_sampleFeedFragment);
         }
     }
 }

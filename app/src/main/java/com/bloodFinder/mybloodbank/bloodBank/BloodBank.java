@@ -10,6 +10,7 @@ import com.bloodFinder.mybloodbank.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BloodBank extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class BloodBank extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_bank);
 
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Blood Bank");
         bloodBankAddress = getResources().getStringArray(R.array.bloodBankAddress);
         bloodBankPhoneNumber = getResources().getStringArray(R.array.bloodBankPhoneNUmber);
         bloodBankName = getResources().getStringArray(R.array.bloodBankName);
