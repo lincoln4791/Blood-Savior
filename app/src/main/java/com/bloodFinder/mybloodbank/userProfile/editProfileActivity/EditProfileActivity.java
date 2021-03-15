@@ -1,52 +1,75 @@
 package com.bloodFinder.mybloodbank.userProfile.editProfileActivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.MyLoadingProgress;
 import com.bloodFinder.mybloodbank.common.NodeNames;
-import com.bloodFinder.mybloodbank.mainActivity.MainActivity;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
-    private FloatingActionButton iv_changePicture;
+    private TextView tv_requiredDate;
+    private ImageView iv_profilePicture,iv_changePicture;
     private Chip chip_APositive,chip_ANegative,chip_BPositive,chip_BNegative,chip_OPositive,chip_ONegative,chip_ABPositive,chip_ABNegative, chip_male, chip_female;
     private EditText etName, et_phone, et_email,et_district,et_area,et_age;
-    private String username,bloodGroup, phone, email,gender,district,area,age, userPhoto;
+    private String userName,bloodGroup, phone, email,gender,district,area,age, userPhoto,required_date;
     private ArrayList<String> bloodList,genderList;
     private View customProgressBarFull;
     private MyLoadingProgress myLoadingProgress;
     private Button btn_saveData;
+    private ImageButton btn_saveProfilePicture,btn_cancelToSaveProfilePicture;
+    private Uri cloudImageUri,localImageUri;
+    private ConstraintLayout cl_holderSaveCancel;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mRootRef;
     private FirebaseUser currentUser;
+    private StorageReference storageRootRef;
     private String userID,myUID;
+    private static final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +81,18 @@ public class EditProfileActivity extends AppCompatActivity {
         et_email = findViewById(R.id.et_email_editProfileActivity);
         customProgressBarFull = findViewById(R.id.customProgressBarFull_editProfileActivity);
         et_area = findViewById(R.id.et_area_editProfileActivity);
+        iv_changePicture = findViewById(R.id.iv_changePhoto_editProfileActivity);
         et_district = findViewById(R.id.et_district_editProfileActivity);
         et_age = findViewById(R.id.et_age_editProfileActivity);
         btn_saveData = findViewById(R.id.btnSave_editProfileActivity);
+        btn_saveProfilePicture = findViewById(R.id.iv_savePicture_EditProfileActivity);
+        btn_saveProfilePicture = findViewById(R.id.iv_savePicture_EditProfileActivity);
+        btn_cancelToSaveProfilePicture = findViewById(R.id.iv_cancelToSavePicture_EditProfileActivity);
+        iv_profilePicture = findViewById(R.id.iv_profilePicture_editProfileActivity);
+        cl_holderSaveCancel = findViewById(R.id.cl_holder_save_cancel_EditProfileActivity);
         bloodList= new ArrayList<>();
         genderList = new ArrayList<>();
-        myLoadingProgress = new MyLoadingProgress(EditProfileActivity.this);
+        myLoadingProgress = new MyLoadingProgress(this);
 
         chip_APositive = findViewById(R.id.chip_APositive_bloodGroup_editProfileActivity);
         chip_ANegative = findViewById(R.id.chip_ANegative_bloodGroup_editProfileActivity);
@@ -78,6 +107,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         mRootRef = FirebaseDatabase.getInstance().getReference();
+        storageRootRef = FirebaseStorage.getInstance().getReference();
         mAuth =  FirebaseAuth.getInstance();
         myUID = FirebaseAuth.getInstance().getUid();
 
@@ -89,14 +119,22 @@ public class EditProfileActivity extends AppCompatActivity {
             setEditTextsData();
             setCheckedBloodGroup(bloodGroup);
             setCheckedGender(gender);
+            setProfilePicture();
             btn_saveData.setVisibility(View.VISIBLE);
             getSelectedBloodGroup();
             getGender();
         }
         else{
-            fetchUserDetailsFromDatabase();
+            //fetchUserDetailsFromDatabase();
         }
 
+
+        iv_changePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeProfilePicturePressed();
+            }
+        });
 
 
         btn_saveData.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +143,31 @@ public class EditProfileActivity extends AppCompatActivity {
                 saveData();
             }
         });
+
+
+        btn_saveProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUserPhoto();
+            }
+        });
+
+
+        btn_cancelToSaveProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Glide.with(EditProfileActivity.this).load(userPhoto).into(iv_profilePicture);
+                cl_holderSaveCancel.setVisibility(View.GONE);
+            }
+        });
+
+
+
+    }
+
+    private void setProfilePicture() {
+        Glide.with(EditProfileActivity.this).load(userPhoto).placeholder(R.drawable.ic_profile_picture)
+                .error(R.drawable.ic_profile_picture).into(iv_profilePicture);
     }
 
     private void fetchUserDetailsFromDatabase() {
@@ -112,7 +175,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    username="";
+                    userName ="";
                     area="";
                     district="";
                     gender="";
@@ -146,10 +209,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     if(snapshot.child(NodeNames.USER_NAME).getValue()!=null){
                         if(!snapshot.child(NodeNames.USER_NAME).getValue().toString().equals("")){
-                            username = snapshot.child(NodeNames.USER_NAME).getValue().toString();
+                            userName = snapshot.child(NodeNames.USER_NAME).getValue().toString();
                         }
                     }
-                    etName.setText(username);
+                    etName.setText(userName);
 
                     if(snapshot.child(NodeNames.AREA).getValue()!=null){
                         if(!snapshot.child(NodeNames.AREA).getValue().toString().equals("")){
@@ -259,7 +322,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     private void setCheckedBloodGroup(String bloodGroup) {
-        Log.d("tag","Blood Group Set checked : "+bloodGroup);
+        //Log.d("tag","Blood Group Set checked : "+bloodGroup);
         switch (bloodGroup) {
             case "A+":
                 chip_APositive.setChecked(true);
@@ -297,7 +360,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     private void setEditTextsData() {
-        etName.setText(username);
+        etName.setText(userName);
         et_district.setText(district);
         et_area.setText(area);
         et_age.setText(age);
@@ -310,7 +373,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void getIntentData() {
         userID = getIntent().getStringExtra(Extras.USER_ID);
-        username = getIntent().getStringExtra(Extras.USER_NAME);
+        userName = getIntent().getStringExtra(Extras.USER_NAME);
+        userPhoto = getIntent().getStringExtra(Extras.USER_PHOTO);
         bloodGroup = getIntent().getStringExtra(Extras.BLOOD_GROUP);
         district = getIntent().getStringExtra(Extras.DISTRICT);
         area = getIntent().getStringExtra(Extras.AREA);
@@ -318,6 +382,11 @@ public class EditProfileActivity extends AppCompatActivity {
         gender = getIntent().getStringExtra(Extras.GENDER);
         phone = getIntent().getStringExtra(Extras.PHONE_NUMBER);
         email = getIntent().getStringExtra(Extras.EMAIL);
+        required_date = getIntent().getStringExtra(Extras.REQUIRED_DATE);
+
+        if(!userPhoto.equals("")){
+            cloudImageUri=Uri.parse(userPhoto);
+        }
     }
 
 
@@ -344,7 +413,7 @@ public class EditProfileActivity extends AppCompatActivity {
             else{
                 gender = genderList.get(0);
 
-                username = etName.getText().toString();
+                userName = etName.getText().toString();
                 phone = et_phone.getText().toString();
                 phone = et_phone.getText().toString();
                 district = et_district.getText().toString();
@@ -353,7 +422,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-                if(username.equals("")){
+                if(userName.equals("")){
                     etName.setError(getString(R.string.enter_your_name));
                 }
 
@@ -376,7 +445,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 else{
                     myLoadingProgress.startLoadingProgress();
                     Map<String,Object> userDataMap = new HashMap();
-                    userDataMap.put(NodeNames.USER_NAME,username);
+                    userDataMap.put(NodeNames.USER_NAME, userName);
                     userDataMap.put(NodeNames.BLOOD_GROUP,bloodGroup);
                     userDataMap.put(NodeNames.GENDER,gender);
                     userDataMap.put(NodeNames.DISTRICT,district);
@@ -389,7 +458,19 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 myLoadingProgress.dismissAlertDialogue();
-                                startActivity(new Intent(EditProfileActivity.this, EditProfileActivity.class));
+                                Intent intent = new Intent(EditProfileActivity.this,EditProfileActivity.class);
+                                intent.putExtra(Extras.USER_ID,myUID);
+                                intent.putExtra(Extras.USER_NAME,userName);
+                                intent.putExtra(Extras.USER_PHOTO,userPhoto);
+                                intent.putExtra(Extras.BLOOD_GROUP,bloodGroup);
+                                intent.putExtra(Extras.GENDER,gender);
+                                intent.putExtra(Extras.PHONE_NUMBER,phone);
+                                intent.putExtra(Extras.EMAIL,email);
+                                intent.putExtra(Extras.DISTRICT,district);
+                                intent.putExtra(Extras.AREA,area);
+                                intent.putExtra(Extras.AGE,age);
+                                intent.putExtra(Extras.PHONE_NUMBER,phone);
+                                startActivity(intent);
                                 Toast.makeText(EditProfileActivity.this, getString(R.string.profileSuccessfullyUpdated), Toast.LENGTH_SHORT).show();
                                 finish();
                             }
@@ -468,8 +549,162 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-    public void changeProfilePicturePressed(View view){
-        Toast.makeText(this, "change profile Picture Pressed", Toast.LENGTH_SHORT).show();
+
+
+
+    public void changeProfilePicturePressed(){
+        if(cloudImageUri == null){
+            imagePicker();
+        }
+        else{
+            PopupMenu popupMenu = new PopupMenu(EditProfileActivity.this,iv_changePicture);
+            popupMenu.getMenuInflater().inflate(R.menu.menu_pic_profilepicture,popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int id = item.getItemId();
+
+                    if(id == R.id.menuItem_changeImageID){
+                        imagePicker();
+                    }
+                    else if (id == R.id.menuItem_removeImageID){
+                        removePhoto();
+                    }
+
+
+                    return false;
+                }
+            });
+            popupMenu.show();
+        }
     }
 
+
+
+
+
+
+
+
+
+    private void imagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent,REQUEST_CODE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                localImageUri = data.getData();
+                Glide.with(EditProfileActivity.this).load(localImageUri).placeholder(R.drawable.ic_profile_picture)
+                        .error(R.drawable.ic_profile_picture).into(iv_profilePicture);
+                cl_holderSaveCancel.setVisibility(View.VISIBLE);
+
+            }
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == 102){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent,REQUEST_CODE);
+            }
+            else{
+                Toast.makeText(this, "Access Permission is required", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+    public void removePhoto(){
+                    myLoadingProgress.startLoadingProgress();
+                    myUID = currentUser.getUid();
+                    HashMap<String, Object > hashMap = new HashMap<>();
+                    hashMap.put(NodeNames.USER_PHOTO,"");
+                    mRootRef.child(NodeNames.USERS).child(myUID).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(EditProfileActivity.this, "Photo Removed Successfully", Toast.LENGTH_SHORT).show();
+                                myLoadingProgress.dismissAlertDialogue();
+                                Log.d("tag","Alert Dialogue");
+                            }
+
+                            else{
+                                myLoadingProgress.dismissAlertDialogue();
+                                Toast.makeText(EditProfileActivity.this, "Profile Update failed"+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+
+
+
+
+
+
+
+
+
+
+    public  void saveUserPhoto(){
+        myLoadingProgress.startLoadingProgress();
+        String fileName = myUID+".jpg";
+        StorageReference fileRef = storageRootRef.child(NodeNames.IMAGES_FOLDER+"/"+fileName);
+        fileRef.putFile(localImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if(task.isSuccessful()){
+                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            cloudImageUri = uri;
+                            Map<String,Object> userMap = new HashMap();
+                            userMap.put(NodeNames.USER_PHOTO,cloudImageUri.toString());
+                            mRootRef.child(NodeNames.USERS).child(myUID).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        localImageUri=uri;
+                                        cloudImageUri = uri;
+                                        myLoadingProgress.dismissAlertDialogue();
+                                        Glide.with(EditProfileActivity.this).load(localImageUri).into(iv_profilePicture);
+                                        Toast.makeText(EditProfileActivity.this, getString(R.string.profileSuccessfullyUpdated), Toast.LENGTH_SHORT).show();
+                                        cl_holderSaveCancel.setVisibility(View.GONE);
+                                    }
+                                    else{
+                                        myLoadingProgress.dismissAlertDialogue();
+                                        cl_holderSaveCancel.setVisibility(View.GONE);
+                                        Toast.makeText(EditProfileActivity.this, getString(R.string.failedToUpdateProfilePicture), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                        }
+                    });
+                }
+                else{
+                    myLoadingProgress.dismissAlertDialogue();
+                    cl_holderSaveCancel.setVisibility(View.GONE);
+                    Toast.makeText(EditProfileActivity.this, getString(R.string.somethingWentWrong)+task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

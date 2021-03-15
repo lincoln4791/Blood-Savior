@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="40dp">
+
+    <ImageView
+        android:id="@+id/iv_noInternetAlert"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/no_internet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_noInternetAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/red"
+        android:text="@string/Refresh"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center|center_vertical"
+        android:textAlignment="gravity"
+        android:fontFamily="@font/redressed_regular"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_noInternetAlert"
+        app:layout_constraintStart_toStartOf="@+id/iv_noInternetAlert"
+        app:layout_constraintTop_toBottomOf="@+id/iv_noInternetAlert"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

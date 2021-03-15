@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +14,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.common.Constants;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.NodeNames;
 import com.bloodFinder.mybloodbank.common.Util;
 import com.bloodFinder.mybloodbank.mainActivity.requests.SingleRequest.SingleRequest;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -45,6 +48,12 @@ public class AdapterMyRequestsFragment extends RecyclerView.Adapter<AdapterMyReq
         holder.tv_accepted.setText(modelClassMyRequestsList.get(position).getAccepted());
         holder.tv_donated.setText(modelClassMyRequestsList.get(position).getDonated());
 
+
+        if(modelClassMyRequestsList.get(position).getCompletedFlag().equals(Constants.TRUE)){
+            holder.iv_completedSign.setVisibility(View.VISIBLE);
+        }
+
+
         String timeAgo = Util.getTimeAgo(Long.parseLong(modelClassMyRequestsList.get(position).getTimeStamp()));
         holder.tv_timeAgo.setText(timeAgo);
 
@@ -70,6 +79,11 @@ public class AdapterMyRequestsFragment extends RecyclerView.Adapter<AdapterMyReq
                 intent.putExtra(Extras.GENDER,modelClassMyRequestsList.get(position).getGender());
                 intent.putExtra(Extras.PHONE_NUMBER,modelClassMyRequestsList.get(position).getPhone());
                 intent.putExtra(Extras.UNIT_BAGS,modelClassMyRequestsList.get(position).getUnitBag());
+                intent.putExtra(Extras.REQUIRED_DATE,modelClassMyRequestsList.get(position).getRequiredDate());
+                intent.putExtra(Extras.ACCEPTED_FLAG,modelClassMyRequestsList.get(position).getAcceptedFlag());
+                intent.putExtra(Extras.LOVE_FLAG,modelClassMyRequestsList.get(position).getLoveCheckerFlag());
+                intent.putExtra(Extras.COMPLETED_FLAG,modelClassMyRequestsList.get(position).getCompletedFlag());
+                intent.putExtra(Extras.POST_ORDER,modelClassMyRequestsList.get(position).getPost_order());
                 context.startActivity(intent);
             }
         });
@@ -88,6 +102,7 @@ public class AdapterMyRequestsFragment extends RecyclerView.Adapter<AdapterMyReq
         private TextView tv_timeAgo;
         private TextView tv_accepted;
         private TextView tv_donated;
+        private ImageView iv_completedSign;
         private CardView cv_holder;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +112,7 @@ public class AdapterMyRequestsFragment extends RecyclerView.Adapter<AdapterMyReq
             tv_timeAgo = itemView.findViewById(R.id.tv_timeAgo_sampleMyRequestsFragment);
             tv_accepted = itemView.findViewById(R.id.tv_acceptedValue_sampleMyRequestFragment);
             tv_donated = itemView.findViewById(R.id.tv_donatedValue_sampleMyRequestsFragment);
+            iv_completedSign = itemView.findViewById(R.id.iv_completed_sampleMyRequestsFragment);
             cv_holder = itemView.findViewById(R.id.cv_holder_sampleMyRequestsFragment);
         }
     }

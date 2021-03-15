@@ -1,9 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".donarsGroup.DonarsGroup">
+    tools:context=".donarsGroup.DonorsGroup"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/ll_title_DonorsGroupActivity"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:background="@color/red">
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:fontFamily="@font/redressed_regular"
+            android:text="@string/blood_donors_groups"/>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_group1_DonorsGroupActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture_group1_DonorsGroupActivity"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:src="@drawable/ic_group"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name_group1_DonorsGroupActivity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:text="@string/bangladeshBloodDonateGroup"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"
+                android:gravity="bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture_group1_DonorsGroupActivity"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_memberQuantity_group1_DonorsGroupActivity"/>
+
+            <TextView
+                android:id="@+id/tv_memberQuantity_group1_DonorsGroupActivity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:layout_marginStart="5dp"
+                android:textSize="18sp"
+                android:gravity="top"
+                android:textStyle="bold"
+                android:text="@string/_60000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture_group1_DonorsGroupActivity"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_group1_DonorsGroupActivity"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_group2_DonorsGroupActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture_group2_DonorsGroupActivity"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:src="@drawable/ic_group"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name_group2_DonorsGroupActivity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:text="@string/secchayRoktodanBloodFoundation"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"
+                android:gravity="bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture_group2_DonorsGroupActivity"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_memberQuantity_group2_DonorsGroupActivity"/>
+
+            <TextView
+                android:id="@+id/tv_memberQuantity_group2_DonorsGroupActivity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:layout_marginStart="5dp"
+                android:textSize="18sp"
+                android:gravity="top"
+                android:textStyle="bold"
+                android:text="@string/_105000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture_group2_DonorsGroupActivity"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_group2_DonorsGroupActivity"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_group3_DonorsGroupActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePicture_group3_DonorsGroupActivity"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:src="@drawable/ic_group"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name_group3_DonorsGroupActivity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:text="@string/bloodFighters"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"
+                android:gravity="bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture_group3_DonorsGroupActivity"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_memberQuantity_group3_DonorsGroupActivity"/>
+
+            <TextView
+                android:id="@+id/tv_memberQuantity_group3_DonorsGroupActivity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="3dp"
+                android:layout_marginStart="5dp"
+                android:textSize="18sp"
+                android:gravity="top"
+                android:textStyle="bold"
+                android:text="@string/_133000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profilePicture_group3_DonorsGroupActivity"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_group3_DonorsGroupActivity"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

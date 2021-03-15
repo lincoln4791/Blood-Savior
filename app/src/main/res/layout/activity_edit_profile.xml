@@ -40,10 +40,40 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/selectableBackground"
-            android:onClick="changeProfilePicturePressed"
             android:src="@drawable/ic_camera_normal"
             app:layout_constraintBottom_toBottomOf="@id/iv_profilePicture_editProfileActivity"
             app:layout_constraintEnd_toEndOf="@id/iv_profilePicture_editProfileActivity" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_holder_save_cancel_EditProfileActivity"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profilePicture_editProfileActivity">
+
+            <ImageButton
+                android:id="@+id/iv_savePicture_EditProfileActivity"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_right"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/iv_cancelToSavePicture_EditProfileActivity"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_close_white_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <LinearLayout
@@ -59,6 +89,7 @@
                 android:id="@+id/linearLayout_editProfileActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"

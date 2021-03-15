@@ -104,12 +104,12 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/iv_phone_userProfileActivity"
+                            android:id="@+id/iv_call_userProfileActivity"
                             android:layout_width="50dp"
                             android:layout_height="35dp"
                             android:paddingTop="3dp"
                             android:paddingBottom="3dp"
-                            android:src="@drawable/ic_phone_call" />
+                            android:src="@drawable/ic_call_green" />
 
                         <TextView
                             android:layout_width="wrap_content"

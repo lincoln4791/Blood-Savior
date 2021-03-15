@@ -45,9 +45,6 @@ public class NodeNames {
     public static final String POST_CREATOR_PHOTO = "post_creator_photo";
     public static final String CAUSE = "cause";
 
-    public static final String PROFILE_PICTURES = "profile_pictures";
-    public static final String PHOTO = "photo";
-
     public static final String REQUEST_TYPE = "request_type";
     public static final String UNREAD_COUNT ="unread_count";
     public static final String LAST_MESSAGE = "last_message";
@@ -73,4 +70,10 @@ public class NodeNames {
     public static final String TIMESTAMP = "timestamp";
     public static final String LOVE_REACT_COUNT_FOLDER = "love_react_count_folder";
     public static final String VIEW_COUNTER_FOLDER = "view_counter_folder";
+    public static final String ACCEPTED_REQUESTS = "AcceptedRequests";
+    public static final String ACCEPTED_IDS_FOLDER = "accepted_ids_folder";
+    public static final String REQUIRED_DATE = "required_date";
+    public static final String POST_IMAGES_FOLDER = "Post_images_folder";
+    public static final String COMPLETED_FLAG = "completed_flag";
+    public static final String POST_ORDER = "post_order";
 }

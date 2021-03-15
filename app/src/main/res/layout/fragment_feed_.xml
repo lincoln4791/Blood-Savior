@@ -3,237 +3,250 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".mainActivity.feed.FeedFragment">
+    tools:context=".mainActivity.feed.FeedFragment"
+    android:id="@+id/nsv_feedFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<!--    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent">-->
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:background="#F4F4F4"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="16dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="369dp"
-                android:layout_height="match_parent"
-                android:background="#F6EFEF"
-                tools:layout_editor_absoluteX="1dp">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="25dp"
-                    android:text="@string/findDoners"
-                    android:textAlignment="gravity"
-                    android:textSize="18sp"
-                    app:drawableLeftCompat="@drawable/ic_placeholder"
-                    app:drawableRightCompat="@drawable/ic_arrow_right"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-            <ScrollView
-                android:id="@+id/scrollView_MainActivity"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_findBloodBar_feedFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp">
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:background="#F4F4F4"
+                android:clickable="true"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/cv_findDonors_feedFragment">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:background="#F6EFEF"
+                    tools:layout_editor_absoluteX="1dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_findDoners_MainActivity"
-                        style="@style/styleMainActivity_menu_cardView"
-                        app:layout_constraintEnd_toStartOf="@+id/cv_requests_MainActivity"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#F12222"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_findDoners_MainActivity"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="15dp"
-                                android:src="@drawable/ic_blood_search" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_requests_MainActivity"
-                        style="@style/styleMainActivity_menu_cardView"
-                        app:layout_constraintEnd_toStartOf="@+id/cv_topDoners_MainActivity"
-                        app:layout_constraintStart_toEndOf="@+id/cv_findDoners_MainActivity"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#F12222"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_requess_MainActivity"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="15dp"
-                                android:src="@drawable/ic_blood_drop" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_topDoners_MainActivity"
-                        style="@style/styleMainActivity_menu_cardView"
-                        app:layout_constraintEnd_toStartOf="@+id/cv_bloodBank_MainActivity"
-                        app:layout_constraintStart_toEndOf="@+id/cv_requests_MainActivity"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#F12222"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_topDoners_MainActivity"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="15dp"
-                                android:src="@drawable/ic_blood_requests" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_bloodBank_MainActivity"
-                        style="@style/styleMainActivity_menu_cardView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/cv_topDoners_MainActivity"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#F12222"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_bloodBank_MainActivity"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="15dp"
-                                android:src="@drawable/ic_blood_bank" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_featuredImage_FeedFragment"
+                    <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:layout_marginTop="15dp"
-                        android:elevation="25dp"
-                        app:cardCornerRadius="10dp"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="5dp"
+                        android:text="@string/findDoners"
+                        android:textAlignment="gravity"
+                        android:textSize="18sp"
+                        app:drawableLeftCompat="@drawable/ic_placeholder"
+                        app:drawableRightCompat="@drawable/ic_arrow_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cv_requests_MainActivity">
-
-                        <ImageView
-                            android:id="@+id/iv_featuredImage_MainActivity"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/featuredd" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="15dp"
-                        android:elevation="25dp"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cv_featuredImage_FeedFragment">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center">
-
-                            <com.leo.simplearcloader.SimpleArcLoader
-                                android:foregroundGravity="center"
-                                android:id="@+id/arcLoader_FeedFragment"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_centerInParent="true"
-                                android:visibility="visible"
-                                app:arc_style="simple_arc"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:visibility="visible"
-                                android:id="@+id/rv_Posts_FeedFragment"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </androidx.cardview.widget.CardView>
-
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </ScrollView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_findDonors_feedFragment"
+                style="@style/styleMainActivity_menu_cardView"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/cv_topDonors_MainActivity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_findBloodBar_feedFragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F12222"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_findDoners_MainActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_blood_search" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_topDonors_MainActivity"
+                style="@style/styleMainActivity_menu_cardView"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_findDonors_feedFragment"
+                app:layout_constraintEnd_toStartOf="@+id/cv_makeNewRequest_MainActivity"
+                app:layout_constraintStart_toEndOf="@+id/cv_findDonors_feedFragment"
+                app:layout_constraintTop_toTopOf="@+id/cv_findDonors_feedFragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F12222"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_topDonors_MainActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_best" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_makeNewRequest_MainActivity"
+                style="@style/styleMainActivity_menu_cardView"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_findDonors_feedFragment"
+                app:layout_constraintEnd_toStartOf="@+id/cv_bloodBank_MainActivity"
+                app:layout_constraintStart_toEndOf="@+id/cv_topDonors_MainActivity"
+                app:layout_constraintTop_toTopOf="@id/cv_findDonors_feedFragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F12222"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_makeNewRequests_MainActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_blood_requests" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_bloodBank_MainActivity"
+                style="@style/styleMainActivity_menu_cardView"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_findDonors_feedFragment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cv_makeNewRequest_MainActivity"
+                app:layout_constraintTop_toTopOf="@id/cv_findDonors_feedFragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F12222"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_bloodBank_MainActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_blood_bank" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_featuredCovid19_FeedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:clickable="true"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_topDonors_MainActivity">
+
+                <ImageView
+                    android:id="@+id/iv_featuredImage_MainActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/featured_covid19" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.leo.simplearcloader.SimpleArcLoader
+                android:id="@+id/arcLoader_FeedFragment"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:foregroundGravity="center"
+                android:visibility="visible"
+                app:arc_style="simple_arc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_featuredCovid19_FeedFragment" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Posts_FeedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cv_featuredCovid19_FeedFragment"
+                app:layout_constraintStart_toStartOf="@+id/cv_featuredCovid19_FeedFragment"
+                app:layout_constraintTop_toBottomOf="@id/cv_featuredCovid19_FeedFragment"
+                app:layout_constraintBottom_toTopOf="@id/pb_morePostLoading_feedFragment"/>
+
+            <TextView
+                android:id="@+id/tv_emptyFeed_feedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="@string/no_postToDisplay"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/redressed_regular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_featuredCovid19_FeedFragment"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/pb_morePostLoading_feedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_Posts_FeedFragment"/>
 
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_allCaughtUp_feedFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:fontFamily="@font/redressed_regular"
+                android:text="@string/allCaughtUp"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/rv_Posts_FeedFragment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </androidx.core.widget.NestedScrollView>

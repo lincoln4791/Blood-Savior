@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyBloodBank</string>
+    <string name="app_name">BloodBank</string>
     <string name="blood">Blood</string>
     <string name="bloodBank">Blood Bank</string>
     <string name="enter_your_name">Enter Your Name</string>
@@ -7,7 +7,7 @@
     <string name="enter_your_age">age</string>
     <string name="enter_your_bloodGroup">Blood Group</string>
     <string name="enter_your_city">City</string>
-    <string name="enter_your_phoneNumber">Phone</string>
+    <string name="enter_your_phoneNumber">Enter phone number</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="enter_your_password">Password</string>
@@ -227,6 +227,27 @@
     <string name="open">Open</string>
     <string name="one">1</string>
     <string name="demoTime">12:14 PM</string>
+
+    //covid 19 tracker
+    <string name="trackCountry">Track Country</string>
+    <string name="totalrecovered">Total Recovered</string>
+    <string name="totalActive">Active</string>
+    <string name="totalCase">Total Case</string>
+    <string name="totalDeath">Death</string>
+    <string name="global_state">Global State</string>
+    <string name="cases">Cases</string>
+    <string name="recoveredToday">Recovered Today</string>
+    <string name="casesRecovered">Recovered</string>
+    <string name="casesCritical">Critical</string>
+    <string name="casesActive">Active</string>
+    <string name="casesToday">Cases Today</string>
+    <string name="casesDeaths">Deaths</string>
+    <string name="casesTests">Tests</string>
+    <string name="casesAffectedCountries">Affected Countries</string>
+    <string name="deathsToday">Deaths Today</string>
+    <string name="country_name">Country Name</string>
+
+
     <string name="aboutUsText">A blood bank is a place where blood is collected and stored before it is used for transfusions.
         Blood banking takes place in the lab. This is to make sure that donated blood and blood products are safe before they are used.
         Blood banking also determines the blood type. You can ask for any type of blood you need and also you can easily see who n]is needed
@@ -266,6 +287,40 @@ If you have any questions about our privacy practices, please refer to the end o
     <string name="bloodGroupError">Blood Group Error</string>
     <string name="genderError">Gender Error</string>
     <string name="failedToInteractWithPost">Failed to interact with post</string>
+    <string name="bangladeshBloodDonateGroup">Bangladesh Blood Donate Group</string>
+    <string name="_60000">60000</string>
+    <string name="blood_donors_groups">Blood Donors Groups</string>
+    <string name="secchayRoktodanBloodFoundation">সেচ্ছায় রক্তদান ব্লাড ফাউন্ডেশন</string>
+    <string name="_105000">105000</string>
+    <string name="bloodFighters">Blood Fighters</string>
+    <string name="_133000">133000</string>
+    <string name="direction">Direction</string>
+    <string name="map">Map</string>
+    <string name="listisempty">List Is Emplty</string>
+    <string name="rejected">Rejected</string>
+    <string name="update">Update</string>
+    <string name="postSuccessful">Post Successful</string>
+    <string name="failedToPost">Failed to post</string>
+    <string name="causeError">Cause error</string>
+    <string name="postUpdated">Post Updated</string>
+    <string name="failedToUpdate">Failed to update</string>
+    <string name="delivery">Delivery</string>
+    <string name="failedToUpdateProfilePicture">Failed to update profile picture</string>
+    <string name="profilePictureUpdated">Profile picture updated</string>
+    <string name="withPhoto">With Photo</string>
+    <string name="five">5</string>
+    <string name="demoDate">4/1/2020</string>
+    <string name="tapForMoreInfo">Tap for more info</string>
+    <string name="do_you_want_to_logout">Do you want to logout?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="completed">Completed</string>
+    <string name="accessPermissionIsRequired">Access Permission is required</string>
+    <string name="please_check_your_internet">Please Check Your Internet</string>
+    <string name="Refresh">refresh</string>
+    <string name="no_post">No Post</string>
+    <string name="no_postToDisplay">No Posts To DIsplay</string>
+    <string name="allCaughtUp">"All Caught Up :) "</string>
     <string-array name="requiredAmountOfBlood">
         <item>0</item>
         <item>1</item>

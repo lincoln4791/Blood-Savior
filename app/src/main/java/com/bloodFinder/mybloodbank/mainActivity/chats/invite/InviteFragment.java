@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bloodFinder.mybloodbank.common.SortPosts;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,8 +96,9 @@ public class InviteFragment extends Fragment {
 
                         ModelClassInvite modelClassInvite = new ModelClassInvite(userName,phone);
                         modelClassInvitesList.add(modelClassInvite);
-                        adapterInvite.notifyDataSetChanged();
                     }
+                    Collections.sort(modelClassInvitesList,new SortPosts.SortInviteList());
+                    adapterInvite.notifyDataSetChanged();
                 }
                 else{
 

@@ -83,20 +83,20 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_bloodGroups_makeNewRequestActivity"
+                    android:id="@+id/cl_bloodGroups_RegistrationActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_chooseBloodGroup_makeNewRequestsActivity">
+                    app:layout_constraintTop_toBottomOf="@id/tv_chooseBloodGroup_RegistrationActivity">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipGroup_bloodGroups_RegisterActivity"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="@id/cl_bloodGroups_makeNewRequestActivity"
-                        app:layout_constraintStart_toStartOf="@id/cl_bloodGroups_makeNewRequestActivity"
-                        app:layout_constraintTop_toTopOf="@id/cl_bloodGroups_makeNewRequestActivity"
+                        app:layout_constraintEnd_toEndOf="@id/cl_bloodGroups_RegistrationActivity"
+                        app:layout_constraintStart_toStartOf="@id/cl_bloodGroups_RegistrationActivity"
+                        app:layout_constraintTop_toTopOf="@id/cl_bloodGroups_RegistrationActivity"
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip

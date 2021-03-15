@@ -13,8 +13,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.common.Util;
 import com.bloodFinder.mybloodbank.login.LoginActivity;
 import com.bloodFinder.mybloodbank.mainActivity.requests.AcceptedFragment.AcceptedFragment;
 import com.bloodFinder.mybloodbank.mainActivity.requests.MyRequests.MyRequestsFragment;
@@ -41,19 +43,27 @@ public class RequestsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btn_makeNewRequest = view.findViewById(R.id.fab_makeNewRequest_RequestsFragment);
-        tabLayout = view.findViewById(R.id.tl_RequestsFragment);
-        viewPager = view.findViewById(R.id.vp_RequestsFragment);
+        if(Util.connectionAvailable(getContext())){
+            btn_makeNewRequest = view.findViewById(R.id.fab_makeNewRequest_RequestsFragment);
+            tabLayout = view.findViewById(R.id.tl_RequestsFragment);
+            viewPager = view.findViewById(R.id.vp_RequestsFragment);
 
-        setViewPager();
+            setViewPager();
 
-        btn_makeNewRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MakeNewRequest.class));
-            }
-        });
-
+            btn_makeNewRequest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(),MakeNewRequest.class));
+                }
+            });
+        }
+        else{
+            Toast toast = new Toast(getContext());
+            View toastView = LayoutInflater.from(getContext()).inflate(R.layout.toast_no_internet,null);
+            toast.setView(toastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     class AdapterTabLayout extends FragmentPagerAdapter {

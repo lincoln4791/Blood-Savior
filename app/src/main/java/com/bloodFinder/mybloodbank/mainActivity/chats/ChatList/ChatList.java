@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bloodFinder.mybloodbank.mainActivity.MainActivity;
+import com.bloodFinder.mybloodbank.mainActivity.chats.ChattingActivity.ChattingActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -29,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ChatList extends Fragment {
@@ -55,7 +60,7 @@ public class ChatList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         myUID = FirebaseAuth.getInstance().getUid();
@@ -148,9 +153,9 @@ public class ChatList extends Fragment {
                             }
                         }
 
-                        if(snapshot.child(NodeNames.PROFILE_PICTURES).child(NodeNames.PHOTO).exists()){
-                            if(!snapshot.child(NodeNames.PROFILE_PICTURES).getValue().toString().equals("")){
-                                userPhoto = snapshot.child(NodeNames.PROFILE_PICTURES).child(NodeNames.PHOTO).getValue().toString();
+                        if(snapshot.child(NodeNames.USER_PHOTO).exists()){
+                            if(!snapshot.child(NodeNames.USER_PHOTO).getValue().toString().equals("")){
+                                userPhoto = snapshot.child(NodeNames.USER_PHOTO).getValue().toString();
                             }
                         }
 

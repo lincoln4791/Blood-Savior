@@ -69,6 +69,16 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_userName_sampleFeedFragment" />
 
         <TextView
+            android:id="@+id/tv_comma_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/comma"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_timeAgo_sampleFeedFragment"
+            app:layout_constraintStart_toEndOf="@+id/tv_timeAgo_sampleFeedFragment" />
+
+        <TextView
             android:id="@+id/tv_address_sampleFeedFragment"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
@@ -76,7 +86,18 @@
             android:text="@string/demoArea"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_timeAgo_sampleFeedFragment"
-            app:layout_constraintStart_toEndOf="@+id/tv_timeAgo_sampleFeedFragment" />
+            app:layout_constraintStart_toEndOf="@+id/tv_comma_sampleFeedFragment" />
+
+        <TextView
+            android:id="@+id/tv_postOrder_sampleFeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:text="@string/demoArea"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_timeAgo_sampleFeedFragment"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,15 +111,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-    <ImageView
-        android:id="@+id/iv_postImage_SampleFeedFragment"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_postImage_SampleFeedFragment"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/featuredd"
+        android:layout_height="220dp"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/black"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description_sampleFeedFragment" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_description_sampleFeedFragment">
+        <ImageView
+            android:id="@+id/iv_postImage_SampleFeedFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/featuredd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description_sampleFeedFragment" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_sampleFeedFragment_"
@@ -108,7 +143,7 @@
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_postImage_SampleFeedFragment">
+        app:layout_constraintTop_toBottomOf="@+id/cv_postImage_SampleFeedFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,13 +256,14 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_bloodGroup2_sampleFeedFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_postImage_SampleFeedFragment"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="@+id/cv_postImage_SampleFeedFragment"
+        app:layout_constraintStart_toStartOf="@+id/cv_postImage_SampleFeedFragment">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -236,17 +272,17 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/bloodGroup2_sampleFeedFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tv_bloodGroup2_sampleFeedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:paddingStart="4dp"
-                android:paddingEnd="4dp"
                 android:paddingTop="2dp"
+                android:paddingEnd="4dp"
                 android:paddingBottom="2dp"
-                android:textSize="11dp"
                 android:text="@string/O_positive"
                 android:textAlignment="center"
                 android:textColor="@color/white"
+                android:textSize="11dp"
                 android:textStyle="bold" />
 
 
@@ -259,11 +295,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginBottom="5dp"
         android:textAlignment="center"
         app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_postImage_SampleFeedFragment"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="@+id/cv_bloodGroup2_sampleFeedFragment"
+        app:layout_constraintStart_toStartOf="@+id/cv_bloodGroup2_sampleFeedFragment">
 
         <LinearLayout
             android:layout_width="wrap_content"

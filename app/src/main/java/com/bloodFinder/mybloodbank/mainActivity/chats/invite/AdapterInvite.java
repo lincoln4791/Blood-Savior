@@ -2,14 +2,17 @@ package com.bloodFinder.mybloodbank.mainActivity.chats.invite;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
@@ -36,9 +39,9 @@ public class AdapterInvite extends RecyclerView.Adapter<AdapterInvite.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull AdapterInvite.MyViewHolder holder, int position) {
             holder.tv_userName.setText(modelClassInviteList.get(position).getUserName());
-            holder.tv_invite.setText(context.getString(R.string.invite));
 
-            holder.ll_phnAndNameHolder.setOnClickListener(new View.OnClickListener() {
+            holder.btn_invite.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onClick(View v) {
                     String subject= "Blood Bank Bangladesh";
@@ -49,6 +52,7 @@ public class AdapterInvite extends RecyclerView.Adapter<AdapterInvite.MyViewHold
                     intent.putExtra(Intent.EXTRA_SUBJECT,subject);
                     intent.putExtra(Intent.EXTRA_TEXT,body);
                     intent.putExtra(Intent.EXTRA_EMAIL,"mahmuduulkarim@gmail.com");
+                    intent.putExtra(Intent.EXTRA_PHONE_NUMBER,modelClassInviteList.get(position).getPhone());
                     context.startActivity(Intent.createChooser(intent,"share with "));
                 }
             });
@@ -60,16 +64,14 @@ public class AdapterInvite extends RecyclerView.Adapter<AdapterInvite.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout ll_phnAndNameHolder;
+        private Button btn_invite;
         private TextView tv_userName;
-        private TextView tv_phone,tv_invite;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ll_phnAndNameHolder = itemView.findViewById(R.id.ll_sampleInviteLayout);
+            btn_invite=itemView.findViewById(R.id.btn_invite_sampleInvite);
             tv_userName = itemView.findViewById(R.id.tv_username_sampleLayout_inviteFragment);
-            tv_phone = itemView.findViewById(R.id.tv_phone_sampleLayout_inviteFragment);
-            tv_invite = itemView.findViewById(R.id.tv_invite_sampleLayout_inviteFragment);
+
 
         }
     }

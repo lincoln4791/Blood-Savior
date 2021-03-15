@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,16 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bloodFinder.mybloodbank.common.Constants;
 import com.bloodFinder.mybloodbank.mainActivity.chats.ChattingActivity.ChattingActivity;
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.leo.simplearcloader.SimpleArcLoader;
 
@@ -31,7 +33,7 @@ import java.util.List;
 
 public class UserProfile extends AppCompatActivity {
     private String userID;
-    private ImageView iv_profilePicture, iv_chat,iv_phone;
+    private ImageView iv_profilePicture, iv_chat,iv_call;
     private TextView tv_userName,tv_area,tv_district,tv_gender,tv_age,tv_phone,tv_bloodGroup,tv_donationStatus
             ,tv_lastDonation,tv_totalDonation;
     private String userName,area,district,gender,age,phone,bloodGroup,donationStatus,lastDonation,totalDonation,userPhoto;
@@ -42,7 +44,9 @@ public class UserProfile extends AppCompatActivity {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference mRootRef,dbrUsers,dbrPosts;
+    private String myUID;
     private SimpleArcLoader arcLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class UserProfile extends AppCompatActivity {
 
         iv_profilePicture = findViewById(R.id.iv_profilePicture_userProfileActivity);
         iv_chat = findViewById(R.id.iv_chat_userProfileActivity);
+        iv_call = findViewById(R.id.iv_call_userProfileActivity);
         tv_userName = findViewById(R.id.tv_userName_userProfileActivity);
         tv_area = findViewById(R.id.tv_area_userProfileActivity);
         tv_district = findViewById(R.id.tv_district_userProfileActivity);
@@ -71,8 +76,9 @@ public class UserProfile extends AppCompatActivity {
 
         userID = getIntent().getStringExtra(Extras.USER_ID);
         mRootRef = FirebaseDatabase.getInstance().getReference();
-        dbrUsers = mRootRef.child(NodeNames.USERS).child(userID);
+        dbrUsers = mRootRef.child(NodeNames.USERS);
         dbrPosts = mRootRef.child(NodeNames.POSTS);
+        myUID = FirebaseAuth.getInstance().getUid();
 
         loadUser();
         iv_chat.setOnClickListener(new View.OnClickListener() {
@@ -83,22 +89,35 @@ public class UserProfile extends AppCompatActivity {
         });
 
 
+        iv_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri numberToCall = Uri.parse("tel:"+phone);
+                Intent intent = new Intent(Intent.ACTION_DIAL,numberToCall);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
     private void startChat() {
         Intent intent = new Intent(UserProfile.this, ChattingActivity.class);
         intent.putExtra(Extras.USER_ID,userID);
+        intent.putExtra(Extras.USER_NAME,userName);
+        intent.putExtra(Extras.USER_PHOTO,userPhoto);
         startActivity(intent);
     }
 
 
     private void loadUser() {
-        dbrUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbrUsers.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     userName="";
+                    userPhoto = "";
                     area="";
                     district="";
                     gender="";
@@ -116,9 +135,8 @@ public class UserProfile extends AppCompatActivity {
                         }
                     }
 
-                    /*Glide.with(getContext()).load(userPhoto).placeholder(R.drawable.ic_profile_picture)
-                            .error(R.drawable.ic_profile_picture).into(iv_profilePicture);*/
-                    iv_profilePicture.setImageResource(R.drawable.lincolnn);
+                    Glide.with(UserProfile.this).load(userPhoto).placeholder(R.drawable.ic_profile_picture)
+                            .placeholder(R.drawable.ic_profile_picture).error(R.drawable.ic_profile_picture).into(iv_profilePicture);
 
 
 
@@ -233,17 +251,23 @@ public class UserProfile extends AppCompatActivity {
                         //String postCreatorID = dataSnapshot.child(NodeNames.POST_CREATOR_ID).getValue().toString();
                         //if(postCreatorID.equals(userID)){
                             String postPhoto = "";
-                            String bloodGroup = "";
-                            String timeAgo = "";
-                            String district = "";
+                            String postBloodGroup = "";
+                            String postTimeAgo = "";
+                            String postDistrict = "";
+                            String postArea = "";
                             String postDescription = "";
                             String postID = "";
-                            String accepted = "";
-                            String donated = "";
-                            String cause = "";
-                            String postLove = "";
-                            String postView = "";
-                            String unitBags = "";
+                            String postPhone = "";
+                            String postAccepted = "0";
+                            String postDonated = "0";
+                            String postCause = "";
+                            String postLove = "0";
+                            String postView = "0";
+                            String postRequiredUnitBags = "";
+                            String loveCheckerFlag = Constants.FALSE;
+                            String acceptedFlag = Constants.FALSE;
+                            String postGender = "";
+                            String postRequiredDate = "";
 
                             if(dataSnapshot.child(NodeNames.POST_PHOTO).getValue() != null){
                                 if(!dataSnapshot.child(NodeNames.POST_PHOTO).getValue().equals("")){
@@ -253,19 +277,19 @@ public class UserProfile extends AppCompatActivity {
 
                             if(dataSnapshot.child(NodeNames.BLOOD_GROUP).getValue() != null){
                                 if(!dataSnapshot.child(NodeNames.BLOOD_GROUP).getValue().equals("")){
-                                    bloodGroup = dataSnapshot.child(NodeNames.BLOOD_GROUP).getValue().toString();
+                                    postBloodGroup = dataSnapshot.child(NodeNames.BLOOD_GROUP).getValue().toString();
                                 }
                             }
 
                             if(dataSnapshot.child(NodeNames.TIMESTAMP).getValue() != null){
                                 if(!dataSnapshot.child(NodeNames.TIMESTAMP).getValue().equals("")){
-                                    timeAgo = dataSnapshot.child(NodeNames.TIMESTAMP).getValue().toString();
+                                    postTimeAgo = dataSnapshot.child(NodeNames.TIMESTAMP).getValue().toString();
                                 }
                             }
 
                             if(dataSnapshot.child(NodeNames.DISTRICT).getValue() != null){
                                 if(!dataSnapshot.child(NodeNames.DISTRICT).getValue().equals("")){
-                                    district = dataSnapshot.child(NodeNames.DISTRICT).getValue().toString();
+                                    postDistrict = dataSnapshot.child(NodeNames.DISTRICT).getValue().toString();
                                 }
                             }
 
@@ -289,7 +313,7 @@ public class UserProfile extends AppCompatActivity {
 
                             if(dataSnapshot.child(NodeNames.AREA).getValue() != null){
                                 if(!dataSnapshot.child(NodeNames.AREA).getValue().equals("")){
-                                    area = dataSnapshot.child(NodeNames.AREA).getValue().toString();
+                                    postArea = dataSnapshot.child(NodeNames.AREA).getValue().toString();
                                 }
                             }
 
@@ -299,11 +323,6 @@ public class UserProfile extends AppCompatActivity {
                                 }
                             }
 
-                        if(dataSnapshot.child(NodeNames.POST_PHOTO).getValue() != null){
-                            if(!dataSnapshot.child(NodeNames.POST_PHOTO).getValue().equals("")){
-                                postPhoto = dataSnapshot.child(NodeNames.POST_PHOTO).getValue().toString();
-                            }
-                        }
 
                         if(dataSnapshot.child(NodeNames.POST_LOVE).getValue() != null){
                             if(!dataSnapshot.child(NodeNames.POST_LOVE).getValue().equals("")){
@@ -319,31 +338,62 @@ public class UserProfile extends AppCompatActivity {
 
                         if(dataSnapshot.child(NodeNames.ACCEPTED).getValue() != null){
                             if(!dataSnapshot.child(NodeNames.ACCEPTED).getValue().equals("")){
-                                accepted = dataSnapshot.child(NodeNames.ACCEPTED).getValue().toString();
+                                postAccepted = dataSnapshot.child(NodeNames.ACCEPTED).getValue().toString();
                             }
                         }
 
                         if(dataSnapshot.child(NodeNames.DONATED).getValue() != null){
                             if(!dataSnapshot.child(NodeNames.DONATED).getValue().equals("")){
-                                donated = dataSnapshot.child(NodeNames.DONATED).getValue().toString();
+                                postDonated = dataSnapshot.child(NodeNames.DONATED).getValue().toString();
                             }
                         }
 
                         if(dataSnapshot.child(NodeNames.CAUSE).getValue() != null){
                             if(!dataSnapshot.child(NodeNames.CAUSE).getValue().equals("")){
-                                cause = dataSnapshot.child(NodeNames.CAUSE).getValue().toString();
+                                postCause = dataSnapshot.child(NodeNames.CAUSE).getValue().toString();
                             }
                         }
 
                         if(dataSnapshot.child(NodeNames.UNIT_BAGS).getValue() != null){
                             if(!dataSnapshot.child(NodeNames.UNIT_BAGS).getValue().equals("")){
-                                unitBags = dataSnapshot.child(NodeNames.UNIT_BAGS).getValue().toString();
+                                postRequiredUnitBags = dataSnapshot.child(NodeNames.UNIT_BAGS).getValue().toString();
+                            }
+                        }
+
+                        if(dataSnapshot.child(NodeNames.PHONE_NUMBER).getValue() != null){
+                            if(!dataSnapshot.child(NodeNames.PHONE_NUMBER).getValue().equals("")){
+                                postPhone = dataSnapshot.child(NodeNames.PHONE_NUMBER).getValue().toString();
+                            }
+                        }
+
+                        if(dataSnapshot.child(NodeNames.REQUIRED_DATE).getValue() != null){
+                            if(!dataSnapshot.child(NodeNames.REQUIRED_DATE).getValue().equals("")){
+                                postRequiredDate = dataSnapshot.child(NodeNames.REQUIRED_DATE).getValue().toString();
                             }
                         }
 
 
-                            ModelClassUserProfile object = new ModelClassUserProfile(bloodGroup,area,district,accepted,donated,userID,
-                                    userName,postID,postPhoto,timeAgo,cause,gender,userPhoto,postDescription,postLove,postView,unitBags,phone);
+                        //Love Counter
+                        if(dataSnapshot.child(NodeNames.LOVE_REACT_COUNT_FOLDER).exists()){
+                            for(DataSnapshot loveReactSnapshot : dataSnapshot.child(NodeNames.LOVE_REACT_COUNT_FOLDER).getChildren()){
+                                if(loveReactSnapshot.getValue().toString().equals(myUID)){
+                                    loveCheckerFlag = Constants.TRUE;
+                                }
+                            }
+                        }
+
+                        if(dataSnapshot.child(NodeNames.ACCEPTED_IDS_FOLDER).exists()){
+                            for(DataSnapshot acceptedIdsSnapshot : dataSnapshot.child(NodeNames.ACCEPTED_IDS_FOLDER).getChildren()){
+                                if(acceptedIdsSnapshot.getValue().toString().equals(myUID)){
+                                    acceptedFlag = Constants.TRUE;
+                                }
+                            }
+                        }
+
+
+                            ModelClassUserProfile object = new ModelClassUserProfile(userName,userPhoto,postBloodGroup,postDistrict,
+                                    postDescription,postPhoto,postArea,postLove,postView,postTimeAgo,userID,postID,postCause,postGender,
+                                    postAccepted,postDonated,postPhone,postRequiredUnitBags,postRequiredDate,loveCheckerFlag,acceptedFlag);
 
                             modelClassUserProfileList.add(object);
                             adapterUserProfile.notifyDataSetChanged();

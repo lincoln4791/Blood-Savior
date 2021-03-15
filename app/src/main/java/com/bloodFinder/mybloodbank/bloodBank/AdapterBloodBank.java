@@ -1,6 +1,8 @@
 package com.bloodFinder.mybloodbank.bloodBank;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +42,11 @@ public class AdapterBloodBank extends RecyclerView.Adapter<AdapterBloodBank.MyVi
         holder.bloodBankPhoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "phone Number Clicked", Toast.LENGTH_SHORT).show();
+                String numberToDial = "tel:"+modelClassBloodBankList.get(position).getBloodBankPhoneNumber();
+                Uri number =Uri.parse(numberToDial);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(number);
+                context.startActivity(intent);
             }
         });
 
