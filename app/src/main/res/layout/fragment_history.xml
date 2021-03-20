@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".mainActivity.history.HistoryFragment">
+    tools:context=".donations.DonationsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:drawableStart="@drawable/ic_privacy_policy"
         android:fontFamily="@font/redressed_regular"
-        android:text="History Wil Be Added Here" />
+        android:text="This page is under construction!" />
 
 </LinearLayout>

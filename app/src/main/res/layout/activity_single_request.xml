@@ -5,11 +5,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainActivity.requests.SingleRequest.SingleRequest">
+    tools:context=".requests.SingleRequest.SingleRequest">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_back_toolbar_singleRequestActivity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="15dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_singleRequestActivity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_singleRequestActivity" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_singleRequestActivity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_back_toolbar_singleRequestActivity"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/bloodRequest"
+            app:titleTextColor="@color/red" />
 
         <LinearLayout
             android:id="@+id/ll_HeaderViewsHolder_SingleRequestActivity"
@@ -22,7 +43,7 @@
             android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_singleRequestActivity">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_bloodGroup_SingleRequestActivity"
@@ -660,7 +681,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_deleteRequest_SingleRequestActivity"
+                android:id="@+id/cv_completeRequest_SingleRequestActivity"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -677,7 +698,7 @@
                 app:layout_constraintTop_toTopOf="@id/cv_acceptRequest_SingleRequestActivity">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_deleteRequest_SingleRequestActivity"
+                    android:id="@+id/btn_completeRequest_SingleRequestActivity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="5dp"
@@ -687,8 +708,8 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/redressed_regular"
                     android:textAlignment="center"
-                    android:text="@string/delete"
-                    android:drawableStart="@drawable/ic_delete"
+                    android:text="@string/completed"
+                    android:drawableStart="@drawable/ic_completed_small"
                     android:textColor="@color/red"
                     android:textSize="17sp"
                     android:textStyle="bold" />

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_holder_sampleAllUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
+        app:cardElevation="16dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_profilePictureHolder_sampleAllUsers"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="100dp"
+                android:clickable="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profilePicture_sampleAllUsers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_profile_picture" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_postHolder_sampleAllUsers"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_profilePictureHolder_sampleAllUsers"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_userName_sampleAllUsers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/userName"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_area_sampleAllUsers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/area"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@id/tv_userName_sampleAllUsers"
+                        app:layout_constraintTop_toBottomOf="@id/tv_userName_sampleAllUsers" />
+
+                    <TextView
+                        android:id="@+id/tv_comma_sampleAllUsers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/comma"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tv_area_sampleAllUsers"
+                        app:layout_constraintTop_toTopOf="@id/tv_area_sampleAllUsers" />
+
+                    <TextView
+                        android:id="@+id/tv_district_sampleAllUsers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="@string/district"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/tv_comma_sampleAllUsers"
+                        app:layout_constraintTop_toTopOf="@id/tv_area_sampleAllUsers" />
+
+
+                    <TextView
+                        android:id="@+id/tv_timeAgo_sampleAllUsers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timeAgo"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@id/tv_area_sampleAllUsers"
+                        app:layout_constraintTop_toBottomOf="@id/tv_area_sampleAllUsers" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_completed_sampleAllUsers"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="55dp"
+                        android:src="@drawable/ic_completed"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:visibility="visible" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_bloodGroup_sampleAllUsers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:elevation="25dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_bloodGroup_sampleAllUsers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red">
+
+                    <TextView
+                        android:id="@+id/tv_bloodGroup_sampleAllUsers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/ABPositive"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/ll_acceptRejectRequestHolder_sampleAllUsers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_holder_sampleAllUsers">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_call_sampleAllUsers"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:cardElevation="16dp"
+            android:clickable="true"
+            app:strokeWidth=".5dp"
+            app:strokeColor="@color/green"
+            android:backgroundTint="@color/appBackground"
+            app:cardCornerRadius="4dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_call_sampleAllUsers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_call_green"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:text="@string/call"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_chat_sampleAllUsers"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:elevation="25dp"
+            app:strokeWidth=".5dp"
+            app:strokeColor="@color/red"
+            android:backgroundTint="@color/appBackground"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="@id/cv_map_sampleAllUsers"
+            app:layout_constraintEnd_toStartOf="@+id/cv_map_sampleAllUsers"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cv_call_sampleAllUsers"
+            app:layout_constraintTop_toTopOf="@id/cv_call_sampleAllUsers">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_chat_sampleAllUsers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:drawableStart="@drawable/ic_send_message"
+                android:text="@string/chat"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_map_sampleAllUsers"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="25dp"
+            app:cardCornerRadius="4dp"
+            app:strokeWidth=".5dp"
+            app:strokeColor="@color/black"
+            android:backgroundTint="@color/appBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cv_chat_sampleAllUsers"
+            app:layout_constraintTop_toTopOf="@id/cv_call_sampleAllUsers">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_map_sampleAllUsers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_google_maps"
+                android:textAlignment="center"
+                android:text="@string/map"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

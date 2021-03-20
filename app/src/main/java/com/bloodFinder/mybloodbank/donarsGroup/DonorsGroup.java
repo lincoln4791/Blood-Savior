@@ -1,12 +1,14 @@
 package com.bloodFinder.mybloodbank.donarsGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.EndPoints;
@@ -15,12 +17,23 @@ import java.util.Objects;
 
 public class DonorsGroup extends AppCompatActivity {
     private CardView cv_group1,cv_group2,cv_group3;
+    private Toolbar toolbar;
+    private ImageView iv_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donars_group);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Donars Group");
+        toolbar = findViewById(R.id.toolbar_aboutUs);
+        getSupportActionBar().hide();
+        getSupportActionBar().setCustomView(toolbar);
+
+        iv_back = findViewById(R.id.iv_back_toolbar_donorsGroup);
+
+        iv_back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
         cv_group1 = findViewById(R.id.cv_group1_DonorsGroupActivity);
         cv_group2 = findViewById(R.id.cv_group2_DonorsGroupActivity);
         cv_group3 = findViewById(R.id.cv_group3_DonorsGroupActivity);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,20 +8,46 @@
     tools:context=".donarsGroup.DonorsGroup"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/iv_back_toolbar_donorsGroup"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="15dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_donorsGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_donorsGroup" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_donorsGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_back_toolbar_donorsGroup"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/about_us"
+        app:titleTextColor="@color/red" />
+
+
     <LinearLayout
         android:id="@+id/ll_title_DonorsGroupActivity"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:background="@color/red"
         android:gravity="center"
-        android:background="@color/red">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_donorsGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
             android:fontFamily="@font/redressed_regular"
-            android:text="@string/blood_donors_groups"/>
+            android:text="@string/blood_donors_groups"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
@@ -31,7 +58,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:clickable="true">
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/ll_title_DonorsGroupActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -88,7 +116,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:clickable="true">
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/cv_group1_DonorsGroupActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -145,7 +174,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:clickable="true">
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/cv_group2_DonorsGroupActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -194,4 +224,4 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,21 +5,16 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.Util;
-import com.bloodFinder.mybloodbank.mainActivity.feed.AdapterFeedFragment;
-import com.bloodFinder.mybloodbank.mainActivity.feed.ModelClassFeedFragment;
-import com.bloodFinder.mybloodbank.mainActivity.requests.SingleRequest.SingleRequest;
-import com.bumptech.glide.Glide;
+import com.bloodFinder.mybloodbank.requests.SingleRequest.SingleRequest;
 
 import java.util.List;
 
@@ -78,6 +73,7 @@ public class AdapterUserProfile extends RecyclerView.Adapter<AdapterUserProfile.
                 intent.putExtra(Extras.REQUIRED_DATE,modelClassUserProfileList.get(position).getRequiredDate());
                 intent.putExtra(Extras.ACCEPTED_FLAG,modelClassUserProfileList.get(position).getAcceptedFlag());
                 intent.putExtra(Extras.LOVE_FLAG,modelClassUserProfileList.get(position).getLoveCheckerFlag());
+                intent.putExtra(Extras.COMPLETED_FLAG,modelClassUserProfileList.get(position).getCompletedFlag());
                 context.startActivity(intent);
             }
         });

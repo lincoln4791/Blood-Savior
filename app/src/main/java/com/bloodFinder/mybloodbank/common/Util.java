@@ -61,9 +61,9 @@ public class Util {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Failed to update token" + task.getException(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Failed to update token" + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

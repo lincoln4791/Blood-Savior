@@ -9,10 +9,10 @@
     <ImageView
         android:id="@+id/imageView"
         style="@style/styleMainActivity_NavigationBar_Image"
-        android:src="@drawable/ic_blood_requests"
+        android:src="@drawable/ic_bloodrequest"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_tab_requests" />
+        />
 
     <TextView
         android:id="@+id/textView"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".mainActivity.chats.ChatList.ChatList">
+    tools:context=".chats.ChatList.ChatList">
 
     <include
         android:id="@+id/customProgressbar_chatFragment_ID"

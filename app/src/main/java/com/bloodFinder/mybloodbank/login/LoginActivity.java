@@ -11,9 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bloodFinder.mybloodbank.common.MyLoadingProgress;
 import com.bloodFinder.mybloodbank.common.Util;
 import com.bloodFinder.mybloodbank.mainActivity.MainActivity;
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.resetPassword.ResetPassword;
 import com.bloodFinder.mybloodbank.userRegistration.Register;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,8 +29,8 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
-    private TextView noAccountSignUp;
-    private EditText et_email,et_password;
+    private TextView noAccountSignUp,tv_forgerPassword;
+    private EditText et_email ,et_password;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -38,51 +40,58 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Log In");
+
+
+        getSupportActionBar().hide();
         et_email = findViewById(R.id.et_loginActivity_EmailField);
         et_password = findViewById(R.id.et_loginActivity_passwordField);
         btnLogin = findViewById(R.id.btnLogin_LoginActivity);
         noAccountSignUp = findViewById(R.id.tv_noAccountSignUp_LoginActivity);
+        tv_forgerPassword = findViewById(R.id.tv_forgetPassword_LoginActivity);
 
-        noAccountSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, Register.class));
-            }
-        });
+        noAccountSignUp.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, Register.class)));
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
+        btnLogin.setOnClickListener(v -> login());
+
+        tv_forgerPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, ResetPassword.class);
+            startActivity(intent);
         });
     }
 
     private void login() {
 
-        String email = et_email.getText().toString();
-        String password = et_password.getText().toString();
+        if(et_email.getText().toString().equals("") || et_password.getText().toString().equals("")){
+            Toast.makeText(this, getString(R.string.fillUpEmailAndPasswordCorrectly), Toast.LENGTH_SHORT).show();
+        }
+        else{
+            String email = et_email.getText().toString();
+            String password = et_password.getText().toString();
+            MyLoadingProgress myLoadingProgress = new MyLoadingProgress(LoginActivity.this);
+            myLoadingProgress.startLoadingProgress();
+            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        myLoadingProgress.dismissAlertDialogue();
+                        //Toast.makeText(LoginActivity.this,getString(R.string.loginSuccessfull), Toast.LENGTH_SHORT).show();
+                        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                            @Override
+                            public void onSuccess(InstanceIdResult instanceIdResult) {
+                                Util.updateToken(LoginActivity.this,instanceIdResult.getToken());
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                finish();
+                            }
+                        });
+                    }
+                    else{
+                        myLoadingProgress.dismissAlertDialogue();
+                        Toast.makeText(LoginActivity.this,getString(R.string.loginFailedwithaargument,task.getException()), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this,getString(R.string.loginSuccessfull), Toast.LENGTH_SHORT).show();
-                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                        @Override
-                        public void onSuccess(InstanceIdResult instanceIdResult) {
-                            Util.updateToken(LoginActivity.this,instanceIdResult.getToken());
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            finish();
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,getString(R.string.loginFailedwithaargument,task.getException()), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
 
     }

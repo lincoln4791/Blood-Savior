@@ -14,12 +14,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,25 +25,23 @@ import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.aboutUs.AboutUs;
+import com.bloodFinder.mybloodbank.common.EndPoints;
 import com.bloodFinder.mybloodbank.common.NodeNames;
 import com.bloodFinder.mybloodbank.common.UtilDB;
 import com.bloodFinder.mybloodbank.login.LoginActivity;
-import com.bloodFinder.mybloodbank.mainActivity.chats.ChatsFragment;
-import com.bloodFinder.mybloodbank.mainActivity.feed.FeedFragment;
-import com.bloodFinder.mybloodbank.mainActivity.history.HistoryFragment;
-import com.bloodFinder.mybloodbank.privacyPolicy.PrivacyPolicy;
+import com.bloodFinder.mybloodbank.chats.ChatsFragment;
+import com.bloodFinder.mybloodbank.feed.FeedFragment;
+import com.bloodFinder.mybloodbank.donations.DonationsFragment;
+import com.bloodFinder.mybloodbank.notificationPage.NotificationActivity;
 import com.bloodFinder.mybloodbank.userProfile.ProfileFragment;
-import com.bloodFinder.mybloodbank.mainActivity.requests.RequestsFragment;
-import com.bumptech.glide.Glide;
+import com.bloodFinder.mybloodbank.requests.RequestsFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private FeedFragment feedFragment ;
     private RequestsFragment requestsFragment;
     private ChatsFragment chatsFragment;
-    private HistoryFragment historyFragment;
+    private DonationsFragment donationsFragment;
     private ProfileFragment profileFragment;
     private int postIndexCounter;
     private int lastIndex;
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         feedFragment = new FeedFragment();
         requestsFragment = new RequestsFragment();
         chatsFragment = new ChatsFragment();
-        historyFragment = new HistoryFragment();
+        donationsFragment = new DonationsFragment();
         profileFragment = new ProfileFragment();
 
 
@@ -108,16 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.menu_rewardCard_actionbar_home:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Toast.makeText(MainActivity.this, "Reward Card Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "Reward Card Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.menu_rateUs_actionbar_home:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Toast.makeText(MainActivity.this, "Rate Us Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "Rate Us Clicked", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.menu_privacyPolicy_actionbar_home:
-                        startActivity(new Intent(MainActivity.this, PrivacyPolicy.class));
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(EndPoints.PRIVACY_POLICY));
+                        startActivity(intent);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
@@ -133,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         iv_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "notification Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, NotificationActivity.class));
             }
         });
 
@@ -172,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         return chatsFragment;
 
                     case 3:
-                        return historyFragment;
+                        return donationsFragment;
 
                     case 4:
                         return profileFragment;
@@ -193,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_feed_main_activity));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_requests_main_activity));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_chats_main_activity));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_history_main_activity));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_donations_main_activity));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tab_profile_main_activity));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -236,6 +234,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+
+                    UtilDB.USER_PHOTO = "";
 
                     if(snapshot.child(NodeNames.USER_PHOTO).exists()){
                         if(!snapshot.child(NodeNames.USER_PHOTO).getValue().toString().equals("")){

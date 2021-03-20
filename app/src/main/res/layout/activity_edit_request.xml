@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainActivity.requests.editRequestPost.EditRequest">
+    tools:context=".requests.editRequestPost.EditRequest">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -239,11 +239,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/et_district_editRequestActivity"
+                <TextView
+                    android:id="@+id/tv_selectDistrict_editRequestActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enterYourDistrictHere"
+                    android:hint="@string/selectYourDistrict"
+                    android:textColor="@color/black"
                     android:padding="10dp"
                     android:background="@color/white"
                     android:singleLine="true"

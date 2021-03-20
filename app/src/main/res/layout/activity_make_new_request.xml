@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainActivity.requests.makeNewRequest.MakeNewRequest">
+    tools:context=".requests.makeNewRequest.MakeNewRequest">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,6 +22,27 @@
             android:visibility="gone"
             />
 
+        <ImageView
+            android:id="@+id/iv_back_toolbar_makeNewRequest"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="15dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_makeNewRequest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_makeNewRequest" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_makeNewRequest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_back_toolbar_makeNewRequest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/makeNewRequest"
+            app:titleTextColor="@color/red" />
+
 
         <TextView
             android:id="@+id/tv_chooseBloodGroup_makeNewDistrictActivity"
@@ -38,7 +59,7 @@
             android:text="@string/chooseBloodGroup"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_makeNewRequest" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_bloodGroups_makeNewDistrictActivity"
@@ -223,7 +244,7 @@
             app:layout_constraintTop_toBottomOf="@id/cl_bloodGroups_makeNewDistrictActivity" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_enterDistrict_makeNewDistrictActivity"
+            android:id="@+id/cv_selectDistrict_makeNewDistrictActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -238,11 +259,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/et_district_makeNewRequestActivity"
+                <TextView
+                    android:id="@+id/tv_district_makeNewRequestActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enterYourDistrictHere"
+                    android:hint="@string/selectYourDistrict"
+                    android:textColor="@color/black"
                     android:padding="10dp"
                     android:background="@color/white"
                     android:singleLine="true"
@@ -270,7 +292,7 @@
             android:text="@string/area"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_enterDistrict_makeNewDistrictActivity" />
+            app:layout_constraintTop_toBottomOf="@id/cv_selectDistrict_makeNewDistrictActivity" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_enterArea_makeNewDistrictActivity"
@@ -527,7 +549,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_chooseGender_makeNewDistrictActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -561,9 +583,9 @@
                         android:text="@string/female" />
 
                 </com.google.android.material.chip.ChipGroup>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_datePicker_makeNewRequestActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -583,10 +605,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:background="@color/appBackground"
+                    android:background="#DDADF1"
                     android:gravity="center_vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_datePicker_makeNewRequestActivity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -594,6 +616,7 @@
                         android:drawablePadding="10dp"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
+                        android:backgroundTint="@color/purple_200"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:text="@string/dateAndTime"
@@ -602,7 +625,7 @@
                         app:drawableStartCompat="@drawable/ic_calendar" />
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tv_unitBagsRequired_makeNewDistrictActivity"
@@ -610,11 +633,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:textAlignment="gravity"
                 android:text="@string/unitBags"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textStyle="bold"
                 android:background="@color/red"
                 android:textColor="@color/white"
@@ -642,33 +667,36 @@
             <TextView
                 android:id="@+id/tv_phone_makeNewDistrictActivity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/phone"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:textStyle="bold"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/red"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/phone"
+                android:textAlignment="gravity"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_phone_makeNewDistrictActivity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_unitBagsRequiredSpinner_makeNewDistrictActivity" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_phone_makeNewDistrictActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="16dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 android:background="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_phone_makeNewDistrictActivity">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_phone_makeNewDistrictActivity"
+                app:layout_constraintTop_toTopOf="@+id/tv_phone_makeNewDistrictActivity">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -680,12 +708,15 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:hint="@string/enter_your_phoneNumber"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:maxLines="1"
                         android:padding="10dp"
                         android:singleLine="true"
                         android:textSize="15sp" />
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

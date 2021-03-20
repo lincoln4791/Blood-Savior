@@ -1,9 +1,9 @@
 package com.bloodFinder.mybloodbank.common;
 
-import com.bloodFinder.mybloodbank.mainActivity.chats.invite.ModelClassInvite;
-import com.bloodFinder.mybloodbank.mainActivity.feed.ModelClassFeedFragment;
-import com.bloodFinder.mybloodbank.mainActivity.requests.AcceptedFragment.ModelClassAcceptedFragment;
-import com.bloodFinder.mybloodbank.mainActivity.requests.MyRequests.ModelClassMyRequests;
+import com.bloodFinder.mybloodbank.chats.invite.ModelClassInvite;
+import com.bloodFinder.mybloodbank.feed.ModelClassFeedFragment;
+import com.bloodFinder.mybloodbank.requests.AcceptedFragment.ModelClassAcceptedFragment;
+import com.bloodFinder.mybloodbank.requests.MyRequests.ModelClassMyRequests;
 
 import java.util.Comparator;
 
@@ -39,5 +39,6 @@ public class SortPosts implements Comparator<ModelClassFeedFragment> {
             return o1.getUserName().compareTo(o2.getUserName());
         }
     }
+
 
 }

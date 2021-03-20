@@ -2,11 +2,12 @@ package com.bloodFinder.mybloodbank.userProfile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.common.Constants;
-import com.bloodFinder.mybloodbank.mainActivity.chats.ChattingActivity.ChattingActivity;
+import com.bloodFinder.mybloodbank.chats.ChattingActivity.ChattingActivity;
 import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.NodeNames;
@@ -32,12 +33,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserProfile extends AppCompatActivity {
+    private Toolbar toolbar;
+    private ImageView iv_back;
     private String userID;
     private ImageView iv_profilePicture, iv_chat,iv_call;
     private TextView tv_userName,tv_area,tv_district,tv_gender,tv_age,tv_phone,tv_bloodGroup,tv_donationStatus
             ,tv_lastDonation,tv_totalDonation;
     private String userName,area,district,gender,age,phone,bloodGroup,donationStatus,lastDonation,totalDonation,userPhoto;
     private TextView tv_logout;
+    private ConstraintLayout cl_chatAndCallHolder;
     private RecyclerView recyclerView;
     private List<ModelClassUserProfile> modelClassUserProfileList;
     private AdapterUserProfile adapterUserProfile;
@@ -53,6 +57,16 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+        toolbar = findViewById(R.id.toolbar_aboutUs);
+        getSupportActionBar().hide();
+        getSupportActionBar().setCustomView(toolbar);
+
+        iv_back = findViewById(R.id.iv_back_toolbar_userProfileActivity);
+
+        iv_back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
         iv_profilePicture = findViewById(R.id.iv_profilePicture_userProfileActivity);
         iv_chat = findViewById(R.id.iv_chat_userProfileActivity);
         iv_call = findViewById(R.id.iv_call_userProfileActivity);
@@ -66,6 +80,7 @@ public class UserProfile extends AppCompatActivity {
         tv_donationStatus = findViewById(R.id.tv_donationStatus_userProfileActivity);
         tv_lastDonation = findViewById(R.id.tv_lastDonationDateValue_userProfileActivity);
         tv_totalDonation = findViewById(R.id.tv_totalDonationValue_userProfileActivity);
+        cl_chatAndCallHolder = findViewById(R.id.cl_chatAndCallHolder_userProfileActivity);
         arcLoader = findViewById(R.id.arcLoader_UserProfileActivity);
 
         recyclerView = findViewById(R.id.rv_Posts_userProfileActivity);
@@ -80,6 +95,10 @@ public class UserProfile extends AppCompatActivity {
         dbrPosts = mRootRef.child(NodeNames.POSTS);
         myUID = FirebaseAuth.getInstance().getUid();
 
+        if(userID.equals(myUID)){
+            cl_chatAndCallHolder.setVisibility(View.GONE);
+        }
+
         loadUser();
         iv_chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,9 +111,10 @@ public class UserProfile extends AppCompatActivity {
         iv_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri numberToCall = Uri.parse("tel:"+phone);
+                Toast.makeText(UserProfile.this, getString(R.string.youAreNotPermittedToCallThisUserYEt), Toast.LENGTH_SHORT).show();
+               /* Uri numberToCall = Uri.parse("tel:"+phone);
                 Intent intent = new Intent(Intent.ACTION_DIAL,numberToCall);
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
@@ -184,7 +204,7 @@ public class UserProfile extends AppCompatActivity {
                             phone = snapshot.child(NodeNames.PHONE_NUMBER).getValue().toString();
                         }
                     }
-                    tv_phone.setText(phone);
+                    //tv_phone.setText(phone);
 
                     if(snapshot.child(NodeNames.BLOOD_GROUP).getValue()!=null){
                         if(!snapshot.child(NodeNames.BLOOD_GROUP).getValue().toString().equals("")){
@@ -266,6 +286,7 @@ public class UserProfile extends AppCompatActivity {
                             String postRequiredUnitBags = "";
                             String loveCheckerFlag = Constants.FALSE;
                             String acceptedFlag = Constants.FALSE;
+                            String completedFlag = Constants.FALSE;
                             String postGender = "";
                             String postRequiredDate = "";
 
@@ -366,9 +387,21 @@ public class UserProfile extends AppCompatActivity {
                             }
                         }
 
+                        if(dataSnapshot.child(NodeNames.GENDER).getValue() != null){
+                            if(!dataSnapshot.child(NodeNames.GENDER).getValue().equals("")){
+                                postGender = dataSnapshot.child(NodeNames.GENDER).getValue().toString();
+                            }
+                        }
+
                         if(dataSnapshot.child(NodeNames.REQUIRED_DATE).getValue() != null){
                             if(!dataSnapshot.child(NodeNames.REQUIRED_DATE).getValue().equals("")){
                                 postRequiredDate = dataSnapshot.child(NodeNames.REQUIRED_DATE).getValue().toString();
+                            }
+                        }
+
+                        if(dataSnapshot.child(NodeNames.COMPLETED_FLAG).getValue() != null){
+                            if(!dataSnapshot.child(NodeNames.COMPLETED_FLAG).getValue().equals("")){
+                                completedFlag = dataSnapshot.child(NodeNames.COMPLETED_FLAG).getValue().toString();
                             }
                         }
 
@@ -393,7 +426,7 @@ public class UserProfile extends AppCompatActivity {
 
                             ModelClassUserProfile object = new ModelClassUserProfile(userName,userPhoto,postBloodGroup,postDistrict,
                                     postDescription,postPhoto,postArea,postLove,postView,postTimeAgo,userID,postID,postCause,postGender,
-                                    postAccepted,postDonated,postPhone,postRequiredUnitBags,postRequiredDate,loveCheckerFlag,acceptedFlag);
+                                    postAccepted,postDonated,postPhone,postRequiredUnitBags,postRequiredDate,loveCheckerFlag,acceptedFlag,completedFlag);
 
                             modelClassUserProfileList.add(object);
                             adapterUserProfile.notifyDataSetChanged();

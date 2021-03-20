@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         style="@style/styleMainActivity_NavigationBar_Image"
         android:layout_marginStart="0dp"
-        android:src="@drawable/ic_tab_feed"/>
+        android:src="@drawable/ic_homepage"/>
 
     <TextView
         android:id="@+id/textView"

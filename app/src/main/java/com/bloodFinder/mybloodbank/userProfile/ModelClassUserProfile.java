@@ -23,11 +23,12 @@ public class ModelClassUserProfile {
     private String requiredDate;
     private String loveCheckerFlag;
     private String acceptedFlag;
+    private String completedFlag;
 
     public ModelClassUserProfile(String postCreatorName, String postCreatorPhoto, String bloodGroup, String district, String postDescription,
                                  String postImage, String area, String postLove, String postView, String timeStamp, String postCreatorID,
                                  String postID, String cause, String gender, String accepted, String donated, String phone, String unitBag,
-                                 String requiredDate, String loveCheckerFlag, String acceptedFlag) {
+                                 String requiredDate, String loveCheckerFlag, String acceptedFlag,String completedFlag) {
         this.postCreatorName = postCreatorName;
         this.postCreatorPhoto = postCreatorPhoto;
         this.bloodGroup = bloodGroup;
@@ -49,6 +50,7 @@ public class ModelClassUserProfile {
         this.requiredDate = requiredDate;
         this.loveCheckerFlag = loveCheckerFlag;
         this.acceptedFlag = acceptedFlag;
+        this.completedFlag = completedFlag;
     }
 
     public String getPostCreatorName() {
@@ -217,5 +219,13 @@ public class ModelClassUserProfile {
 
     public void setAcceptedFlag(String acceptedFlag) {
         this.acceptedFlag = acceptedFlag;
+    }
+
+    public String getCompletedFlag() {
+        return completedFlag;
+    }
+
+    public void setCompletedFlag(String completedFlag) {
+        this.completedFlag = completedFlag;
     }
 }

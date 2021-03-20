@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".allUsers.AllUsers">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/iv_back_toolbar_allUsersActivity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="15dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_allUsersActivity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_allUsersActivity" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_allUsersActivity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_back_toolbar_allUsersActivity"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/searchUsers"
+            app:titleTextColor="@color/red" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_searchByName_allUsers"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10sp"
+            android:elevation="24dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_allUsersActivity">
+
+            <TextView
+                android:id="@+id/tv_searchByName_allUsers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:drawableStart="@drawable/ic_search"
+                android:background="@color/transparent"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:textAlignment="gravity"
+                android:hint="@string/searchByName"
+                android:inputType="textPersonName"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+            android:id="@+id/tv_chooseBloodGroup_allUsersActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:text="@string/searchByBloodGroup"
+            android:textColor="@color/red"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_searchByName_allUsers" />
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_allUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chooseBloodGroup_allUsersActivity">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup_bloodGroups_allUsersActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_APositive_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp"
+                    android:text="@string/aPositive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ANegative_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/aNegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="8dp"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_BPositive_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/BPositive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_BNegative_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/BNegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="8dp"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_OPositive_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/O_positive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="7dp"
+                    app:chipStartPadding="6dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ONegative_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ONegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="7dp"
+                    app:chipStartPadding="7dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ABPositive_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ABPositive"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="1dp"
+                    app:chipStartPadding="1dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ABNegative_bloodGroup_allUsersActivity"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ABNegative"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/text_color_chip"
+                    android:textSize="50sp"
+                    app:chipBackgroundColor="@drawable/background_chip_red"
+                    app:chipCornerRadius="100dp"
+                    app:chipEndPadding="5dp"
+                    app:chipStartPadding="5dp"
+                    app:chipStrokeColor="@color/black"
+                    app:chipStrokeWidth="1dp" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_district_allUsersActivity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="25dp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_backspaceDistrict_allUsersActivity"
+            app:layout_constraintStart_toStartOf="@+id/tv_chooseBloodGroup_allUsersActivity"
+            app:layout_constraintTop_toBottomOf="@+id/hsv_allUsers">
+
+            <TextView
+                android:id="@+id/tv_district_allUsersActivity"
+                style="@style/styleRegistrationActivity_EditTexts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#FBC1C1"
+                android:hint="@string/searchByDistrict"
+                android:padding="5dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/iv_backspaceDistrict_allUsersActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_backspace"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/cv_district_allUsersActivity"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_district_allUsersActivity"
+            app:layout_constraintEnd_toStartOf="@id/btn_search_allUsersActivity"
+            app:layout_constraintTop_toTopOf="@+id/cv_district_allUsersActivity"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_search_allUsersActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_blood_search"
+            android:padding="10dp"
+            android:text="@string/search"
+            app:layout_constraintStart_toEndOf="@id/iv_backspaceDistrict_allUsersActivity"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_district_allUsersActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cv_district_allUsersActivity" />
+
+        <com.leo.simplearcloader.SimpleArcLoader
+            android:id="@+id/arcLoader_allUsersActivity"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:arc_style="simple_arc"
+            app:layout_constraintTop_toBottomOf="@+id/btn_search_allUsersActivity"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_Posts_allUsersActivity"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_search_allUsersActivity" />
+
+        <TextView
+            android:id="@+id/tv_emptyFeed_allUsersActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="@string/no_userFound"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/redressed_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_search_allUsersActivity"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/pb_morePostLoading_allUsersActivity"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_Posts_allUsersActivity"/>
+
+
+        <TextView
+            android:id="@+id/tv_allCaughtUp_allUsersActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:fontFamily="@font/redressed_regular"
+            android:text="@string/allCaughtUp"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/rv_Posts_allUsersActivity"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

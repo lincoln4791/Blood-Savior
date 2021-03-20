@@ -1,6 +1,7 @@
 package com.bloodFinder.mybloodbank.userRegistration;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,19 +16,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bloodFinder.mybloodbank.R;
+import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.MyLoadingProgress;
 import com.bloodFinder.mybloodbank.common.NodeNames;
 import com.bloodFinder.mybloodbank.login.LoginActivity;
 import com.bloodFinder.mybloodbank.mainActivity.MainActivity;
+import com.bloodFinder.mybloodbank.selectCountry.SelectCountry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,15 +42,17 @@ public class Register extends AppCompatActivity {
     private Button btnRegister;
     private Chip chip_APositive,chip_ANegative,chip_BPositive,chip_BNegative,chip_OPositive,chip_ONegative,chip_ABPositive,chip_ABNegative;
     private Chip chip_male, chip_female;
-    private EditText etName,etPhoneNumber,etEmail,et_password,et_confirmPassword,et_district,et_area,et_age;
-    private String username,bloodGroup,userPhoneNumber,userEmail,userPassword,confirmPassword,gender,district,area,age;
-    private TextView haveAccountLogIn;
+    private EditText etName,etPhoneNumber,etEmail,et_password,et_confirmPassword,et_area,et_age;
+    private String username,bloodGroup,userPhoneNumber,userEmail,userPassword,confirmPassword,gender,district,area,age,userOrder="";
+    private TextView haveAccountLogIn, tv_district;
     private View customProgressBarFull;
     private ArrayList<String > bloodList,genderList;
-    MyLoadingProgress myLoadingProgress;
+    private MyLoadingProgress myLoadingProgress;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+
+    private final int RC_SELECT_COUNTRY = 1;
 
 
 
@@ -53,6 +60,8 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getSupportActionBar().hide();
         etName = findViewById(R.id.et_name_registrationActivity);
         etPhoneNumber = findViewById(R.id.et_phoneNumber_registrationActivity);
         etEmail = findViewById(R.id.et_email_registrationActivity);
@@ -60,7 +69,7 @@ public class Register extends AppCompatActivity {
         et_confirmPassword = findViewById(R.id.et_confirmPassword_registrationActivity);
         customProgressBarFull = findViewById(R.id.customProgressBarFull_RegisterActivity);
         et_area = findViewById(R.id.et_area_registrationActivity);
-        et_district = findViewById(R.id.et_district_registrationActivity);
+        tv_district = findViewById(R.id.tv_district_registrationActivity);
         et_age = findViewById(R.id.et_age_registrationActivity);
         chip_APositive = findViewById(R.id.chip_APositive_bloodGroup_RegisterActivity);
         chip_ANegative = findViewById(R.id.chip_ANegative_bloodGroup_RegisterActivity);
@@ -80,6 +89,7 @@ public class Register extends AppCompatActivity {
 
         getSelectedBloodGroup();
         getGender();
+        getUserOrder();
 
         haveAccountLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +103,11 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 createUserWithEmailAndPassword();
             }
+        });
+
+        tv_district.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SelectCountry.class);
+            startActivityForResult(intent,RC_SELECT_COUNTRY);
         });
 
     }
@@ -119,7 +134,7 @@ public class Register extends AppCompatActivity {
                 userPassword = et_password.getText().toString();
                 confirmPassword = et_confirmPassword.getText().toString();
                 userPhoneNumber = etPhoneNumber.getText().toString();
-                district = et_district.getText().toString();
+                district = tv_district.getText().toString();
                 age = et_age.getText().toString();
                 area = et_area.getText().toString();
 
@@ -132,7 +147,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 else if(district.equals("")){
-                    et_district.setError(getString(R.string.enter_your_district));
+                    tv_district.setError(getString(R.string.enter_your_district));
                 }
 
                 else if(area.equals("")){
@@ -163,6 +178,10 @@ public class Register extends AppCompatActivity {
                     et_confirmPassword.setError(getString(R.string.passwordDidntMatch));
                 }
 
+                else if(userOrder==null){
+                    Toast.makeText(this, getString(R.string.somethingWentWrong), Toast.LENGTH_SHORT).show();
+                }
+
 
                 else{
                     myLoadingProgress = new MyLoadingProgress(Register.this);
@@ -184,6 +203,7 @@ public class Register extends AppCompatActivity {
                                 userDetailsMap.put(NodeNames.EMAIL,userEmail);
                                 userDetailsMap.put(NodeNames.TIMESTAMP, ServerValue.TIMESTAMP);
                                 userDetailsMap.put(NodeNames.USER_ID, myUID);
+                                userDetailsMap.put(NodeNames.USER_ORDER, userOrder);
                                 mRootRef.child(NodeNames.USERS).child(myUID).setValue(userDetailsMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -271,4 +291,48 @@ public class Register extends AppCompatActivity {
         chip_male.setOnCheckedChangeListener(checkedChangeListenerGender);
         chip_female.setOnCheckedChangeListener(checkedChangeListenerGender);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RC_SELECT_COUNTRY){
+            if(resultCode==RESULT_OK){
+                if (data != null) {
+                   district = data.getStringExtra(Extras.COUNTRY_NAME);
+                }
+                tv_district.setText(district);
+            }
+        }
+
+    }
+
+
+
+    private void getUserOrder() {
+        mRootRef.child(NodeNames.USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    int order = Integer.parseInt(String.valueOf(snapshot.getChildrenCount()))+1;
+                    userOrder = String.valueOf(order);
+
+                }
+                else{
+                    userOrder = "1";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
+
+
+
 }

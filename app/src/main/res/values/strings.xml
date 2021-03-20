@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BloodBank</string>
+    <string name="app_name">Blood Savior</string>
     <string name="blood">Blood</string>
     <string name="bloodBank">Blood Bank</string>
     <string name="enter_your_name">Enter Your Name</string>
@@ -251,7 +251,9 @@
     <string name="aboutUsText">A blood bank is a place where blood is collected and stored before it is used for transfusions.
         Blood banking takes place in the lab. This is to make sure that donated blood and blood products are safe before they are used.
         Blood banking also determines the blood type. You can ask for any type of blood you need and also you can easily see who n]is needed
-        of blood in realtime</string>
+        of blood in realtime\n\nHere you can request for blood when ever you need blood. Additionally if you want to donate blood, you will be notified about all
+         nearby people who need your blood. The intention is to build a community of blood donors so that everyone can get blood whenever they need.
+    </string>
     <string name="descriptionPrivacyPolicy">BloodBank.Live respects the privacy of its users and has developed this Privacy Policy to demonstrate its commitment to protecting your privacy. These privacy policies (the "Privacy Policy") are intended to describe for you, as an individual who is a user of mobile app and services offered by BloodBank.Live, the information we collect, how that information may be used, with whom it may be shared, and your choices about such uses and disclosures.
 
 We encourage you to read this Privacy Policy carefully when using this app. By using this app, you are accepting the practices described in this Privacy Policy.
@@ -321,6 +323,30 @@ If you have any questions about our privacy practices, please refer to the end o
     <string name="no_post">No Post</string>
     <string name="no_postToDisplay">No Posts To DIsplay</string>
     <string name="allCaughtUp">"All Caught Up :) "</string>
+    <string name="youAreNotPermittedToCallThisUserYEt">You are not permitted to call this user yet</string>
+    <string name="fillUpEmailAndPasswordCorrectly">fill up email and password correctly</string>
+    <string name="donations">Donations</string>
+    <string name="select_your_country">Select Your Country</string>
+    <string name="selectYourDistrict">Select Your District</string>
+    <string name="makeNewRequest">Make New Request</string>
+    <string name="search">Search</string>
+    <string name="selectCountry">Select Country</string>
+    <string name="searchPosts">Search Posts</string>
+    <string name="reset">Reset</string>
+    <string name="BloodSentinel">Blood Sentinel</string>
+    <string name="resetPasswordRequestHasBeenSent">Reset Password Request Has Ben Sent</string>
+    <string name="Close">close</string>
+    <string name="markAsCompleted">Do you want to mark it as completed? (this post will no longer show in newsfeed)</string>
+    <string name="searchUsers">Search Users</string>
+    <string name="no_userFound">No User Found</string>
+    <string name="searchByName">Search By Name</string>
+    <string name="searchByDistrict">Search By District</string>
+    <string name="searchByBloodGroup">Search By Blood Group</string>
+    <string name="powerdedbylincoln">Powerded by : Lincoln</string>
+    <string name="thisPageIsUnderConstruction">This page is under construction</string>
+    <string name="notificationss">Notifications</string>
+    <string name="thisFeatureIsUnderConstruction">This feature is currently under construction</string>
+    <string name="bloodRequest">Blood Request</string>
     <string-array name="requiredAmountOfBlood">
         <item>0</item>
         <item>1</item>
@@ -369,4 +395,83 @@ If you have any questions about our privacy practices, please refer to the end o
         <item> +88029011887 </item>
         <item> +88028332481 </item>
     </string-array>
+
+    <string-array name="bd_divisions">
+        <item>Dhaka</item>
+        <item>Chattogram</item>
+        <item>Barishal</item>
+        <item>Khulna</item>
+        <item>Rajshahi</item>
+        <item>Rangpur</item>
+        <item>Sylhet</item>
+        <item>Mymensingh</item>
+    </string-array>
+
+    <string-array name="bd_districts">
+        <item>Dhaka</item>
+        <item>Faridpur</item>
+        <item>Gazipur</item>
+        <item>Gopalganj</item>
+        <item>Jamalpur</item>
+        <item>Kishoreganj</item>
+        <item>Madaripur</item>
+        <item>Manikganj</item>
+        <item>Munshiganj</item>
+        <item>Mymensingh</item>
+        <item>Narayanganj</item>
+        <item>Narsingdi</item>
+        <item>Netrokona</item>
+        <item>Rajbari</item>
+        <item>Shariatpur</item>
+        <item>Sherpur</item>
+        <item>Tangail</item>
+        <item>Bogura</item>
+        <item>Joypurhat</item>
+        <item>Naogaon</item>
+        <item>Natore</item>
+        <item>Nawabganj</item>
+        <item>Pabna</item>
+        <item>Rajshahi</item>
+        <item>Sirajgonj</item>
+        <item>Dinajpur</item>
+        <item>Gaibandha</item>
+        <item>Kurigram</item>
+        <item>Lalmonirhat</item>
+        <item>Nilphamari</item>
+        <item>Panchagarh</item>
+        <item>Rangpur</item>
+        <item>Thakurgaon</item>
+        <item>Barguna</item>
+        <item>Barishal</item>
+        <item>Bhola</item>
+        <item>Jhalokati</item>
+        <item>Patuakhali</item>
+        <item>Pirojpur</item>
+        <item>Bandarban</item>
+        <item>Brahmanbaria</item>
+        <item>Chandpur</item>
+        <item>Chattogram</item>
+        <item>Cumilla</item>
+        <item>Coxs Bazar</item>
+        <item>Feni</item>
+        <item>Khagrachari</item>
+        <item>Lakshmipur</item>
+        <item>Noakhali</item>
+        <item>Rangamati</item>
+        <item>Habiganj</item>
+        <item>Maulvibazar</item>
+        <item>Sunamganj</item>
+        <item>Sylhet</item>
+        <item>Bagerhat</item>
+        <item>Chuadanga</item>
+        <item>Jashore</item>
+        <item>Jhenaidah</item>
+        <item>Khulna</item>
+        <item>Kushtia</item>
+        <item>Magura</item>
+        <item>Meherpur</item>
+        <item>Narail</item>
+        <item>Satkhira</item>
+    </string-array>
+
 </resources>

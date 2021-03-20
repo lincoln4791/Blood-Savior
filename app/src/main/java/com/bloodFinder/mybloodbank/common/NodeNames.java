@@ -76,4 +76,5 @@ public class NodeNames {
     public static final String POST_IMAGES_FOLDER = "Post_images_folder";
     public static final String COMPLETED_FLAG = "completed_flag";
     public static final String POST_ORDER = "post_order";
+    public static final String USER_ORDER = "user_order";
 }

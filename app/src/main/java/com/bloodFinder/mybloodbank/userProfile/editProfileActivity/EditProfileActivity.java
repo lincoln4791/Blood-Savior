@@ -3,13 +3,13 @@ package com.bloodFinder.mybloodbank.userProfile.editProfileActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,20 +27,18 @@ import com.bloodFinder.mybloodbank.R;
 import com.bloodFinder.mybloodbank.common.Extras;
 import com.bloodFinder.mybloodbank.common.MyLoadingProgress;
 import com.bloodFinder.mybloodbank.common.NodeNames;
+import com.bloodFinder.mybloodbank.selectCountry.SelectCountry;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,11 +49,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
-    private TextView tv_requiredDate;
+    private Toolbar toolbar;
+    private ImageView iv_back;
+    private TextView tv_requiredDate,tv_district;
     private ImageView iv_profilePicture,iv_changePicture;
     private Chip chip_APositive,chip_ANegative,chip_BPositive,chip_BNegative,chip_OPositive,chip_ONegative,chip_ABPositive,chip_ABNegative, chip_male, chip_female;
-    private EditText etName, et_phone, et_email,et_district,et_area,et_age;
-    private String userName,bloodGroup, phone, email,gender,district,area,age, userPhoto,required_date;
+    private EditText etName, et_phone,et_area,et_age;
+    private String userName,bloodGroup, phone, email,gender,district="",area,age, userPhoto="",required_date;
     private ArrayList<String> bloodList,genderList;
     private View customProgressBarFull;
     private MyLoadingProgress myLoadingProgress;
@@ -69,20 +69,29 @@ public class EditProfileActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private StorageReference storageRootRef;
     private String userID,myUID;
-    private static final int REQUEST_CODE = 1;
+    private final int RC_SELECT_COUNTRY = 1;
+    private static final int REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        toolbar = findViewById(R.id.toolbar_aboutUs);
+        getSupportActionBar().hide();
+        getSupportActionBar().setCustomView(toolbar);
+
+        iv_back = findViewById(R.id.iv_back_toolbar_editProfileActivity);
+
+        iv_back.setOnClickListener(v -> {
+            onBackPressed();
+        });
         etName = findViewById(R.id.et_name_editProfileActivity);
         et_phone = findViewById(R.id.et_phoneNumber_editProfileActivity);
-        et_email = findViewById(R.id.et_email_editProfileActivity);
         customProgressBarFull = findViewById(R.id.customProgressBarFull_editProfileActivity);
         et_area = findViewById(R.id.et_area_editProfileActivity);
         iv_changePicture = findViewById(R.id.iv_changePhoto_editProfileActivity);
-        et_district = findViewById(R.id.et_district_editProfileActivity);
+        tv_district = findViewById(R.id.tv_district_editProfileActivity);
         et_age = findViewById(R.id.et_age_editProfileActivity);
         btn_saveData = findViewById(R.id.btnSave_editProfileActivity);
         btn_saveProfilePicture = findViewById(R.id.iv_savePicture_EditProfileActivity);
@@ -162,6 +171,12 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
 
+        tv_district.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SelectCountry.class);
+            startActivityForResult(intent,RC_SELECT_COUNTRY);
+        });
+
+
 
     }
 
@@ -227,7 +242,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             district = snapshot.child(NodeNames.DISTRICT).getValue().toString();
                         }
                     }
-                    et_district.setText(district);
+                    tv_district.setText(district);
 
                     if(snapshot.child(NodeNames.GENDER).getValue()!=null){
                         if(!snapshot.child(NodeNames.GENDER).getValue().toString().equals("")){
@@ -361,7 +376,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void setEditTextsData() {
         etName.setText(userName);
-        et_district.setText(district);
+        tv_district.setText(district);
         et_area.setText(area);
         et_age.setText(age);
         et_phone.setText(phone);
@@ -372,6 +387,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     private void getIntentData() {
+
         userID = getIntent().getStringExtra(Extras.USER_ID);
         userName = getIntent().getStringExtra(Extras.USER_NAME);
         userPhoto = getIntent().getStringExtra(Extras.USER_PHOTO);
@@ -416,7 +432,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 userName = etName.getText().toString();
                 phone = et_phone.getText().toString();
                 phone = et_phone.getText().toString();
-                district = et_district.getText().toString();
+                district = tv_district.getText().toString();
                 age = et_age.getText().toString();
                 area = et_area.getText().toString();
 
@@ -431,11 +447,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
 
                 else if(district.equals("")){
-                    et_district.setError(getString(R.string.enter_your_district));
+                    tv_district.setError(getString(R.string.enter_your_district));
                 }
 
                 else if(area.equals("")){
                     et_area.setError(getString(R.string.enter_your_area));
+                }
+
+                else if(district.equals("")){
+                    tv_district.setError(getString(R.string.enter_your_district));
                 }
 
                 else if(phone.equals("")){
@@ -604,6 +624,15 @@ public class EditProfileActivity extends AppCompatActivity {
                         .error(R.drawable.ic_profile_picture).into(iv_profilePicture);
                 cl_holderSaveCancel.setVisibility(View.VISIBLE);
 
+            }
+        }
+
+        if(requestCode==RC_SELECT_COUNTRY){
+            if(resultCode==RESULT_OK){
+                if (data != null) {
+                    district = data.getStringExtra(Extras.COUNTRY_NAME);
+                }
+                tv_district.setText(district);
             }
         }
     }

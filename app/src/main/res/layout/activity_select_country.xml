@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".selectCountry.SelectCountry">
+
+    <ImageView
+        android:id="@+id/iv_back_toolbar_selectCountryActivity"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="15dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_selectCountryActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_selectCountryActivity" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_selectCountryActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_back_toolbar_selectCountryActivity"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/selectCountry"
+        app:titleTextColor="@color/red" />
+
+    <TextView
+        android:id="@+id/tv_selectCountry_selectCountryActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/redressed_regular"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/select_your_country"
+        android:textColor="@color/green"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_selectCountryActivity" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_selectCountryActivity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_selectCountry_selectCountryActivity"
+        tools:layout_editor_absoluteX="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

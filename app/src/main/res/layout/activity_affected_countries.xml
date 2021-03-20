@@ -9,7 +9,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_findBloodBar_feedFragment"
+        android:id="@+id/cv_findNearbyDonorsBar_feedFragment"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="20dp"
@@ -29,7 +29,7 @@
             android:hint="@string/country_name"
             android:inputType="textPersonName"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_findBloodBar_feedFragment"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_findNearbyDonorsBar_feedFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +46,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_findBloodBar_feedFragment" />
+        app:layout_constraintTop_toBottomOf="@+id/cv_findNearbyDonorsBar_feedFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

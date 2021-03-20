@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView"
         style="@style/styleMainActivity_NavigationBar_Image"
-        android:src="@drawable/ic_tab_profile" />
+        android:src="@drawable/ic_profile" />
 
     <TextView
         android:id="@+id/textView"

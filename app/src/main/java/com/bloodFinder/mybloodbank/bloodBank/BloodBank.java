@@ -1,10 +1,12 @@
 package com.bloodFinder.mybloodbank.bloodBank;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.bloodFinder.mybloodbank.R;
 
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class BloodBank extends AppCompatActivity {
+    private Toolbar toolbar;
+    private ImageView iv_back;
 
     private String[] bloodBankName;
     private String[] bloodBankAddress;
@@ -26,7 +30,16 @@ public class BloodBank extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_bank);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Blood Bank");
+        toolbar = findViewById(R.id.toolbar_aboutUs);
+        getSupportActionBar().hide();
+        getSupportActionBar().setCustomView(toolbar);
+
+        iv_back = findViewById(R.id.iv_back_toolbar_bloodBankActivity);
+
+        iv_back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
         bloodBankAddress = getResources().getStringArray(R.array.bloodBankAddress);
         bloodBankPhoneNumber = getResources().getStringArray(R.array.bloodBankPhoneNUmber);
         bloodBankName = getResources().getStringArray(R.array.bloodBankName);

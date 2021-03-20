@@ -7,14 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".bloodBank.BloodBank">
 
+    <ImageView
+        android:id="@+id/iv_back_toolbar_bloodBankActivity"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="15dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_bloodBankActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_bloodBankActivity" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_bloodBankActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_back_toolbar_bloodBankActivity"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/bloodBank"
+        app:titleTextColor="@color/red" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_bloodBankDetails_BloodBankActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_bloodBankActivity">
 
 
     </androidx.recyclerview.widget.RecyclerView>
