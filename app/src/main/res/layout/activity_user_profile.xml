@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userProfile.UserProfile"
+    tools:context=".userProfile.userProfile.UserProfile"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -75,7 +75,7 @@
                     android:layout_marginStart="3dp"
                     android:elevation="25dp"
                     app:cardCornerRadius="5dp"
-                    app:layout_constraintBottom_toTopOf="@+id/cardView2"
+                    app:layout_constraintBottom_toTopOf="@+id/cv_call_userProfileActivity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView2"
+                    android:id="@+id/cv_call_userProfileActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -465,6 +465,21 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center">
 
+                    <TextView
+                        android:id="@+id/tv_emptyListText_userProfileActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_postToDisplay"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:visibility="gone"
+                        android:fontFamily="@font/redressed_regular"
+                        android:textColor="@color/red"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                     <com.leo.simplearcloader.SimpleArcLoader
                         android:foregroundGravity="center"
                         android:id="@+id/arcLoader_UserProfileActivity"
@@ -479,12 +494,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:visibility="visible"
                         android:id="@+id/rv_Posts_userProfileActivity"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,180 @@
+package com.bloodFinder.bloodSavior.chats.ChatList;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bloodFinder.bloodSavior.R;
+import com.bloodFinder.bloodSavior.chats.ChattingActivity.ChattingActivity;
+import com.bloodFinder.bloodSavior.common.Extras;
+import com.bloodFinder.bloodSavior.common.NodeNames;
+import com.bloodFinder.bloodSavior.common.Util;
+import com.bloodFinder.bloodSavior.userProfile.userProfile.UserProfile;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+
+public class AdapterChatList extends RecyclerView.Adapter<AdapterChatList.MyViewHolder> {
+
+    private Context context;
+    private List<ModelClassChatList> chatListModelClassList;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private String myUID = FirebaseAuth.getInstance().getUid();
+
+    public AdapterChatList(Context context, List<ModelClassChatList> chatListModelClassList) {
+        this.context = context;
+        this.chatListModelClassList = chatListModelClassList;
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.sample_chat_list_layout,parent,false);
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+        holder.userName.setText(chatListModelClassList.get(position).getUserName());
+
+        String lastMessageTime = chatListModelClassList.get(position).getLastMessageTime()!=null?
+                chatListModelClassList.get(position).getLastMessageTime():"";
+
+        if(lastMessageTime.equals("")){
+            holder.lastMessageTime.setText("");
+        }
+        else{
+            holder.lastMessageTime.setText(Util.getTimeAgo(Long.parseLong(chatListModelClassList.get(position).getLastMessageTime())));
+        }
+        //holder.lastMessageTime.setText(Util.getTimeAgo(Long.parseLong(lastMessageTime)));
+
+        //showing last message
+        String lastMessage = chatListModelClassList.get(position).getLastMessage();
+        if(lastMessage.startsWith("https://firebasestorage.")){
+            lastMessage = context.getString(R.string.imageReceived);
+            holder.lastMessage.setText(lastMessage);
+        }
+        else{
+            if(lastMessage.length()>30){
+                holder.lastMessage.setText(lastMessage.substring(0,30));
+            }else{
+                holder.lastMessage.setText(lastMessage);
+            }
+        }
+
+
+
+        databaseReference.child(NodeNames.USERS).child(chatListModelClassList.get(position).getUserID())
+                .child(NodeNames.USER_PHOTO).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    if(!snapshot.getValue().toString().equals("")){
+                        String userPhotoRef = snapshot.getValue().toString();
+                        Glide.with(context).load(Uri.parse(userPhotoRef)).into(holder.profilePicture);
+                    }
+                    else{
+                        Glide.with(context).load(R.drawable.ic_profile_picture).into(holder.profilePicture);
+                    }
+
+                }
+                else{
+                    Glide.with(context).load(R.drawable.ic_profile_picture).into(holder.profilePicture);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Glide.with(context).load(chatListModelClassList.get(position).getPhotoName()).placeholder(R.drawable.ic_profile_picture)
+                .error(R.drawable.ic_profile_picture).into(holder.profilePicture);
+
+
+        //Unread message count
+        if(!chatListModelClassList.get(position).getUnreadMessageCount().equals("0")){
+            holder.unreadMessageCount.setVisibility(View.VISIBLE);
+            holder.unreadMessageCount.setText(chatListModelClassList.get(position).getUnreadMessageCount());
+        }
+        else{
+            holder.unreadMessageCount.setVisibility(View.INVISIBLE);
+        }
+
+
+
+        holder.cv_usernameHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChattingActivity.class);
+                intent.putExtra(Extras.USER_ID,chatListModelClassList.get(position).getUserID());
+                intent.putExtra(Extras.USER_NAME,chatListModelClassList.get(position).getUserName());
+                intent.putExtra(Extras.USER_PHOTO,chatListModelClassList.get(position).getPhotoName());
+                context.startActivity(intent);
+            }
+        });
+
+
+
+
+
+        holder.cv_imageHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(context, UserProfile.class);
+                profileIntent.putExtra(Extras.USER_ID,chatListModelClassList.get(position).getUserID());
+                context.startActivity(profileIntent);
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return chatListModelClassList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView userName;
+        private TextView userID;
+        private ImageView profilePicture;
+        private TextView unreadMessageCount;
+        private TextView lastMessage;
+        private TextView lastMessageTime;
+        private LinearLayout ll_userNameHolder;
+        private CardView cv_imageHolder;
+        private CardView cv_usernameHolder;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            userName = itemView.findViewById(R.id.tv_userName_chatListSampleLayout_ID);
+            profilePicture = itemView.findViewById(R.id.iv_profilepicture_chatListSampleLyaout_ID);
+            //layout = itemView.findViewById(R.id.layout_allViewHolder_chtFragmentSampleLayout_ID);
+            unreadMessageCount = itemView.findViewById(R.id.tv_unreadMessageCounter_chatListSampleLayout_ID);
+            lastMessage = itemView.findViewById(R.id.tv_lastMessage_chatListSampleLayout_ID);
+            lastMessageTime = itemView.findViewById(R.id.tv_lastMessageTIming_chatListSampleLayout_ID);
+            cv_imageHolder = itemView.findViewById(R.id.cv_imageHolder_chatListSampleLayout_ID);
+            ll_userNameHolder = itemView.findViewById(R.id.ll_userNameHolder_chatListSampleLayout_ID);
+            cv_usernameHolder = itemView.findViewById(R.id.cv_userNameHolder_chatListSampleLayout_ID);
+        }
+    }
+}

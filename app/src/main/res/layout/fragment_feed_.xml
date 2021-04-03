@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feed.FeedFragment"
-    android:id="@+id/nsv_feedFragment">
+
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".feed.FeedFragment"
+        android:id="@+id/nsv_feedFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +64,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="20dp"
-                android:clickable="true"
+                android:clickable="false"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,6 +195,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@+id/cv_findDonors_feedFragment"
                 app:layout_constraintBottom_toTopOf="@id/pb_morePostLoading_feedFragment"
                 app:layout_constraintEnd_toEndOf="@+id/cv_featuredCovid19_FeedFragment"
@@ -240,4 +243,7 @@
                 android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+
+

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".requests.SingleRequest.SingleRequest">
+    tools:context=".posts.SingleRequest.SingleRequest">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -505,17 +505,17 @@
                         <ImageView
                             android:id="@+id/iv_share_SingleRequestActivity"
                             android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_height="15dp"
                             android:layout_marginStart="30dp"
                             android:src="@drawable/ic_share" />
 
                         <TextView
                             android:id="@+id/tv_shareValue_SingleRequestActivity"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="10dp"
                             android:layout_marginStart="10dp"
-                            android:textSize="11sp"
-                            android:text="@string/share" />
+                            android:text="@string/share"
+                            android:textSize="11sp" />
 
 
                     </LinearLayout>
@@ -581,8 +581,8 @@
                 app:strokeColor="@color/red"
                 android:backgroundTint="@color/appBackground"
                 app:cardCornerRadius="4dp"
-                app:layout_constraintEnd_toEndOf="@id/cv_shareRequest_SingleRequestActivity"
-                app:layout_constraintEnd_toStartOf="@+id/cv_shareRequest_SingleRequestActivity"
+                app:layout_constraintEnd_toEndOf="@id/cv_shareOtherPost_SingleRequestActivity"
+                app:layout_constraintEnd_toStartOf="@+id/cv_shareOtherPost_SingleRequestActivity"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/cv_acceptRequest_SingleRequestActivity"
                 app:layout_constraintTop_toTopOf="@id/cv_acceptRequest_SingleRequestActivity">
@@ -606,7 +606,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_shareRequest_SingleRequestActivity"
+                android:id="@+id/cv_shareOtherPost_SingleRequestActivity"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -623,7 +623,7 @@
                 app:layout_constraintTop_toTopOf="@id/cv_acceptRequest_SingleRequestActivity">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_shareRequest_SingleRequestActivity"
+                    android:id="@+id/btn_shareOtherRequest_SingleRequestActivity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="5dp"
@@ -668,7 +668,7 @@
                     android:padding="5dp"
                     android:fontFamily="@font/redressed_regular"
                     android:text="@string/edit"
-                    android:drawableStart="@drawable/ic_edit"
+                    android:drawableStart="@drawable/ic_edit_pencil"
                     android:textAlignment="center"
                     android:textColor="@color/green"
                     android:background="@color/white"
@@ -691,8 +691,8 @@
                 app:strokeColor="@color/red"
                 android:backgroundTint="@color/appBackground"
                 app:cardCornerRadius="4dp"
-                app:layout_constraintEnd_toEndOf="@id/cv_shareRequest_SingleRequestActivity"
-                app:layout_constraintEnd_toStartOf="@+id/cv_shareRequest_SingleRequestActivity"
+                app:layout_constraintEnd_toEndOf="@id/cv_shareOtherPost_SingleRequestActivity"
+                app:layout_constraintEnd_toStartOf="@+id/cv_shareOtherPost_SingleRequestActivity"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/cv_acceptRequest_SingleRequestActivity"
                 app:layout_constraintTop_toTopOf="@id/cv_acceptRequest_SingleRequestActivity">

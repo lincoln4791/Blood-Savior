@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bloodFinder.mybloodbank">
+    package="com.bloodFinder.bloodSavior">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,35 +16,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBloodBank">
-        <activity android:name=".notificationPage.NotificationActivity"></activity>
-        <activity android:name=".allUsers.searchByName.SearchByName" />
-        <activity android:name=".allUsers.AllUsers" />
-        <activity android:name=".resetPassword.ResetPassword" />
-        <activity android:name=".filterPosts.FilterPosts" />
-        <activity android:name=".selectCountry.SelectCountry" />
-        <activity android:name=".SplashActivity">
+        <activity android:name="com.bloodFinder.bloodSavior.notificationPage.NotificationActivity"></activity>
+        <activity android:name="com.bloodFinder.bloodSavior.allUsers.searchByName.SearchByName" />
+        <activity android:name="com.bloodFinder.bloodSavior.allUsers.AllUsers" />
+        <activity android:name="com.bloodFinder.bloodSavior.resetPassword.ResetPassword" />
+        <activity android:name="com.bloodFinder.bloodSavior.filterPosts.FilterPosts" />
+        <activity android:name="com.bloodFinder.bloodSavior.selectCountry.SelectCountry" />
+        <activity android:name="com.bloodFinder.bloodSavior.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".donarsGroup.DonorsGroup" />
-        <activity android:name=".requests.editRequestPost.EditRequest" />
-        <activity android:name=".userProfile.editProfileActivity.EditProfileActivity" />
-        <activity android:name=".privacyPolicy.PrivacyPolicy" />
-        <activity android:name=".aboutUs.AboutUs" />
-        <activity android:name=".bloodBank.BloodBank" />
-        <activity android:name=".requests.SingleRequest.SingleRequest" />
-        <activity android:name=".chats.ChattingActivity.ChattingActivity" />
-        <activity android:name=".requests.makeNewRequest.MakeNewRequest" />
-        <activity android:name=".userProfile.UserProfile" />
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".userRegistration.Register" />
-        <activity android:name=".mainActivity.MainActivity" />
+        <activity android:name="com.bloodFinder.bloodSavior.donarsGroup.DonorsGroup" />
+        <activity android:name="com.bloodFinder.bloodSavior.posts.editRequestPost.EditRequest" />
+        <activity android:name="com.bloodFinder.bloodSavior.userProfile.editProfileActivity.EditProfileActivity" />
+        <activity android:name="com.bloodFinder.bloodSavior.privacyPolicy.PrivacyPolicy" />
+        <activity android:name="com.bloodFinder.bloodSavior.aboutUs.AboutUs" />
+        <activity android:name="com.bloodFinder.bloodSavior.bloodBank.BloodBank" />
+        <activity android:name="com.bloodFinder.bloodSavior.posts.SingleRequest.SingleRequest" />
+        <activity android:name="com.bloodFinder.bloodSavior.chats.ChattingActivity.ChattingActivity" />
+        <activity android:name="com.bloodFinder.bloodSavior.posts.makeNewRequest.MakeNewRequest" />
+        <activity android:name="com.bloodFinder.bloodSavior.userProfile.userProfile.UserProfile" />
+        <activity android:name="com.bloodFinder.bloodSavior.login.LoginActivity" />
+        <activity android:name="com.bloodFinder.bloodSavior.signUp.Register" />
+        <activity android:name="com.bloodFinder.bloodSavior.mainActivity.MainActivity" />
 
         <service
-            android:name=".notification.ChatMessagingService"
+            android:name="com.bloodFinder.bloodSavior.notification.ChatMessagingService"
             android:exported="false"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>

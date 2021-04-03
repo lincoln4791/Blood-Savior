@@ -18,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:textSize="45sp"
+        android:textSize="50sp"
         android:textColor="@color/white"
-        android:text="Blood Bank"
+        android:text="@string/app_name"
         android:textStyle="bold"
         android:fontFamily="@font/redressed_regular"/>
 

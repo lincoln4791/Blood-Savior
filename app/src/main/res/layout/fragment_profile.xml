@@ -38,16 +38,16 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_editProfile_profileFragment"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="17dp"
+            android:layout_height="14dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_edit"
             android:background="@drawable/selectable_background"
+            android:src="@drawable/ic_edit_pencil"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/cv_bloodGroup_profileFragment"
             app:layout_constraintStart_toEndOf="@+id/cv_bloodGroup_profileFragment"
-            app:layout_constraintTop_toTopOf="@+id/cv_bloodGroup_profileFragment" />
+            app:layout_constraintTop_toTopOf="@+id/cv_bloodGroup_profileFragment"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tv_area_ProfileFragment"
